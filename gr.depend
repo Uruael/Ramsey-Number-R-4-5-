@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1601635685 source:f:\pg\inzyn\t1\gr\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"nauty.h"
+
+1392288810 f:\pg\inzyn\t1\gr\nauty.h
+	"defs.h"
+	"system.h"
+	"bs.h"
+	<stdio.h>
+	<sys/types.h>
+	<unistd.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+	<malloc.h>
+
+1392450466 source:f:\pg\inzyn\t1\gr\naugraph.c
+	"nauty.h"
+
+1392288814 source:f:\pg\inzyn\t1\gr\naurng.c
+	"naurng.h"
+
+1392288810 f:\pg\inzyn\t1\gr\naurng.h
+	"nauty.h"
+
+1392288814 source:f:\pg\inzyn\t1\gr\nautil.c
+	"nauty.h"
+	"io.e"
+	"sorttemplates.c"
+
+1392288814 f:\pg\inzyn\t1\gr\sorttemplates.c
+
+1392288814 source:f:\pg\inzyn\t1\gr\nauty.c
+	"nauty.h"
+	"schreier.h"
+	"cleanup.e"
+
+1392288810 f:\pg\inzyn\t1\gr\schreier.h
+	"nauty.h"
+	"naurng.h"
+
+1392288814 source:f:\pg\inzyn\t1\gr\schreier.c
+	"schreier.h"
+
