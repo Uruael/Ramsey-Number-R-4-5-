@@ -65,6 +65,69 @@ userautomproc(int count, int *p, int *orbits,
 
 int cnt_graph=0;
 
+int h1(Locset vertex){
+    Locset result = 0;
+
+    int position=0;
+    while(vertex){
+        TAKEBIT(position,vertex);
+
+        result = g[31-position] | result;
+    }
+    return result;
+}
+
+int h2(Locset vertex, int n){
+    Locset result=0;
+    int pom = (pow(2,n)-1);
+        for (int i=0;i<n;i++){
+           for(int j=0;j<n;j++){
+                int temp=pow(2,i);
+                if(i!=j && ((g[i]|temp)&(pom^vertex))!=(pom^vertex)){
+                    result = result | temp;
+
+                }
+           }
+        }
+        return result;
+}
+
+int h3_n3(Locset vertex, int i){
+
+	setword wx = g[i];
+    int pos = pow(2,i);
+    int mask = pow(2,6)-1;
+    wx = (wx | pos)^mask;
+
+
+    //printf("DD %d\n", wx);
+
+	while(wx) {
+		int v;
+		TAKEBIT(v, wx);
+
+        pos = pow(2,31-v);
+		if(((wx & ~g[31-v]) & ~vertex)  && !(vertex&pos)) {
+        //printf("END 1\n");
+			return 1;
+		}
+	}
+	//printf("END 0\n");
+	return 0;
+}
+
+int h3(Locset vertex, int n){
+    Locset result=0;
+    for (int i=0;i<n;i++){
+        int temp = pow(2,i);
+        if(h3_n3(vertex,i)){
+
+            result=result | temp;
+        }
+    }
+    return result;
+}
+
 int gen(int n) {
     int i, j, j1, j2, p, c, cx;
     Locset *cones = level_cones[n];
@@ -154,7 +217,37 @@ int main(int argc, char *argv[]) {
     level_orbits[1][1] = 1;
     level_len[1] = 2;
 
+    g[0] = 54;
+    g[1] = 9;
+    g[2] = 9;
+    g[3] = 6;
+    g[4] = 33;
+    g[5] = 17;
 
+    if(h1(3) == 63) printf("OK\n");
+    else printf("Fail %d\n", h1(3));
+    if(h1(12) == 15) printf("OK\n");
+    else printf("Fail %d\n", h1(12));
+    if(h1(18) == 41) printf("OK\n");
+    else printf("Fail %d\n", h1(18));
+
+    if(h2(3,6) == 63) printf("OK\n");
+    else printf("Fail %d\n", h2(3,6));
+    if(h2(12,6) == 62) printf("OK\n");
+    else printf("Fail %d\n", h2(12,6));
+    if(h2(18,6) == 63) printf("OK\n");
+    else printf("Fail %d\n", h2(18,6));
+    if(h2(60,6) == 60) printf("OK\n");
+    else printf("Fail %d\n", h2(60,6));
+
+    if(h3(3,6) == 2) printf("OK\n");
+    else printf("Fail %d\n", h3(3,6));
+    if(h3(12,6) == 4) printf("OK\n");
+    else printf("Fail %d\n", h3(12,6));
+    if(h3(18,6) == 2) printf("OK\n");
+    else printf("Fail %d\n", h3(18,6));
+    if(h3(25,6) == 54) printf("OK\n");
+    else printf("Fail %d\n", h3(25,6));
 
     gen(1);
 
