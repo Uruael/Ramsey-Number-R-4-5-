@@ -45,7 +45,7 @@ setword g[WORDSIZE], gcan[WORDSIZE];
 
 int perm[WORDSIZE][WORDSIZE]; //generatory grupy automorfizmow
 int perm_len;
-
+int IntervalDivisionCounter = 0;
 // dla nauty
 int nau_lab[MAXN], nau_ptn[MAXN], nau_orbits[MAXN];
 static DEFAULTOPTIONS_GRAPH(nau_options);
@@ -64,6 +64,144 @@ userautomproc(int count, int *p, int *orbits,
 }
 
 int cnt_graph=0;
+
+typedef struct Graph
+{
+	Locset *G;
+	int deg;
+} Graph;
+
+typedef struct Interval
+{
+	Locset bottom;
+	Locset top;
+} Interval;
+
+typedef struct IntervalElement
+{
+	Interval i;
+	struct IntervalElement *next;
+}IntervalElement;
+
+typedef struct IntervalList
+{
+	IntervalElement *first;
+} IntervalList;
+
+int ZnajdzWierzcholekDoWyrzucenia(Graph G, Locset check, Locset mask)
+{
+	Locset masked = check & (check ^ mask);
+	while (masked) {
+		int position;
+		TAKEBIT(position, masked);
+		position = 31 - position;
+        Locset wx = G.G[position] & check;
+		while(wx){
+            int v;
+            TAKEBIT(v, wx);
+            if (G.G[31- v] & wx){
+                return position;
+            }
+		}
+	}
+	return -1;
+}
+
+IntervalList PolaczListy(IntervalList p1, IntervalList p2) {
+
+	if (p1.first == NULL) return p2;
+	if (p2.first == NULL) return p1;
+	IntervalElement *last = p1.first;
+	while (last->next != NULL) {
+		last = last->next;
+	}
+    last->next = p2.first;
+
+	return p1;
+}
+
+int CzyKlikaWBottom(Graph G, Locset check)
+{
+    Locset checkInitial = check;
+	while (check) {
+		int position;
+		TAKEBIT(position, check);
+		position = 31 - position;
+        Locset wx = G.G[position] & checkInitial;
+		while(wx){
+            int v;
+            TAKEBIT(v, wx);
+            if (G.G[31- v] & wx){
+                return position;
+            }
+		}
+	}
+	return -1;
+}
+
+IntervalList PodzialPrzedzialu(Graph G, Interval P)
+{
+    //Debug helper
+    //int cnt = IntervalDivisionCounter;
+    //IntervalDivisionCounter++;
+    //printf("\nStart %d \t Bottom: %d,\t Top: %d ", cnt, P.bottom, P.top);
+
+	if (CzyKlikaWBottom(G, P.bottom) != -1)
+	{
+	    //printf("Bottom Bad");
+		IntervalList emptyList;
+		emptyList.first = NULL;
+
+		return emptyList;
+	}
+
+	else
+	{
+
+		int wierzcholekDoWyrzucenia = ZnajdzWierzcholekDoWyrzucenia(G, P.top, P.bottom);
+		IntervalList ret;
+		if (wierzcholekDoWyrzucenia == -1)
+		{
+			ret.first = malloc(sizeof(IntervalElement));
+			ret.first->i.bottom = P.bottom;
+			ret.first->i.top = P.top;
+			ret.first->next = NULL;
+			//printf("OK, Bottom:%d , Top:%d", P.bottom, P.top);
+			return ret;
+		}
+
+		//printf("Split in two");
+		ADDELEMENT1(&P.bottom, 31 - wierzcholekDoWyrzucenia);
+		IntervalList p1 = PodzialPrzedzialu(G, P);
+		DELELEMENT1(&P.bottom, 31 - wierzcholekDoWyrzucenia);
+		DELELEMENT1(&P.top, 31 - wierzcholekDoWyrzucenia);
+		IntervalList p2 = PodzialPrzedzialu(G, P);
+		//printf("\n Finished %d", cnt);
+		p1 = PolaczListy(p1, p2);
+
+		return p1;
+	}
+}
+
+Locset PobierzTop(Graph G)
+{
+	int i = 0;
+	int ret = 0;
+	while (i < G.deg)
+	{
+		ret = ret | Locbit[i];
+		i++;
+	}
+	return ret;
+}
+
+IntervalList ZnajdzPrzedzialy(Graph G)
+{
+	Locset wszystko = PobierzTop(G);
+	Interval P = { 0, wszystko };
+	IntervalList l = PodzialPrzedzialu(G, P);
+	return l;
+}
 
 int gen(int n) {
     int i, j, j1, j2, p, c, cx;
@@ -140,6 +278,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     max_n = atoi(argv[1]);
+    max_n = 4; // Test Here
     level_cones[0] = malloc((1<<max_n)*sizeof(setword));
     level_orbits[0] = malloc((1<<max_n)*sizeof(int));
     if(level_cones[0]==NULL || level_orbits[0]==NULL) {
@@ -154,13 +293,30 @@ int main(int argc, char *argv[]) {
     level_orbits[1][1] = 1;
     level_len[1] = 2;
 
+    Graph g;
+    g.deg = 6;
+    g.G = malloc(sizeof(Locset)  * 6);
+    g.G[0] = 54;
+    g.G[1] = 9;
+    g.G[2] = 9;
+    g.G[3] = 6;
+    g.G[4] = 33;
+    g.G[5] = 17;
 
+    IntervalList  i;
+    i = ZnajdzPrzedzialy(g);
 
-    gen(1);
+    //Wypisanie przedziałów
+    IntervalElement * next = i.first;
+    while (next != NULL){
+        printf("\nB: %d ,T: %d ", (int)next->i.bottom, (int)next->i.top);
+        next = next->next;
+    }
 
+    //gen(3);
 
     free(level_cones[0]);
     free(level_orbits[0]);
-    printf("%d\n", cnt_graph);
+    //printf("%d\n", cnt_graph);
     return 0;
 }
