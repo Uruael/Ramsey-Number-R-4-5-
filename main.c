@@ -230,6 +230,8 @@ int main(int argc, char *argv[])
     else
         printf("Fail %d\n", h3(25, 6, g));
 
+    testIntervals();
+
     gen(1);
 
     free(level_cones[0]);
