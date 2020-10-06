@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "hrules.h"
 #include "nauty.h"
 
 typedef unsigned int Locset;
@@ -174,6 +175,60 @@ int main(int argc, char *argv[])
     level_orbits[1][0] = 0;
     level_orbits[1][1] = 1;
     level_len[1] = 2;
+
+    g[0] = 54;
+    g[1] = 9;
+    g[2] = 9;
+    g[3] = 6;
+    g[4] = 33;
+    g[5] = 17;
+
+    if (h1(3, g) == 63)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h1(3, g));
+    if (h1(12, g) == 15)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h1(12, g));
+    if (h1(18, g) == 41)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h1(18, g));
+
+    if (h2(3, 6, g) == 63)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(3, 6, g));
+    if (h2(12, 6, g) == 62)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(12, 6, g));
+    if (h2(18, 6, g) == 63)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(18, 6, g));
+    if (h2(60, 6, g) == 60)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(60, 6, g));
+
+    if (h3(3, 6, g) == 2)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h3(3, 6, g));
+    if (h3(12, 6, g) == 4)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h3(12, 6, g));
+    if (h3(18, 6, g) == 2)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h3(18, 6, g));
+    if (h3(25, 6, g) == 54)
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h3(25, 6, g));
 
     testIntervals();
 
