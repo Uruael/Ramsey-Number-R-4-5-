@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+ 
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{mathtools}
+\selectlanguage{polish}
+\usepackage{graphicx}
+\newtheorem{theorem}{Twierdzenie} 
+\newtheorem{definition}{Definicja}[section]
+\graphicspath{ {./im/} }
+
+
+
+
+\begin{document}
+\section{Twierdzenie Ramseya}
+
+Twierdzenie Ramseya mówi o konieczności pojawienia się pewnych układów w pozornym chaosie co oznacza że każda większa struktura będzie zawierała jakąś podstrukturę. Zagadnienie można łatwo przedstawić posługując się teorią grafów, dla uproszczenia zostanie użyte kolorowanie dwoma kolorami.
+
+\begin{theorem}
+Niech r $\in$ N. Istnieje takie n $\in$ N gdzie dla każdego 2-kolorowego $\mathit{K}_{n}$ grafu znajdzie się jednokolorowy podgraf $\mathit{K}_{r}$ w $\mathit{K}_{n}$.
+\end{theorem}
+
+Z powyższego twierdzenia wynika, że będziemy omawiać dwukolorowe struktury gdzie przytoczona sytuacja zachodzi. 
+
+\begin{definition}[Liczba Ramseya]
+Liczba Ramseya, wyrażana jako R(r,b), gdzie r oraz b są dowolnymi liczbami całkowitymi, jest najmniejszą możliwą liczbą n dla grafu $\mathit{K}_{n}$. Używając dwóch kolorów np. czerwonego i niebieskiego, dowolnie kolorując podany graf uzyskamy czerwony podgraf $\mathit{K}_{r}$ lub niebieski podgraf $\mathit{K}_{b}$.
+\end{definition}
+
+\section{Historia liczby i Twierdzenia Ramseya}
+
+W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Problem of Formal Logic'', które posłużyło jako podstawę do teorii którą dzisiaj znamy jak Teoria Ramseya. 
+
+
+\subsection{Wartości liczb Ramseya}
+
+\begin{enumerate}
+  \item Trywialne wartości liczby Ramseya \hfill 
+  
+  \begin{itemize}
+  \item R(1,k) = R(k,1) = 1 \hfill \\
+  W przypadku gdy jeden z parametrów wynosi 1 aby spełnić warunek wystarczy jeden wierzchołek.  Jednokolorowy graf $\mathit{K}_{1}$ jest pojedynczym wierzchołkiem i spełnia zarówno warunek dla R(1,b) oraz R(r,1).
+  
+   \item R(2,k) = R(k,2) = k \hfill \\
+	W przypadku gdy jeden z parametrów wynosi 2 nie możemy postąpić analogicznie jak w poprzednim przykładzie, graf $\mathit{K}_{2}$ nie spełni warunku gdy k > 2 dla kolorowania jednym kolorem. Tak samo każdy graf pełny o rozmiarze mniejszym niż k zostanie odrzucony w sytuacji gdy zostanie użyty k kolor aby pokolorować go w jednolity sposób. Dlatego też liczba wierzchołków w grafie musi wynosić k co zawsze spełni jeden z dwóch warunków, przypadek gdy wszystkie krawędzie zostaną pokolorowane jednym kolorem lub gdy chociaż jedna krawędź będzie drugiego koloru.
+  	
+  \end{itemize}
+
+  
+ 
+  \item R(3,3)=6 \hfill \\ \\
+  R(3,3) jest pierwszym nietrywialnym przykładem liczby Ramseya, lecz nadal na tyle małą aby łatwo móc ją wyznaczyć. Łatwo można wykluczyć $\mathit{K}_{3}$, $\mathit{K}_{4}$ oraz $\mathit{K}_{5}$ za pomocą następującego pokolorowania krawędzi.
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.35\textwidth]{k5}
+  \end{figure}
+    Aby udowodnić że R(3,3) = 6 przeanalizujmy kolorowanie grafy pełnego o 6 wierzchołkach. Po wybraniu dowolnego wierzchołka i kolorując wychodzące z niego krawędzie co najmniej 3 z nich będą miały wspólny kolor, skupiając się na jednym kolorze przykładowo czerwonym, krawędzie to połączone są z trzema innymi wierzchołkami.
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\textwidth]{k6}
+  \end{figure}
+
+\end{enumerate}
+
+
+
+
+\end{document}
