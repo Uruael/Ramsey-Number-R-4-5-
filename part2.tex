@@ -7,6 +7,7 @@
 \usepackage{mathtools}
 \selectlanguage{polish}
 \usepackage{graphicx}
+\usepackage{tikz} 
 \newtheorem{theorem}{Twierdzenie} 
 \newtheorem{definition}{Definicja}[section]
 \graphicspath{ {./im/} }
@@ -15,6 +16,136 @@
 
 
 \begin{document}
+
+\section{Podstawy teoretyczne}
+
+  Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teorii grafów, bez których zrozumienia, nie jest możliwe wyznaczanie liczb Ramseya.
+
+  \subsection{Izomorfizm}
+  Izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Innymi słowy dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały takie same zbiory sąsiadów. 
+
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [below right of=1] {$5$};
+    \node[main] (3) [above right of=2] {$2$};
+    \node[main] (4) [below left of=2] {$4$};
+    \node[main] (5) [below right of=2] {$3$};
+
+    \draw (1) -- (2);
+    \draw (2) -- (3);
+    \draw (2) -- (4);
+    \draw (2) -- (5);
+    \draw (1) -- (3);
+    \draw (4) -- (5);
+  \end{tikzpicture}
+
+  Przekształćmy ten graf zamieniając wierzchołek 1 z 2 oraz 3 z 4:
+
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$2$};
+    \node[main] (2) [below right of=1] {$5$};
+    \node[main] (3) [above right of=2] {$1$};
+    \node[main] (4) [below left of=2] {$3$};
+    \node[main] (5) [below right of=2] {$4$};
+
+    \draw (1) -- (2);
+    \draw (2) -- (3);
+    \draw (2) -- (4);
+    \draw (2) -- (5);
+    \draw (1) -- (3);
+    \draw (4) -- (5);
+  \end{tikzpicture}
+
+  \subsection{Automorfizm}
+  Automorfizm to taki izomorfizm, którego wynikiem jest graf początkowy. 
+
+  \subsection{Formy kanoniczne grafów}
+  Forma kanoniczna grafu to takie pokrycie grafu G, 
+  które jest identyczne dla wszystkich grafów izomorficznych z G. Takie pokryie można zaimplementować
+   jako numerowanie wierzchołków począwszy od takich o najmniejszej liczbie sąsiadów. 
+   Jeżeli kilka wierzchołków ma taką samą liczbę sąsiadów to albo niższy numer otrzymuje wierzchołek, 
+   który ma sąsiada (sąsiadów) z najniższym numerem albo losowy. 
+
+  \subsection{Generowanie grafów nieizomorficznych} 
+   Generowanie grafów rozpoczynamy od pojedynczego wierzchołka. Następnie powtarzamy następujące kroki:
+   \begin{enumerate}
+    \item Generowanie grafów nieizomorficznych \hfill 
+  
+    \begin{itemize}
+    \item  Dodanie nowego wierzchołka  \hfill \\
+    
+    \item Utworzenie wszystkich możliwych zestawów krawędzi zawierających ten wierzchołek. Przy dodawaniu n-tego wierzchołka mamy 
+      
+    \item Sprawdzenie izomorfizmów - jeżeli wygenerowany graf jest izomorficzny z innym wygenerowanym grafem, to pozostawiamy tylko jeden z nich 
+    
+    \item  O ile nie osiągnęliśmy zadanej liczby wierzchołków powtórzenie kroków dla każdego wygenerowanego  
+    \end{itemize}
+  \end{enumerate}
+  
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [below of=1] {$1$};
+    \node[main] (3) [right of=2] {$2$};
+
+    \node[main] (4) [right of=3] {$1$};
+    \node[main] (5) [right of=4] {$2$};
+
+    \draw (2) -- (3);
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+
+    \draw (1) -- (2);
+  \end{tikzpicture} \vspace{5mm} 
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+  \end{tikzpicture} \vspace{5mm} 
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (2) -- (3);
+  \end{tikzpicture} \vspace{5mm} 
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+
+  \end{tikzpicture} \vspace{5mm}
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+
+    \draw (3) -- (2);
+  \end{tikzpicture} \vspace{5mm} 
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+
+    \draw (3) -- (2);
+    \draw (1) -- (3);
+  \end{tikzpicture}
+
+  Jak łatwo zauważyć graf 1 i graf 5 oraz graf 2 i graf 6 są parami izomorficzne, więc możne odrzucić po jednym z każdej pary, zmniejszając liczbę grafów rozważanych w kolejnych krokach.  
+
+   \subsection{Generowanie grafów Ramseya}
+   Graf jest ramseyowski jeżeli nie zawiera k-kliki lub l-zbioru niezależnego dla danych k i l. 
+
+   Generowanie takich grafów wygląda tak samo jak generowanie grafów dowolnych, ale zawiera dodatkowy krok miedzy 3 a 4 - sprawdzenie czy graf nie zawiera kliki lub zbioru niezależnego stopnia który zaburzył by jego ramseyowskość.  
+   
 \section{Twierdzenie Ramseya}
 
 Twierdzenie Ramseya mówi o konieczności pojawienia się pewnych układów w pozornym chaosie co oznacza że każda większa struktura będzie zawierała jakąś podstrukturę. Zagadnienie można łatwo przedstawić posługując się teorią grafów, dla uproszczenia zostanie użyte kolorowanie dwoma kolorami.
@@ -38,7 +169,7 @@ W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Proble
 
 \begin{enumerate}
   \item Trywialne wartości liczby Ramseya \hfill 
-  
+
   \begin{itemize}
   \item R(1,k) = R(k,1) = 1 \hfill \\
   W przypadku gdy jeden z parametrów wynosi 1 aby spełnić warunek wystarczy jeden wierzchołek.  Jednokolorowy graf $\mathit{K}_{1}$ jest pojedynczym wierzchołkiem i spełnia zarówno warunek dla R(1,b) oraz R(r,1).
@@ -47,24 +178,18 @@ W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Proble
 	W przypadku gdy jeden z parametrów wynosi 2 nie możemy postąpić analogicznie jak w poprzednim przykładzie, graf $\mathit{K}_{2}$ nie spełni warunku gdy k > 2 dla kolorowania jednym kolorem. Tak samo każdy graf pełny o rozmiarze mniejszym niż k zostanie odrzucony w sytuacji gdy zostanie użyty k kolor aby pokolorować go w jednolity sposób. Dlatego też liczba wierzchołków w grafie musi wynosić k co zawsze spełni jeden z dwóch warunków, przypadek gdy wszystkie krawędzie zostaną pokolorowane jednym kolorem lub gdy chociaż jedna krawędź będzie drugiego koloru.
   	
   \end{itemize}
-
-  
  
   \item R(3,3)=6 \hfill \\ \\
-  R(3,3) jest pierwszym nietrywialnym przykładem liczby Ramseya, lecz nadal na tyle małą aby łatwo móc ją wyznaczyć. Łatwo można wykluczyć $\mathit{K}_{3}$, $\mathit{K}_{4}$ oraz $\mathit{K}_{5}$ za pomocą następującego pokolorowania krawędzi.
+ 
   \begin{figure}[h]
   \centering
-  \includegraphics[width=0.35\textwidth]{k5}
   \end{figure}
     Aby udowodnić że R(3,3) = 6 przeanalizujmy kolorowanie grafy pełnego o 6 wierzchołkach. Po wybraniu dowolnego wierzchołka i kolorując wychodzące z niego krawędzie co najmniej 3 z nich będą miały wspólny kolor, skupiając się na jednym kolorze przykładowo czerwonym, krawędzie to połączone są z trzema innymi wierzchołkami.
   \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\textwidth]{k6}
   \end{figure}
 
 \end{enumerate}
-
-
 
 
 \end{document}
