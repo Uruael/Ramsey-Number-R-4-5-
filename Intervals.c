@@ -35,6 +35,16 @@ typedef struct IntervalList
 	IntervalElement *first;
 } IntervalList;
 
+Interval getInterval(IntervalList intervals, int n)
+{
+    IntervalElement*result = intervals.first;
+    for(int i = 0; i < n; i++)
+    {
+        result = result->next;
+    }
+    return result->i;
+}
+
 int ZnajdzWierzcholekDoWyrzucenia(Graph G, Locset check, Locset mask)
 {
 	Locset masked = check & (check ^ mask);
