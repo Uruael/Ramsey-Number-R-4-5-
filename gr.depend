@@ -46,3 +46,54 @@
 1392288814 source:f:\pg\inzyn\t1\gr\schreier.c
 	"schreier.h"
 
+1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\naugraph.c
+	"nauty.h"
+
+1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\nauty.h
+	"defs.h"
+	"system.h"
+	"bs.h"
+	<stdio.h>
+	<sys/types.h>
+	<unistd.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+	<malloc.h>
+
+1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\naurng.c
+	"naurng.h"
+
+1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\naurng.h
+	"nauty.h"
+
+1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\nautil.c
+	"nauty.h"
+	"io.e"
+	"sorttemplates.c"
+
+1602006020 c:\users\matik\documents\github\ramsey-number-r-4-5-\sorttemplates.c
+
+1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\nauty.c
+	"nauty.h"
+	"schreier.h"
+	"cleanup.e"
+
+1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\schreier.h
+	"nauty.h"
+	"naurng.h"
+
+1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\schreier.c
+	"schreier.h"
+
+1602005824 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"hrules.h"
+	"nauty.h"
+
+1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\hrules.h
+	"nauty.h"
+

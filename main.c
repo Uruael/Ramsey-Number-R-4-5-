@@ -3,6 +3,7 @@
 #include <math.h>
 #include "hrules.h"
 #include "nauty.h"
+#include "rules.h"
 
 typedef unsigned int Locset;
 
