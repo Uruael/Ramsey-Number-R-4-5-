@@ -93,6 +93,8 @@
     \draw (2) -- (3);
   \end{tikzpicture}
 
+  \vspace{\baselineskip}
+  
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (1) {$1$};
     \node[main] (2) [right of=1] {$2$};
@@ -162,7 +164,7 @@ Liczba Ramseya, wyrażana jako R(r,b), gdzie r oraz b są dowolnymi liczbami ca�
 
 \section{Historia liczby i Twierdzenia Ramseya}
 
-W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Problem of Formal Logic'', które posłużyło jako podstawę do teorii którą dzisiaj znamy jak Teoria Ramseya. 
+W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Problem of Formal Logic'', które posłużyło jako podstawa do teorii którą dzisiaj znamy jak Teoria Ramseya. 
 
 
 \subsection{Wartości liczb Ramseya}
@@ -191,5 +193,83 @@ W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Proble
 
 \end{enumerate}
 
+\section{Sklejanie grafów}
+Efektywne generowanie dużych grafów jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
+
+\subsection{Idea sklejania}
+Robimy to poprzez wygenerowanie wszyskich nieizomorficznych grafów G, rzędów 7-13, spełniających R(3,5) oraz wszyskich
+nieizomorficznych grafów H, rzędów 11-17, spełniających R(4, 4).'
+
+Następnie dokonujemy prób sklejania grafów z dwóch grup - kryterium przy parowaniu jest suma rzędów, która my wynosić 24. 
+
+\subsection{Algorytm sklejania}
+Zdefiniujmy prawdopodobny stożek (ang. feasible cone) jako podzbiór wszyskich wierzchołków H, który nie tworzy kliki 3.
+Dla przeciętnego grafu (4, 4, 14) znajdziemy około 4000 takich prawdopodobnych stożków. 
+Tak zdefiniowane stożki należy przyporządkować do wierzchołków  grafu G, tak aby w wyniku ich połączenia nie powtała kilka 4 lub zbiór niezależny 5.
+Możnaby podjąć próbę zrobienia tego w sposób naiwny, ale byłoby zdecydowanie zbyt wolne, dla tak dużej ilości rozpatrywanych grafów.
+
+Zdefiniujmy 3 funkcje działające na X, będącym podzbiorem wierzchołków grafu H, generujące podzbiór grafu H. 
+Funcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
+H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków X. 
+H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków X.
+\begin{itemize}
+    
+  \item   H1(X) = \{ w \in VH | vw \in EX dla jakiegoś v \in X \} 
+  
+  \item   H2(X) = \{ w \in VH | vw \notin EX dla jakiegoś v \notin X \}
+  
+  \item   H3(X) = \{ w \in VH | { u, v, w } jest zbiorem niezależnym dla jakichś v, u \in X \} 
+  
+\end{itemize}
+
+\subsection{Wynik sklejania}
+
+
+\section{Implementacja i eksperymenty}
+Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty, która umożliwia łatwe obliczeniowo wykrywanie izomorfizów.
+Autor biblioteki jest profesor McKay. 
+
+\begin{thebibliography}{9}
+  \bibitem{mainpaper} 
+  Brendan D. McKay, Stanisław P. Radziszowski. 
+  \textit{R(4,5) = 25}. 
+  
+  \bibitem{nauty} 
+  Brendan D. McKay.
+  \textit{nauty user's guide (version 2.4)}.  
+  Department of Computer Science
+  Australian National University
+  Canberra ACT 0200, Australia
+  November 4, 2009
+
+  \bibitem{smallramsey} 
+  Stanisław P. Radziszowski.
+  \textit{Small Ramsey Numbers}.  
+  Department of Computer Science Rochester Institute of Technology Rochester, NY 14623
+  June 11, 1994
+
+  \bibitem{cykl4} 
+  Janusz Dybizbański.
+  \textit{Liczby Ramseya z cyklem C4}.  
+  Uniwersytet Warszawski
+  Wydział Matematyki, Informatyki i Mechaniki
+  Listopad 2013
+
+  \bibitem{numbers} 
+  Christos Nestor Chachamis.
+  \textit{Ramsey Numbers}.  
+  May 13, 2018
+
+  \bibitem{theory} 
+  Lane Barton IV
+  \textit{Ramsey Theory}.  
+  May 13, 2016
+
+  \bibitem{generation} 
+  Brendan D. McKay
+  \textit{ISOMORPH-FREE EXHAUSTIVE GENERATION}.  
+  May 13, 2016
+
+  \end{thebibliography}
 
 \end{document}
