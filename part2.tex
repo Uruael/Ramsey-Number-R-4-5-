@@ -36,8 +36,8 @@
     Izomorfizm grafów G i H to taka biekcja f:V(G) -> V(H), że 2 wierchołki u i v sąsiadują w G tylko jeżeli f(u) i f(v) sąsiadują w H.
   \end{definition}
 
-  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
-  aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały dokładnie takie same zbiory sąsiadów. 
+  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne. Innymi słowy, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
+  aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały dokładnie takie same zbiory sąsiadów.
 
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (1) {$1$};
@@ -72,7 +72,11 @@
   \end{tikzpicture}
 
   \subsection{Automorfizm}
-  Automorfizm to taki izomorfizm, którego wynikiem jest graf początkowy. 
+
+  \begin{definition}
+    Automorfizm grafu G to taka permutacja f zbioru wierzchołków G, że para wierzchołków u, v jest sąsiedująca tylko jeżeli f(u) i f(v) sąsiadują. 
+  \end{definition}
+  Automorfizm to izomorfizm z grafu początkowego do tego samego grafu. 
 
   \subsection{Formy kanoniczne grafów}
 
