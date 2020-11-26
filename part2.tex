@@ -3,6 +3,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage{lmodern}
 \usepackage{array}
 \usepackage{mathtools}
@@ -76,6 +78,8 @@
     \draw (4) -- (5);
   \end{tikzpicture}
 
+  Jak widać, wierzchołki o tych samych numerach zachowały swoje zbiory sąsiadów. 
+
   \subsection{Automorfizm}
 
   \begin{definition}
@@ -101,6 +105,18 @@
   
 \section{Generowanie grafów}
 \subsection{Generowanie grafów nieizomorficznych} 
+
+\begin{algorithm}
+  \caption{Generowanie grafów nieizomorficznych}
+  \begin{algorithmic}
+  \REQUIRE $n > 0 $
+  \STATE grafy[] <- graf jednowierzchołkowy 
+  \WHILE{$ilośćWierzchołków(grafy) < n$}
+    \STATE grafy = noweGrafy
+  \ENDWHILE
+  \end{algorithmic}
+  \end{algorithm}
+
 Generowanie grafów rozpoczynamy od pojedynczego wierzchołka. Następnie powtarzamy następujące kroki:
 \begin{enumerate}
  \item Generowanie grafów nieizomorficznych 
