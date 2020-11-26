@@ -345,10 +345,9 @@ Granica górna może być łatwo wyliczona stosując nierówność $R(r,b) \le R
 Efektywne generowanie dużych grafów jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
 
 \subsection{Idea sklejania}
-Robimy to poprzez wygenerowanie wszyskich nieizomorficznych grafów G, rzędów 7-13, spełniających R(3,5) oraz wszyskich
-nieizomorficznych grafów H, rzędów 11-17, spełniających R(4, 4).'
+Zbiorem danych wymaganym do poprawnego sklejania jest  poprzez wygenerowanie wszyskich nieizomorficznych grafów G rzędów 7-13, spełniających R(3,5) oraz wszyskich nieizomorficznych grafów H rzędów 11-17, spełniających R(4, 4).
 
-Następnie dokonujemy prób sklejania grafów z dwóch grup - kryterium przy parowaniu jest suma rzędów, która my wynosić 24. 
+Grafy dzielone są na grupy pod względem ich stopnia. Celem sklejania jest uzyskanie grafów stopnia 24, a więc suma stopnie grup grafów G oraz grafów H musi być równa 24. Ze względu na R(3,5) = 14 największy stopień grupy grafów G to 13, a ze względu na R(4,4) = 18 grafy H są ograniczone do 17 wierzchołków. Oznacza to, że istnieje 6 par grup spełniających wymagania. 
 
 \subsection{Algorytm sklejania}
 Zdefiniujmy prawdopodobny stożek (ang. feasible cone) jako podzbiór wszyskich wierzchołków H, który nie tworzy kliki 3.
