@@ -90,6 +90,9 @@
 
   Jak widać, wierzchołki o tych samych numerach zachowały swoje zbiory sąsiadów. 
 
+  Warto zauważyć, że na nasz użytek grafy izomorficzne nie są niezależnie użyteczne. Wszystkie własności opisane w tej pracy są przez izomorfizmy niezmienione, a więc na nasz użytek dwa grafy izomorficzne to efektywnie ten sam graf.
+
+
   \subsection{Automorfizm}
 
   \begin{definition}
@@ -153,6 +156,9 @@
   \begin{definition}
     Zbiór niezależny N w grafie G to taki podzbiór wierzchołków G, że dla każdej pary wierzchołków u, v $\in$ N, u i v nie są sąsiednie. 
   \end{definition}
+  
+    Zbiór niezależny można również przedstawić jako przeciwieństwo kliki.
+
   
 \section{Generowanie grafów}
 \subsection{Orbity}
@@ -302,25 +308,25 @@ Jak łatwo zauważyć graf 1 i graf 5 oraz graf 2 i graf 6 są parami izomorficz
 Twierdzenie Ramseya mówi o konieczności pojawienia się pewnych układów w pozornym chaosie co oznacza że każda większa struktura będzie zawierała jakąś podstrukturę. Zagadnienie można łatwo przedstawić posługując się teorią grafów, dla uproszczenia zostanie użyte kolorowanie dwoma kolorami.
 
 \begin{theorem}
-Niech r $\in$ N. Istnieje takie n $\in$ N gdzie dla każdego 2-kolorowego $\mathit{K}_{n}$ grafu znajdzie się jednokolorowy podgraf $\mathit{K}_{r}$ w $\mathit{K}_{n}$.
+Niech r $\in$ N. Istnieje takie n $\in$ N gdzie dla każdego 2-kolorowego $\mathit{K}_{n}$ grafu znajdzie się jednokolorowy podgraf $\mathit{K}_{r}$ w $\mathit{K}_{n}$.  \cite{theory} 
 \end{theorem}
 
 Z powyższego twierdzenia wynika, że będziemy omawiać dwukolorowe struktury gdzie przytoczona sytuacja zachodzi. 
 
 \begin{definition}[Liczba Ramseya]
-Liczba Ramseya, wyrażana jako R(r,b), gdzie r oraz b są dowolnymi liczbami całkowitymi, jest najmniejszą możliwą liczbą n dla grafu $\mathit{K}_{n}$. Używając dwóch kolorów np. czerwonego i niebieskiego, dowolnie kolorując podany graf uzyskamy czerwony podgraf $\mathit{K}_{r}$ lub niebieski podgraf $\mathit{K}_{b}$.
+Liczba Ramseya, wyrażana jako R(r,b), gdzie r oraz b są dowolnymi liczbami całkowitymi, jest najmniejszą możliwą liczbą n dla grafu $\mathit{K}_{n}$. Używając dwóch kolorów np. czerwonego i niebieskiego, dowolnie kolorując podany graf uzyskamy czerwony podgraf $\mathit{K}_{r}$ lub niebieski podgraf $\mathit{K}_{b}$.  \cite{theory} 
 \end{definition}
 
 \section{Historia liczby i Twierdzenia Ramseya}
 
-W 1928 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Problem of Formal Logic'', które posłużyło jako podstawę do teorii którą dzisiaj znamy jak Teoria Ramseya. 
+W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Problem of Formal Logic''\cite{ramsey} , które posłużyło jako podstawę do teorii którą dzisiaj znamy jak Teoria Ramseya. 
 
 
 \subsection{Twierdzenie Van der Waerden's}
 Twierdzenie opublikowane przez Van der Waerdena w 1927 roku, przed powstaniem Twierdzenia Ramseya lecz uważana za jedną z jaj gałęzi. 
 
 \begin{theorem}
-Dla dowolnej liczby całkowitej r oraz k istnieje taka liczba N która określa zbiór \{1, 2, 3, ..., N\} który jest pokolorowany na r różnych kolorów, z przynajmniej k liczbami całkowitymi w ciągu arytmetycznym które są tego samego koloru.
+Dla dowolnej liczby całkowitej r oraz k istnieje taka liczba N która określa zbiór \{1, 2, 3, ..., N\} który jest pokolorowany na r różnych kolorów, z przynajmniej k liczbami całkowitymi w ciągu arytmetycznym które są tego samego koloru.\cite{theory} 
 \end{theorem}
 
 Dla przykładu, W(2,3) = 9. Zbiór o ośmiu elementach można podzielić na następujące podzbiory aby w żadnym z podzbiorów nie wystąpił szereg arytmetyczny o trzech elementach, \{1,2,3,4,5,6,7,8\} -> \{1,2,5,6\},\{3,4,7,8\}. W przypadku zbioru o dziewięciu elementach nie jest to możliwe. Dodając 9 do dowolnego podzbioru utworzony zostanie ciąg arytmetyczny o trzech elementach np. \{1,5,9\} lub \{7,8,9\}. Podobna sytuacja zajdzie dla podziału \{1,4,5,8\},\{2,3,6,7\}
@@ -336,7 +342,7 @@ Dowolny zbiór 5 punktów w przestrzeni zawiera podzbiór 4 punktów które form
 Twierdzenie to zostało uogólnione w 1935 roku przez George Szekeres oraz Paula Erd\"osa
 
 \begin{theorem}
-Dla dowolnej liczby całkowitej N, każdy dowolnie duży i skończony zbiór punktów zawiera podzbiór składający się z N punktów który tworzy wielokąt wypukły.
+Dla dowolnej liczby całkowitej N, każdy dowolnie duży i skończony zbiór punktów zawiera podzbiór składający się z N punktów który tworzy wielokąt wypukły. \cite{erdoshappy} 
 \end{theorem}
 
 Prace nad Happy Ending problem sprawiły że Paul Erd\"os natrafił na publikacje Ramseya z 1928 roku. Spowodowało to że Erd\"os rozpoczął prace nad liczbami Raseya, co przyczyniło się do rozwoju tej teorii.
@@ -361,13 +367,76 @@ Prace nad Happy Ending problem sprawiły że Paul Erd\"os natrafił na publikacj
   R(3,3) jest pierwszym nietrywialnym przykładem liczby Ramseya, lecz nadal na tyle małą aby łatwo móc ją wyznaczyć. Łatwo można wykluczyć $\mathit{K}_{3}$, $\mathit{K}_{4}$ oraz $\mathit{K}_{5}$ za pomocą następującego pokolorowania krawędzi.
 
 
-RYSUNEK
+\begin{figure}[h]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (1) at (1*90:1) {$1$};
+ \node[main] (2) at (2*0:1.5) {$2$};
+ \node[main] (5) at (3*60:1.5) {$5$};
+ \node[main] (4) at (4*60:2) {$4$};
+ \node[main] (3) at (5*60:2) {$3$};
+
+\draw[ultra thick][red] (1) -- (2);
+\draw[ultra thick][red] (2) -- (3);
+\draw[ultra thick][red] (3) -- (4);
+\draw[ultra thick][red] (4) -- (5);
+\draw[ultra thick][red] (5) -- (1);
+
+\draw[ultra thick][blue] (1) -- (3);
+\draw[ultra thick][blue] (1) -- (4);
+\draw[ultra thick][blue] (2) -- (4);
+\draw[ultra thick][blue] (2) -- (5);
+\draw[ultra thick][blue] (3) -- (5);
+    \end{tikzpicture}
+    \caption{}
+ \end{figure}
 
   
 Aby udowodnić że R(3,3) = 6 przeanalizujmy kolorowanie grafu pełnego o 6 wierzchołkach. 
 
 
-RYSUNEK
+\begin{figure}[h]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main] (4) at (300:2) {$4$};
+
+\draw[ultra thick][red] (6) -- (1);
+\draw[ultra thick][red] (6) -- (2);
+\draw[ultra thick][red] (6) -- (3);
+\draw[ultra thick][blue] (6) -- (4);
+\draw[ultra thick][blue] (6) -- (5);
+    \end{tikzpicture}
+    \caption{}
+ \end{figure}
+
+\begin{figure}[h]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main] (4) at (300:2) {$4$};
+
+\draw[ultra thick][red] (6) -- (1);
+\draw[ultra thick][red] (6) -- (2);
+\draw[ultra thick][red] (6) -- (3);
+\draw[ultra thick][blue] (6) -- (4);
+\draw[ultra thick][blue] (6) -- (5);
+
+\draw[ultra thick][blue] (2) -- (1);
+\draw[ultra thick][blue] (3) -- (2);
+\draw[ultra thick][blue] (1) -- (3);
+    \end{tikzpicture}
+    \caption{}
+ \end{figure}
+
 
 
 Po wybraniu dowolnego wierzchołka i kolorując wychodzące z niego krawędzie co najmniej 3 z nich będą miały wspólny kolor, skupiając się na jednym kolorze przykładowo czerwonym, krawędzie te połączone są z trzema innymi wierzchołkami. Patrząc na trzy wierzchołki do których zostały poprowadzone krawędzie jednego koloru, łatwo zauważyć, że aby uniknąć powstania trójkąta czerwonego należy połączyć te wierzchołki kolorem niebieskim lecz robiąc to powstanie klika o rozmiarze trzy koloru niebieskiego. Dowodzi to że R(3,3) = 6.
@@ -380,56 +449,70 @@ Po wybraniu dowolnego wierzchołka i kolorując wychodzące z niego krawędzie c
  Udowodnienie wartości pozostałych liczb Ramseya zostanie pominięte, gdyż stopień skomplikowania dowodu rośnie wraz z ilością wierzchołków, nie istnieje żaden znany sposób na określenie dokładnej wartości tej liczby, oraz wyznaczenie dokładnej wartości często jest na tyle trudne że istnieje jedynie jej bliższe oszacowanie. Poniższa tabela prezentuje dokładne wartości lub górne i dolne granice dla dwukolorowych liczb Ramseya R(k,l) k<10, l<10 (wartości dla k i l równego 2 albo 1 zostały opisane wcześniej)
  
 \hfill 
-
+\begin{figure}[h]
+  \centering
 \resizebox{\textwidth}{!}{%
-
 \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
 \hline
 k\textbackslash{}l & 3 & 4  & 5                                               & 6                                                 & 7                                                 & 8                                                  & 9                                                  & 10                                                  \\ \hline
-3                  & 6 & 9  & 14                                              & 18                                                & 23                                                & 28                                                 & 36                                                 & \begin{tabular}[c]{@{}l@{}}40\\ 43\end{tabular}     \\ \hline
-4                  &   & 18 & 25                                              & \begin{tabular}[c]{@{}l@{}}35\\ 41\end{tabular}   & \begin{tabular}[c]{@{}l@{}}49\\ 61\end{tabular}   & \begin{tabular}[c]{@{}l@{}}56\\ 84\end{tabular}    & \begin{tabular}[c]{@{}l@{}}73\\ 115\end{tabular}   & \begin{tabular}[c]{@{}l@{}}92\\ 149\end{tabular}    \\ \hline
-5                  &   &    & \begin{tabular}[c]{@{}l@{}}43\\ 49\end{tabular} & \begin{tabular}[c]{@{}l@{}}58\\ 87\end{tabular}   & \begin{tabular}[c]{@{}l@{}}80\\ 143\end{tabular}  & \begin{tabular}[c]{@{}l@{}}101\\ 216\end{tabular}  & \begin{tabular}[c]{@{}l@{}}125\\ 316\end{tabular}  & \begin{tabular}[c]{@{}l@{}}143\\ 442\end{tabular}   \\ \hline
-6                  &   &    &                                                 & \begin{tabular}[c]{@{}l@{}}102\\ 165\end{tabular} & \begin{tabular}[c]{@{}l@{}}113\\ 298\end{tabular} & \begin{tabular}[c]{@{}l@{}}127\\ 495\end{tabular}  & \begin{tabular}[c]{@{}l@{}}169\\ 780\end{tabular}  & \begin{tabular}[c]{@{}l@{}}179\\ 1171\end{tabular}  \\ \hline
-7                  &   &    &                                                 &                                                   & \begin{tabular}[c]{@{}l@{}}205\\ 540\end{tabular} & \begin{tabular}[c]{@{}l@{}}216\\ 1031\end{tabular} & \begin{tabular}[c]{@{}l@{}}233\\ 1713\end{tabular} & \begin{tabular}[c]{@{}l@{}}289\\ 2826\end{tabular}  \\ \hline
-8                  &   &    &                                                 &                                                   &                                                   & \begin{tabular}[c]{@{}l@{}}282\\ 1870\end{tabular} & \begin{tabular}[c]{@{}l@{}}317\\ 3583\end{tabular} & \begin{tabular}[c]{@{}l@{}}?\\ 6090\end{tabular}    \\ \hline
-9                  &   &    &                                                 &                                                   &                                                   &                                                    & \begin{tabular}[c]{@{}l@{}}565\\ 6588\end{tabular} & \begin{tabular}[c]{@{}l@{}}580\\ 12677\end{tabular} \\ \hline
+3                  & 6 & 9  & 14                                              & 18                                                & 23                                                & 28                                                 & 36                                                 & \begin{tabular}[c]{@{}l@{}}40\\ 42\end{tabular}     \\ \hline
+4                  &   & 18 & 25                                              & \begin{tabular}[c]{@{}l@{}}36\\ 41\end{tabular}   & \begin{tabular}[c]{@{}l@{}}49\\ 61\end{tabular}   & \begin{tabular}[c]{@{}l@{}}59\\ 84\end{tabular}    & \begin{tabular}[c]{@{}l@{}}73\\ 115\end{tabular}   & \begin{tabular}[c]{@{}l@{}}92\\ 149\end{tabular}    \\ \hline
+5                  &   &    & \begin{tabular}[c]{@{}l@{}}43\\ 49\end{tabular} & \begin{tabular}[c]{@{}l@{}}58\\ 87\end{tabular}   & \begin{tabular}[c]{@{}l@{}}80\\ 143\end{tabular}  & \begin{tabular}[c]{@{}l@{}}101\\ 216\end{tabular}  & \begin{tabular}[c]{@{}l@{}}133\\ 316\end{tabular}  & \begin{tabular}[c]{@{}l@{}}143\\ 442\end{tabular}   \\ \hline
+6                  &   &    &                                                 & \begin{tabular}[c]{@{}l@{}}102\\ 165\end{tabular} & \begin{tabular}[c]{@{}l@{}}115\\ 298\end{tabular} & \begin{tabular}[c]{@{}l@{}}134\\ 495\end{tabular}  & \begin{tabular}[c]{@{}l@{}}183\\ 780\end{tabular}  & \begin{tabular}[c]{@{}l@{}}204\\ 1171\end{tabular}  \\ \hline
+7                  &   &    &                                                 &                                                   & \begin{tabular}[c]{@{}l@{}}205\\ 540\end{tabular} & \begin{tabular}[c]{@{}l@{}}217\\ 1031\end{tabular} & \begin{tabular}[c]{@{}l@{}}252\\ 1713\end{tabular} & \begin{tabular}[c]{@{}l@{}}292\\ 2826\end{tabular}  \\ \hline
+8                  &   &    &                                                 &                                                   &                                                   & \begin{tabular}[c]{@{}l@{}}282\\ 1870\end{tabular} & \begin{tabular}[c]{@{}l@{}}329\\ 3583\end{tabular} & \begin{tabular}[c]{@{}l@{}}343\\ 6090\end{tabular}  \\ \hline
+9                  &   &    &                                                 &                                                   &                                                   &                                                    & \begin{tabular}[c]{@{}l@{}}565\\ 6588\end{tabular} & \begin{tabular}[c]{@{}l@{}}581\\ 12677\end{tabular} \\ \hline
 10                 &   &    &                                                 &                                                   &                                                   &                                                    &                                                    & \begin{tabular}[c]{@{}l@{}}798\\ 23556\end{tabular} \\ \hline
 \end{tabular}%
 }
-
+\end{figure}
 \hfill 
 
-Powodem dla podawania granicy dolnej oraz górnej jest, jak wspomniano wcześniej, brak uniwersalnej i opłacalnej formuły do określenia dokładnej wartości. Przykładowo dla R(4,6) gdybyśmy chcieli sprawdzić dolną granicą 35, trzeba sprawdzić wszystkie dwukolorowania $\mathit{K}_{35}$, który ma ${35\choose 2}$ = 595 krawędzi. Istnieje więc $2^{595} \approx 1.296 * 10^{179}$ różnych możliwości na pokolorowanie tego grafu. Dlatego w obecnych czasach nie jest możliwe potraktowanie tego problemu używając podejścia naiwnego. Aby podsumować problem znajdowania dokładnych warości liczb Ramseya można posłużyć się cytatem Paula Erdősa: Jeżeli kosmici najechali by ziemię i postawili ultimatum że jeżeli ludzkość nie znajdzie R(5,5) w ciągu roku, to zniszczą ziemię, najlepszym wyborem było by zebranie mocy obliczeniowej jaka aktualnie dysponuje ludzkość w celu pozyskania tej liczby. Jednak w przypadku gdy kosmici zażądali by R(6,6) najlepszym wyborem było by wypowiedzenie im wojny.  \par
+Powodem dla podawania granicy dolnej oraz górnej jest, jak wspomniano wcześniej, brak uniwersalnej i opłacalnej formuły do określenia dokładnej wartości. Przykładowo dla R(4,6) gdybyśmy chcieli sprawdzić dolną granicą 36 \cite{smallramsey} , trzeba sprawdzić wszystkie dwukolorowania $\mathit{K}_{36}$, który ma ${36\choose 2}$ = 630 krawędzi. Istnieje więc $2^{630} \approx 4,4555 * 10^{189}$ różnych możliwości na pokolorowanie tego grafu. Dlatego w obecnych czasach nie jest możliwe potraktowanie tego problemu używając podejścia naiwnego. Aby podsumować problem znajdowania dokładnych warości liczb Ramseya można posłużyć się cytatem Paula Erdősa: Jeżeli kosmici najechali by ziemię i postawili ultimatum że jeżeli ludzkość nie znajdzie R(5,5) w ciągu roku, to zniszczą ziemię, najlepszym wyborem było by zebranie mocy obliczeniowej jaka aktualnie dysponuje ludzkość w celu pozyskania tej liczby. Jednak w przypadku gdy kosmici zażądali by R(6,6) najlepszym wyborem było by wypowiedzenie im wojny.\cite{aliens}  \par
 
 \item Granice liczby Ramseya \hfill \par
 
-Granica górna może być łatwo wyliczona stosując nierówność $R(r,b) \le R(r-1,b)+R(r,b-1)$. Nie jest to jednak zadowalający wynik ani sposób na wyznaczanie górnego limitu. Poprzednie wartości liczb Ramseya mogą nie być znane oraz sama granica przy znanych wcześniejszych wartościach nie jest najbardziej optymalną. Wzór jawny który opisuje wcześniej podany przypadek to: $R(r,b) \le {r+b-2\choose r-1}$. Przytoczona górna granica jest granicą naiwną. Granica dolna jest wyznaczana z użyciem metod probabilistycznych. Paul Erdős jako pierwszy w 1947 roku zaprezentował dowód z użyciem metod probabilistycznych na granicę dolną dla liczb R(k,k). Metoda ta opierała się na wykazaniu że w losowo pokolorowanym grafie $\mathit{K}_{n}$ prawdopodobieństwo znalezienia jednokolorowego grafu $\mathit{K}_{k}$ jest mniejsza od 1 dla pewnej wartości.
+Granica górna może być łatwo wyliczona stosując nierówność $R(r,b) \le R(r-1,b)+R(r,b-1)$ \cite{graniceupdown} . Nie jest to jednak zadowalający wynik ani sposób na wyznaczanie górnego limitu. Poprzednie wartości liczb Ramseya mogą nie być znane oraz sama granica przy znanych wcześniejszych wartościach nie jest najbardziej optymalną. Wzór jawny który opisuje wcześniej podany przypadek to: $R(r,b) \le {r+b-2\choose r-1}$. Przytoczona górna granica jest granicą naiwną. Granica dolna jest wyznaczana z użyciem metod probabilistycznych. Paul Erdős jako pierwszy w 1947 roku zaprezentował dowód z użyciem metod probabilistycznych na granicę dolną dla liczb R(k,k)\cite{erdogranica, graniceupdown}. Metoda ta opierała się na wykazaniu że w losowo pokolorowanym grafie $\mathit{K}_{n}$ prawdopodobieństwo znalezienia jednokolorowego grafu $\mathit{K}_{k}$ jest mniejsza od 1 dla pewnej wartości.
 
 \end{enumerate}
 
 \section{Artykuł R(4,5)=25}
 
 
-Głównym źródłem wymagań naszej pracy jest publikacja R(4,5) = 25 wydana w 1995 przez Brendana D. McKaya oraz Stanisława P. Radziszowskiego. Motywacją do sporządzenia tej pracy było udowodnienie ze dokładna wartość liczby Ramseya R(4,5) wynosi 25, z pomocą użycia nowych technologii. Prace nad wyznaczeniem wartości R(4,5) zaczęły się w 1955 wraz z wydaniem artykułu przez Greenwooda oraz Gleasona w którym wyznaczyli górną granicę R(4,5) $\leq$ 31. W kolejnych latach granica ta była zawężana aż do 25 $\leq$ R(4,5)  26.\par
+Głównym źródłem wymagań naszej pracy jest publikacja R(4,5) = 25 wydana w 1995 przez Brendana D. McKaya oraz Stanisława P. Radziszowskiego  \cite{mainpaper} . Motywacją do sporządzenia tej pracy było udowodnienie ze dokładna wartość liczby Ramseya R(4,5) wynosi 25, z pomocą użycia nowych technologii. Prace nad wyznaczeniem wartości R(4,5) zaczęły się w 1955 wraz z wydaniem artykułu przez Greenwooda oraz Gleasona w którym wyznaczyli górną granicę R(4,5) $\leq$ 31. W kolejnych latach granica ta była zawężana aż do 25 $\leq$ R(4,5)  26.\par
 Jak pokazano wcześniej, wygenerowanie wszystkich możliwych dwukolorowych grafów a następne ich sprawdzenie było by zbyt czasochłonne więc wymagane było inne podejście do problemu. Wykorzystano jedynie wyselekcjonowane grafy (s,t,n) gdzie s oznacza rozmiar kliki która znajduje się w grafie, t oznacza wielkość zbiory niezależnego który należy do grafu, a n oznacza liczbę wierzchołków na których zbudowany jest graf. Celem było skonstruowanie rodziny grafów (4,5,24) z grafów (3,5,d) oraz (4,4,24-d) gdzie 7 $\leq$ d $\leq$ 13, przy pomocy algorytmu nazwanym ''sklejaniem''. Ostatnim krokiem przed weryfikacją wyników jest próba rozszerzenia otrzymanych grafów (4,5,24) o jeden wierzchołek.
 
 \section{Sklejanie grafów}
 Efektywne generowanie dużych grafów jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
 
 \subsection{Idea sklejania}
-Robimy to poprzez wygenerowanie wszyskich nieizomorficznych grafów G, rzędów 7-13, spełniających R(3,5) oraz wszyskich
-nieizomorficznych grafów H, rzędów 11-17, spełniających R(4, 4).'
+Zbiór danych wymagany do poprawnego sklejania jest uzyskany poprzez wygenerowanie wszystkich nieizomorficznych grafów G rzędów 7-13 spełniających R(3,5), oraz wszystkich nieizomorficznych grafów H rzędów 11-17 spełniających R(4, 4).
 
-Następnie dokonujemy prób sklejania grafów z dwóch grup - kryterium przy parowaniu jest suma rzędów, która my wynosić 24. 
+Grafy dzielone są na grupy pod względem ich stopnia. Celem sklejania jest uzyskanie grafów stopnia 24 poprzez połączenie grafów G oraz H, a więc suma stopni grup grafów G oraz H branych pod uwagę musi być równa 24. Ze względu na R(3,5) = 14 największy stopień grupy grafów G to 13, a ze względu na R(4,4) = 18 grafy H są ograniczone do 17 wierzchołków. Oznacza to, że istnieje 6 par grup spełniających wymagania. 
+
+Zdefiniujmy prawdopodobny stożek (ang. feasible cone) jako podzbiór wszystkich wierzchołków grafu H, który nie tworzy kliki 3.
+Dla przeciętnego grafu (4, 4, 14) znajdziemy około 4000 takich prawdopodobnych stożków. 
+Tak zdefiniowane stożki należy przyporządkować do wierzchołków  grafu G, tak aby w wyniku ich połączenia nie powstała kilka 4 lub zbiór niezależny 5. Każdy taki zbiór stożków jest poprawnym połączeniem grafów G oraz H. Algorytm sklejania ma na celu znalezienie wszystkich poprawnych zbiorów stożków dla wszystkich par G i H, a przez to stworzenie wszystkich grafów 24 wierzchołkowych.
+
 
 \subsection{Algorytm sklejania}
-Zdefiniujmy prawdopodobny stożek (ang. feasible cone) jako podzbiór wszyskich wierzchołków H, który nie tworzy kliki 3.
-Dla przeciętnego grafu (4, 4, 14) znajdziemy około 4000 takich prawdopodobnych stożków. 
-Tak zdefiniowane stożki należy przyporządkować do wierzchołków  grafu G, tak aby w wyniku ich połączenia nie powtała kilka 4 lub zbiór niezależny 5.
-Możnaby podjąć próbę zrobienia tego w sposób naiwny, ale byłoby zdecydowanie zbyt wolne, dla tak dużej ilości rozpatrywanych grafów.
+Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru stożków. Należy wyodrębnić wszystkie stożki, które obejmują klikę 3 rzędu, ponieważ ten stożek eliminuje już graf wynikowy (połączenie kliki 3 rzędu do dowolnego wierzchołka powoduje wystąpienie kliki 4 rzędu) Podejście naiwne, tj. pojedyncze sprawdzenie wszystkich potencjalnie poprawnych stożków nie jest jednak opłacalne ze względu na fakt, że potencjalnych stożków dla grafu n wierzchołkowego jest $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
+
+Przedziałem nazywamy zbiór stożków ograniczony przez stożek górny i stożek dolny. Przedział zawiera wszystkie stożki które spełniają zależność  $X: B \subseteq X \subseteq T$ i zapisany jest jako $[B, T]$ gdzie B oraz T to podzbiory wierzchołków grafu H oraz $B \subseteq  T$. 
+
+Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a T obejmuje wszystkie wierzchołki H (taki interwał zawiera wszystkie możliwe stożki). W celu wyodrębnienia poprawnych stożków korzystamy z poniższych własności:
+\begin{enumerate}
+\item Dla wierzchołka w, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
+
+\item Jeżeli stożek B zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
+
+\item Jeżeli stożek T nie zawiera kliki stopnia 3, to żaden stożek w przedziale jej nie zawiera.
+\end{enumerate}
+
+Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału zaimplementowaliśmy algorytm rekurencyjny dzielący interwały wzdłuż wierzchołków należących do B oraz kliki 3, dzięki czemu uzyskujemy zbiór przedziałów dla grafu H użyty w następnym etapie algorytmu.
 
 Zdefiniujmy 3 funkcje działające na X, będącym podzbiorem wierzchołków grafu H, generujące podzbiór grafu H. 
-Funcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
+Funkcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
 H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków X. 
 H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków X.
 \begin{itemize}
@@ -441,7 +524,6 @@ H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą 
   \item   H3(X) = \{ w $\in$ VH | { u, v, w } jest zbiorem niezależnym dla jakichś v, u $\in$ X\} 
   
 \end{itemize}
-
 \subsection{Wynik sklejania}
 
 
@@ -489,6 +571,29 @@ Autor biblioteki jest profesor McKay.
   Brendan D. McKay
   \textit{ISOMORPH-FREE EXHAUSTIVE GENERATION}.  
   May 13, 2016
+  
+   \bibitem{erdogranica} 
+  P.  Erdősa,  Some  Remarks  on  the  Theory  of  Graphs,
+  \textit{Bulletin  of  the  American  Mathematical  Society},
+  53(4):292–294,  1947
+  
+    \bibitem{graniceupdown} 
+  Christos Nestor Chachamis
+  \textit{Ramsey Numbers}.  
+  May 13, 2018
+
+ \bibitem{ramsey} 
+ Ramsey, F.P. (1930), 
+ \textit{On a Problem of Formal Logic.}
+ Proceedings of the London Mathematical Society, s2-30: 264-286. https://doi.org/10.1112/plms/s2-30.1.264
+ 
+ \bibitem{erdoshappy} 
+ Erdős, P.; Szekeres, G.
+ A combinatorial problem in geometry. Compositio Mathematica, Volume 2 (1935) , pp. 463-470.
+ 
+ \bibitem{aliens} 
+  \textit{Ramsey Theory}
+   by Ronald L. Graham and Joel H. Spencer, in Scientific American (July 1990), p. 112-117
 
   \end{thebibliography}
 
