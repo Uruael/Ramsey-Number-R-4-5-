@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{subcaption}
 
 \usepackage{lmodern}
 \usepackage{array}
@@ -554,8 +555,45 @@ Dodatkowo, można jeszcze wyodrębnić dwie własności które nie miały znacze
 Dwie powyższe, wraz z wcześniejszymi własnościami pozwalają stworzyć algorym masowo eliminujący wierzchołki z przedziału na podstawie listy klik oraz zbiorów niezależnych, a w efekcie określenie czy istnieje rozszerzenie grafu zadowalające R(4,5).
 
 \section{Implementacja i eksperymenty}
-Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty, która umożliwia łatwe obliczeniowo wykrywanie izomorfizów.
+Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty, która umożliwia łatwe obliczeniowo wykrywanie orbit, co znacznie przyspiesza proces generacji grafów. 
 Autor biblioteki jest profesor McKay. 
+
+Dodatkowo, jednym z aspektów powyższego kodu, który zaadoptowaliśmy do własnego użytku jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób przechowania grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji m, n odpowiada istnieniu krawędzi pomiędzy wierzchołkami m oraz n w przypadku wartości 1, lub jej braku w przypadku wartości 0.
+\begin{figure}[h]
+\begin{subfigure}{0.5\textwidth}
+\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [below right of=1] {$5$};
+    \node[main] (3) [above right of=2] {$2$};
+    \node[main] (4) [below left of=2] {$4$};
+    \node[main] (5) [below right of=2] {$3$};
+
+    \draw (1) -- (2);
+    \draw (2) -- (3);
+
+    \draw (2) -- (5);
+    \draw (1) -- (3);
+
+	
+
+  \end{tikzpicture}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+$\begin{Bmatrix}
+	0 & 1 & 0 & 0 & 1 \\
+	1 & 0 & 0 & 0 & 1 \\
+	0 & 0 & 0 & 0 & 1 \\
+	0 & 0 & 0 & 0 & 0 \\
+	1 & 1 & 1 & 0 & 0 \\
+	\end{Bmatrix}$
+	
+	\end{subfigure}
+	\caption{Graf wraz z odpowiadającą mu macierzą sąsiedztwa}
+\end{figure}
+
+Warto zauważyć nadmiarowość macierzy, gdzie każdej krawędzi odpowiadają dwie wartości 1. Ta nadmiarowość okazjonalnie pozwala na przyspieszenie obliczeń w zmodyfikowanej wersji używanej w naszym kodzie.
+Moedyfikacja metody macierzy sąsiedztwa zastosowane w naszym kodzie polega na odejściu od zapisywania każdej liczby w macierzy jako osobnej wartości. Jako że zajmujemy się jedynie grafami prostymi, to wartości w poszczególnych komórkach mogą wynosić jedynie 0 lub 1. W związku z tym wiersz macierzy można zapisać nie jako n wartości, a jako jedną wartość o odpowiedniej ilości bitów. Ze względu na to, że największym grafem występującym w naszej pracy jest potencjalny graf 25 wierzchołkowy, 32 bitowa wartość jest wystarczająca żeby pomieścić dowolny wiersz macierzy występujący w naszym kodzie. 
+ 
 
 \begin{thebibliography}{9}
   \bibitem{mainpaper} 
