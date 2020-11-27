@@ -47,15 +47,8 @@
   \begin{definition}
     W grafie G (V, E) wierzchołki u, v $\in$ V sąsiadują wtedy i tylko wtedy gdy (u, v) $\in$ E.    
   \end{definition}
+  W grafach nieskierowanych sąsiedzto jest relacją symetryczną. Jest nieprzechodnia - z sąsiedztwa u i v oraz v i w nie wynika sąsiedzto u i w. \linebreak
 
-  \subsection{Izomorfizm}
-
-  \begin{definition}
-    Izomorfizm grafów G i H to taka biekcja f:V(G) -> V(H), że 2 wierchołki u i v sąsiadują w G tylko jeżeli f(u) i f(v) sąsiadują w H.
-  \end{definition}
-
-  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne. Innymi słowy, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
-  aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały dokładnie takie same zbiory sąsiadów.
   \begin{figure}[h]
     \centering
     \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -72,10 +65,20 @@
       \draw (1) -- (3);
       \draw (4) -- (5);
     \end{tikzpicture}
-    \caption{}
+    \caption{Wierzchołek 1 sąsiaduje z 2 i 5; 2 z 1 i 5; 3 z 4 i 5; 4 z 3 i 5; 5 z 1, 2, 3 i 4 }
   \end{figure}
 
-  Przekształćmy ten graf zamieniając wierzchołek 1 z 2 oraz 3 z 4:
+  \subsection{Izomorfizm}
+
+  \begin{definition}
+    Izomorfizm grafów G i H to taka biekcja f:V(G) -> V(H), że 2 wierchołki u i v sąsiadują w G tylko jeżeli f(u) i f(v) sąsiadują w H.
+  \end{definition}
+
+  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne. Innymi słowy, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
+  aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały dokładnie takie same zbiory sąsiadów.
+  
+
+  Przekształćmy graf z rysunku 1 zamieniając wierzchołek 1 z 2 oraz 3 z 4:
   \begin{figure}[h]
     \centering
     \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -92,7 +95,7 @@
       \draw (1) -- (3);
       \draw (4) -- (5);
     \end{tikzpicture}
-    \caption{}
+    \caption{Mimo przekształcenia graf zachował swoje własności}
   \end{figure}
 
   Jak widać, wierzchołki o tych samych numerach zachowały swoje zbiory sąsiadów. 
