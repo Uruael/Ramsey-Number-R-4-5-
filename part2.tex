@@ -467,7 +467,7 @@ Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału g
 Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału zaimplementowaliśmy algorytm rekurencyjny dzielący interwały wzdłuż wierzchołków należących do B oraz kliki 3, dzięki czemu uzyskujemy zbiór przedziałów dla grafu H użyty w następnym etapie algorytmu.
 Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu G.
   
-\end{itemize}
+
 \subsection{Zawężanie przedziałów - zasady A-D}
 Zdefiniujmy 3 funkcje działające na X, będącym podzbiorem wierzchołków grafu H, generujące podzbiór grafu H. 
 Funkcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
@@ -480,7 +480,7 @@ H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą 
   \item   $H_2(X) = { w \in VH | vw \notin EX \textrm{ dla jakiegoś } v \notin X}$
   
   \item   $H_3(X) = { w \in VH | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X}$ 
-
+\end{itemize}
 Żeby wygenerować prawdopodobne stożki zaczynamy od utworzenia pary {B, T} dla każdego wierzchołka v grafu G.
 B i H to zbiory, B początkowo jest zbiorem pustym, natomiast T zawiera wszystkie wierzchołki grafu H. 
 Interpretujemy B jako minimalny zbiór wierzchołków, które trzeba połączyć z v, T oznacza maksymalny zbiór, który można połączyć.
