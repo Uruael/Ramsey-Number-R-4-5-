@@ -425,6 +425,8 @@ Jak łatwo zauważyć graf 1 i graf 5 oraz graf 2 i graf 6 są parami izomorficz
    \end{theorem}
   Dzięki powyższemu twierdzeniu wiemy, że wszelkie próby rozszerzenia grafu posiadającego klikę stopnia n powodują powstanie grafów z przynajmniej tak wielką kliką. Analogiczne rozumowanie można przeprowadzić dla rozszerzania grafów ze zbiorem niezależnym o wystarczającej wielkości. Dzięki temu odrzucanie grafów nieramseyowskich na wczesnym etapie generacji nie powoduje odrzucenia żadnych pożądanych grafów. Takie odrzucanie znacznie zmniejsza ilość grafów powstających na kolejnych etapach generacji, zwłaszcza dla grafów większego stopnia, bez czego wygenerowanie nawet grafów wymaganych do sklejania byłoby trudne.
 [Wg http://oeis.org/A000088 nieizomorficznych grafów 17 wierzchołkowych jest ponad $10^{26}$. Dzięki wczesnym wykluczaniu dla R(4,4) generowany jest tylko jeden taki graf. ]
+Odrzucanie grafów nieramseyowskich przy każdym rozszerzeniu pozwala wprowadzić dodatkową optymalizację. Jeżeli wiemy, że graf przed rozszerzeniem nie zawierał niedozwolonej kliki/zb. niezależnego, to mamy gwarancję, że jeżeli nowo rozszerzony graf je zawiera, to nowy wierzchołek musi wchodzić w ich skład. Dzięki temu można uzyskać dalsze przyspieszenie algorytmu generacji grafów.
+
 
 \section{Sklejanie grafów}
 Efektywne generowanie dużych grafów jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
@@ -446,7 +448,7 @@ Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 takich prawdopodobnyc
 
 
 \subsection{Algorytm sklejania}
-Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru stożków. Należy wyodrębnić wszystkie stożki, które obejmują klikę 3 rzędu, ponieważ ten stożek eliminuje już graf wynikowy (połączenie kliki 3 rzędu do dowolnego wierzchołka powoduje wystąpienie kliki 4 rzędu) Podejście naiwne, tj. pojedyncze sprawdzenie wszystkich potencjalnie poprawnych stożków nie jest jednak opłacalne ze względu na fakt, że potencjalnych stożków dla grafu n wierzchołkowego jest $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
+Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru stożków przed wybraniem odpowiadającego mu grafu G. Można odrzucić wszystkie stożki które obejmują klikę 3 rzędu ponieważ taki stożek eliminuje dowolny graf wynikowy (połączenie kliki 3 rzędu do dowolnego wierzchołka powoduje wystąpienie kliki 4 rzędu). Podejście naiwne, tj. pojedyncze sprawdzenie wszystkich potencjalnie poprawnych stożków nie jest jednak opłacalne ze względu na fakt, że potencjalnych stożków dla grafu n wierzchołkowego jest $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
 
 \begin{definition}
 Przedziałem to zbiór stożków ograniczony przez stożek górny i stożek dolny, który zawiera wszystkie stożki spełniające zależność  $X: B \subseteq X \subseteq T$. Przedział zapisany jest jako $[B, T]$ gdzie B oraz T to stożki grafu H. 
@@ -463,7 +465,10 @@ Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału g
 \end{enumerate}
 
 Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału zaimplementowaliśmy algorytm rekurencyjny dzielący interwały wzdłuż wierzchołków należących do B oraz kliki 3, dzięki czemu uzyskujemy zbiór przedziałów dla grafu H użyty w następnym etapie algorytmu.
-
+Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu G.
+  
+\end{itemize}
+\subsection{Zawężanie przedziałów - zasady A-D}
 Zdefiniujmy 3 funkcje działające na X, będącym podzbiorem wierzchołków grafu H, generujące podzbiór grafu H. 
 Funkcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
 H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
@@ -475,9 +480,7 @@ H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą 
   \item   $H_2(X) = { w \in VH | vw \notin EX \textrm{ dla jakiegoś } v \notin X}$
   
   \item   $H_3(X) = { w \in VH | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X}$ 
-  
-\end{itemize}
-\subsection{Zawężanie przedziałów - zasady A-D}
+
 Żeby wygenerować prawdopodobne stożki zaczynamy od utworzenia pary {B, T} dla każdego wierzchołka v grafu G.
 B i H to zbiory, B początkowo jest zbiorem pustym, natomiast T zawiera wszystkie wierzchołki grafu H. 
 Interpretujemy B jako minimalny zbiór wierzchołków, które trzeba połączyć z v, T oznacza maksymalny zbiór, który można połączyć.
