@@ -156,7 +156,7 @@
       \draw (4) -- (5);
       \draw (1) -- (5);
      \end{tikzpicture}
-     \caption{}
+     \caption{Wierzchołki 1, 2, 3 tworzą klikę stopnia 3 - $K_3$ }
   \end{figure}
 
   \subsection{Zbiór niezależny}
@@ -165,7 +165,21 @@
   \end{definition}
   
     Zbiór niezależny można również przedstawić jako przeciwieństwo kliki.
-   
+    \begin{figure}[h]
+      \centering
+       \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+         \node[main] (1) {$1$};
+         \node[main] (3) [below right of=1] {$3$};
+         \node[main] (2) [below left of=3] {$2$};
+         \node[main] (4) [below right of=3] {$4$};
+         \node[main] (5) [above right of=3] {$5$};
+         
+         \draw (2) -- (4);
+         \draw (4) -- (5);
+
+        \end{tikzpicture}
+        \caption{Wierzchołki 1, 2, 3, 5 tworzą zbiór niezależny 4 - $N_4$ }
+     \end{figure}
 
 \section{Twierdzenie Ramseya}
 
