@@ -490,19 +490,19 @@ H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą 
 \end{itemize}
 Kolejny etap zawężania potencjalnych krawędzi pomiędzy grafami G oraz H odbywa się już w kontekście konkretnego grafu G. Każda możliwa kombinacja wygenerowanych interwałów jest  przydzielana do wierzchołków należących do G, dzięki czemu wzięte pod uwagę są wszystkie możliwe pomiędzy tymi grafami sposoby połączenia. Dla każdego potencjalnego zestawu interwałów łączących grafy G oraz H wykonywany jest poniższy zbiór reguł:
 \begin{itemize}
-  \item   A - stosowana do 2 wierzchołków u,v sąsiadujących ze sobą \linebreak
+  \item   A - stosowana do 2 wierzchołków u,v $\in G$ sąsiadujących ze sobą \linebreak
   Jeśli $B_u \cap B_v \cap H_1(B_u \cap B_v)$ nie jest zbiorem pustym to nie da się 
   poprawnie skleić tej pary grafów. \linebreak
   W innym wypadku z $T_u$ usuwamy $H_1(B_u \cap B_v) \cap B_v $  
-  \item   B - stosowana do 2 wierzchołków u,v nie sąsiadujących ze sobą \linebreak
+  \item   B - stosowana do 2 wierzchołków u,v $\in G$ nie sąsiadujących ze sobą \linebreak
   Jeśli $H_3(T_u \cup T_v) \not\subseteq (T_u \cup T_v)$ to nie da się poprawnie skleić tej 
   pary grafów. \linebreak
   W innym wypadku $B_u$ rozszerzamy do $B_u \cup (H_3(T_u \cup T_v) - T_v)$
-  \item   C - stosowana do 3 wierzchołków u,v,w tworzących zbiór niezależny 3 \linebreak
+  \item   C - stosowana do 3 wierzchołków u,v,w $\in G$ tworzących zbiór niezależny 3 \linebreak
   Jeśli $H_2(T_u \cup T_v \cup T_w) \not\subseteq (T_u \cup T_v \cup T_w)$ 
   to nie da się poprawnie skleić tej pary grafów. \linebreak
   W innym wypadku $B_u$ rozszerzamy do $B_u \cup (H_2(T_u \cup T_v \cup T_w) - (T_v \cup T_w))$
-  \item   D - stosowana do 4 wierzchołków u,v,w,z tworzących zbiór niezależny 4 \linebreak
+  \item   D - stosowana do 4 wierzchołków u,v,w,z $\in G$ tworzących zbiór niezależny 4 \linebreak
   Jeśli $T_u \cup T_v \cup T_w \cup \neq VH $ to nie da się poprawnie skleić tej pary grafów.
   W innym wypadku $B_u$ rozszerzamy do $B_u \cup (VH - (T_v \cup T_w \cup T_z))$
 \end{itemize}
