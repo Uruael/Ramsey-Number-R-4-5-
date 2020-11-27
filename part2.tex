@@ -123,21 +123,35 @@
    Jeżeli kilka wierzchołków ma taką samą liczbę sąsiadów to albo niższy numer otrzymuje wierzchołek, 
    który ma sąsiada (sąsiadów) z najniższym numerem albo losowy. 
 
-   \begin{algorithm}
-    \caption{Sprowadzanie grafu do formy kanonicznej}
-    \begin{algorithmic}
-    \STATE formaKanoniczna[liczbaWierzchołków(graf)]
-    \FORALL{formaKanoniczna}
-      \WHILE{$min \neq 0$}
-        \STATE Jiji
-      \ENDWHILE
-    \ENDFOR
-    \WHILE{$ilośćWierzchołków(grafy) < n$}
-      \STATE dodajWierzchołek(grafy)
-      \STATE usunIzomorfizmy(grafy)
-    \ENDWHILE
-    \end{algorithmic}
-    \end{algorithm}
+  
+
+\subsection{Orbity}
+\begin{definition}
+  Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
+\end{definition}
+
+Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
+Przykład: 
+\begin{figure}[h]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+     \node[main] (1) {$1$};  
+     \node[main] (3) [right of=1] {$3$};
+     \node[main] (2) [above of=3] {$2$};
+     \node[main] (4) [below of=3] {$4$};
+     \node[main] (5) [right of=3] {$5$};
+
+     \draw (1) -- (3);
+     \draw (1) -- (2);
+     \draw (1) -- (4);
+     \draw (5) -- (2);
+     \draw (5) -- (3);
+     \draw (5) -- (4);
+    \end{tikzpicture}
+    \caption{Orbita pierwsza: 1, 5 
+    Orbita druga: 2, 3, 4}
+ \end{figure}
+ 
 
    \subsection{Klika}
    \begin{definition}
@@ -161,7 +175,7 @@
       \draw (4) -- (5);
       \draw (1) -- (5);
      \end{tikzpicture}
-     \caption{}
+     \caption{Wierzchołki 1, 2, 3 tworzą klikę stopnia 3 - $K_3$ }
   \end{figure}
 
   \subsection{Zbiór niezależny}
@@ -170,6 +184,22 @@
   \end{definition}
   
     Zbiór niezależny można również przedstawić jako przeciwieństwo kliki.
+
+    \begin{figure}[H]
+      \centering
+       \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+         \node[main] (1) {$1$};
+         \node[main] (3) [below right of=1] {$3$};
+         \node[main] (2) [below left of=3] {$2$};
+         \node[main] (4) [below right of=3] {$4$};
+         \node[main] (5) [above right of=3] {$5$};
+
+         \draw (2) -- (4);
+         \draw (4) -- (5);
+
+        \end{tikzpicture}
+        \caption{Wierzchołki 1, 2, 3, 5 tworzą zbiór niezależny 4 - $N_4$ }
+     \end{figure}
    
 
 \section{Twierdzenie Ramseya}
@@ -241,7 +271,7 @@ Prace nad Happy Ending problem sprawiły że Paul Erd\"os natrafił na publikacj
   R(3,3) jest pierwszym nietrywialnym przykładem liczby Ramseya, lecz nadal na tyle małą aby łatwo móc ją wyznaczyć. Łatwo można wykluczyć $\mathit{K}_{3}$, $\mathit{K}_{4}$ oraz $\mathit{K}_{5}$ za pomocą następującego pokolorowania krawędzi.
 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
  \node[main] (1) at (1*90:1) {$1$};
@@ -270,7 +300,7 @@ Powyższy rysunek pokazuje sposób kolorowania dla grafu 5-wierzchołkowego, ale
 Aby udowodnić że R(3,3) = 6 przeanalizujmy kolorowanie grafu pełnego o 6 wierzchołkach. 
 
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
  \node[main] (3) at (0:2) {$3$};
@@ -289,7 +319,7 @@ Aby udowodnić że R(3,3) = 6 przeanalizujmy kolorowanie grafu pełnego o 6 wier
     \caption{}
  \end{figure}
 
-\begin{figure}[h]
+ \begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
  \node[main] (3) at (0:2) {$3$};
@@ -359,33 +389,6 @@ Jak pokazano wcześniej, wygenerowanie wszystkich możliwych dwukolorowych graf�
 
   
 \section{Generowanie grafów}
-\subsection{Orbity}
-\begin{definition}
-  Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
-\end{definition}
-
-Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
-Przykład: 
-\begin{figure}[h]
-  \centering
-   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-     \node[main] (1) {$1$};  
-     \node[main] (3) [right of=1] {$3$};
-     \node[main] (2) [above of=3] {$2$};
-     \node[main] (4) [below of=3] {$4$};
-     \node[main] (5) [right of=3] {$5$};
-
-     \draw (1) -- (3);
-     \draw (1) -- (2);
-     \draw (1) -- (4);
-     \draw (5) -- (2);
-     \draw (5) -- (3);
-     \draw (5) -- (4);
-    \end{tikzpicture}
-    \caption{Orbita pierwsza: 1, 5 
-    Orbita druga: 2, 3, 4}
- \end{figure}
- 
 
 \subsection{Generowanie grafów nieizomorficznych} 
 
@@ -418,7 +421,7 @@ Następnie powtarzamy następujące kroki dopóki nie osiągniemy docelowej licz
 
 Zaczynamy od pojedynczego wierzchołka.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (1) {$1$};
@@ -442,58 +445,109 @@ Zaczynamy od pojedynczego wierzchołka.
 
 W pierwszym kroku dodajemy drugi wierzchołek i otrzymujemy dwa różne grafy - jeden, w którym wierzchołki sąsiadują, drugi, w którym nie. 
 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
-
- \draw (1) -- (2);
-\end{tikzpicture} \vspace{15mm} 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
-
- \draw (1) -- (2);
- \draw (1) -- (3);
-\end{tikzpicture} \vspace{15mm} 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
-
- \draw (1) -- (2);
- \draw (1) -- (3);
- \draw (2) -- (3);
-\end{tikzpicture} 
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (2) -- (3);
+   \end{tikzpicture} 
+  
+  \caption{Grafy wygenerowane z pierwszego grafu z poprzedniego kroku}
+\end{figure}
 
 Następnie bierzemy pierwszy z grafów i dodajemy do niego kolejny wierzchołek, ponownie generując wszystkie możliwości.  
 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
 
-\end{tikzpicture} \vspace{15mm}
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
+  \end{tikzpicture}
+  \hfill
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
 
- \draw (3) -- (2);
-\end{tikzpicture} \vspace{15mm} 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
+  \draw (3) -- (2);
+  \end{tikzpicture}
+  \hfill
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
 
- \draw (3) -- (2);
- \draw (1) -- (3);
-\end{tikzpicture}
+  \draw (3) -- (2);
+  \draw (1) -- (3);
+  \end{tikzpicture}
+  \caption{{Grafy wygenerowane z drugiego grafu z poprzedniego kroku}}
+\end{figure}
 
 To samo powtarzamy dla grafu drugiego. 
 
 Jak łatwo zauważyć graf 1 i graf 5 oraz graf 2 i graf 6 są parami izomorficzne, więc możne odrzucić po jednym z każdej pary, zmniejszając liczbę grafów rozważanych w kolejnych krokach.  
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (2) -- (3);
+   \end{tikzpicture} 
+   \hfill
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
+
+  \end{tikzpicture}
+  \caption{Wszystkie nieizomorficzne grafy 3-wierzchołkowe}
+\end{figure}
 
 W celu uniknięcia porównywania wszystkich grafów, do nowo dodanego grafu wyznaczane są orbity - tylko jeden sposób generacji każdego grafu spowoduje sytuację, gdzie nowo dodany wierzchołek znajduje się w pierwszej orbicie, co pozwala łatwo odrzucać izomorfizmy.
 
