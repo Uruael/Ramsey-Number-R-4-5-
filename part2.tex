@@ -6,6 +6,8 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 
+\usepackage{float}
+\usepackage{subcaption}
 \usepackage{lmodern}
 \usepackage{array}
 \usepackage{mathtools}
@@ -134,13 +136,40 @@
     \end{algorithmic}
     \end{algorithm}
 
+    \subsection{Orbity}
+    \begin{definition}
+      Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
+    \end{definition}
+
+    Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
+  Przykład: 
+    \begin{figure}[H]
+      \centering
+      \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+        \node[main] (1) {$1$};  
+        \node[main] (3) [right of=1] {$3$};
+        \node[main] (2) [above of=3] {$2$};
+        \node[main] (4) [below of=3] {$4$};
+        \node[main] (5) [right of=3] {$5$};
+
+        \draw (1) -- (3);
+        \draw (1) -- (2);
+        \draw (1) -- (4);
+        \draw (5) -- (2);
+        \draw (5) -- (3);
+        \draw (5) -- (4);
+        \end{tikzpicture}
+        \caption{Orbita pierwsza: 1, 5 
+        Orbita druga: 2, 3, 4}
+    \end{figure}
+
    \subsection{Klika}
    \begin{definition}
     Klika K w grafie G jest takim podzbiorem wierzchołków G, że dla każdej pary wierzchołków u, v $\in$ K, u i v są sąsiednie. 
    \end{definition}
    
    W uproszczeniu, klika to podzbiór wierzchołków grafu, z których każdy jest połaczony z każdem innym wiechołkiem tego podzbioru.
-   \begin{figure}[h]
+   \begin{figure}[H]
    \centering
     \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
       \node[main] (1) {$1$};
@@ -165,7 +194,7 @@
   \end{definition}
   
     Zbiór niezależny można również przedstawić jako przeciwieństwo kliki.
-    \begin{figure}[h]
+    \begin{figure}[H]
       \centering
        \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
          \node[main] (1) {$1$};
@@ -302,33 +331,6 @@ Jak pokazano wcześniej, wygenerowanie wszystkich możliwych dwukolorowych graf�
 
   
 \section{Generowanie grafów}
-\subsection{Orbity}
-\begin{definition}
-  Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
-\end{definition}
-
-Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
-Przykład: 
-\begin{figure}[h]
-  \centering
-   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-     \node[main] (1) {$1$};  
-     \node[main] (3) [right of=1] {$3$};
-     \node[main] (2) [above of=3] {$2$};
-     \node[main] (4) [below of=3] {$4$};
-     \node[main] (5) [right of=3] {$5$};
-
-     \draw (1) -- (3);
-     \draw (1) -- (2);
-     \draw (1) -- (4);
-     \draw (5) -- (2);
-     \draw (5) -- (3);
-     \draw (5) -- (4);
-    \end{tikzpicture}
-    \caption{Orbita pierwsza: 1, 5 
-    Orbita druga: 2, 3, 4}
- \end{figure}
- 
 
 \subsection{Generowanie grafów nieizomorficznych} 
 
@@ -361,7 +363,7 @@ Następnie powtarzamy następujące kroki dopóki nie osiągniemy docelowej licz
 
 Zaczynamy od pojedynczego wierzchołka.
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (1) {$1$};
@@ -369,7 +371,7 @@ Zaczynamy od pojedynczego wierzchołka.
    \caption{}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (2) [below of=1] {$1$};
@@ -385,58 +387,109 @@ Zaczynamy od pojedynczego wierzchołka.
 
 W pierwszym kroku dodajemy drugi wierzchołek i otrzymujemy dwa różne grafy - jeden, w którym wierzchołki sąsiadują, drugi, w którym nie. 
 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (2) -- (3);
+   \end{tikzpicture} 
+  
+  \caption{Grafy wygenerowane z pierwszego grafu z poprzedniego kroku}
+\end{figure}
 
- \draw (1) -- (2);
-\end{tikzpicture} \vspace{15mm} 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
-
- \draw (1) -- (2);
- \draw (1) -- (3);
-\end{tikzpicture} \vspace{15mm} 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
-
- \draw (1) -- (2);
- \draw (1) -- (3);
- \draw (2) -- (3);
-\end{tikzpicture} 
 
 Następnie bierzemy pierwszy z grafów i dodajemy do niego kolejny wierzchołek, ponownie generując wszystkie możliwości.  
 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
 
-\end{tikzpicture} \vspace{15mm}
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
+  \end{tikzpicture}
+  \hfill
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
 
- \draw (3) -- (2);
-\end{tikzpicture} \vspace{15mm} 
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) {$1$};
- \node[main] (2) [right of=1] {$2$};
- \node[main] (3) [below of=1] {$3$};
+  \draw (3) -- (2);
+  \end{tikzpicture}
+  \hfill
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
 
- \draw (3) -- (2);
- \draw (1) -- (3);
-\end{tikzpicture}
-
+  \draw (3) -- (2);
+  \draw (1) -- (3);
+  \end{tikzpicture}
+  \caption{{Grafy wygenerowane z drugiego grafu z poprzedniego kroku}}
+\end{figure}
 To samo powtarzamy dla grafu drugiego. 
 
 Jak łatwo zauważyć graf 1 i graf 5 oraz graf 2 i graf 6 są parami izomorficzne, więc możne odrzucić po jednym z każdej pary, zmniejszając liczbę grafów rozważanych w kolejnych krokach.  
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+   \end{tikzpicture} 
+   \hfill
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+    \node[main] (2) [right of=1] {$2$};
+    \node[main] (3) [below of=1] {$3$};
+   
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (2) -- (3);
+   \end{tikzpicture} 
+   \hfill
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+  \node[main] (1) {$1$};
+  \node[main] (2) [right of=1] {$2$};
+  \node[main] (3) [below of=1] {$3$};
+
+  \end{tikzpicture}
+  \caption{Wszystkie nieizomorficzne grafy 3-wierzchołkowe}
+\end{figure}
 
    \subsection{Generowanie grafów Ramseya}
    Generowanie grafów obarczonych ograniczeniami co do rozmiarów klik oraz zbiorów niezależnych wygląda niemal tak samo jak generowanie grafów dowolnych, 
@@ -537,8 +590,9 @@ Zasada B sprawdza czy istnieją w grafie H zbiory niezależne $N_3$, z których 
 nie może zostać połączony. W takim wypadku nie da się skleić grafów bez utworzenia zbioru niezależnego $N_5$. 
 
 W innej sytuacji musimy do zbioru $B_u$ dodać wszystkie wierzchołki, 
-z którymi przynajmniej 2 wierzchołki spoza zbioru $T_u \cup T_v$ nie sąsiadują. Wyjątkiem są te, z którymi można połączyć v.  \linebreak 
-
+z którymi przynajmniej 2 wierzchołki spoza zbioru $T_u \cup T_v$ nie sąsiadują. Wyjątkiem są te, z którymi można połączyć v.  
+ 
+\paragraph{}
 Zasada C sprawdza czy istnieją w grafie H dwa nie sąsiadujące wierzchołki, z którymi żaden z wierzchołków zbiory niezależnego u, v, w nie może zostać połączony. 
 Oznaczałoby to, że musi powstać zbiór niezależny $N_5$, a grafów nie można skleić.
 
@@ -549,6 +603,11 @@ Zasada D sprawdza czy graf H zawiera wierzchołek, z którym żaden z nie sąsia
 nie może sąsiadować. Ponownie, w takim przypadku powstałby zbiór niezależny $N_5$.
 
 Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi v, w, z nie mogą sąsiadować. 
+<<<<<<< Updated upstream
+=======
+
+\paragraph{}Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków nie powoduje już dalszych zmian w interwałach. Wynikowy zbiór interwałów daje sposób lub sposoby połączenia grafów G oraz H w graf 24 wierzchołkowy z zadowoleniem wymagań pod względem ramseyowskości.
+>>>>>>> Stashed changes
 
 \subsection{Wynik sklejania}
 
@@ -597,6 +656,32 @@ Autor biblioteki jest profesor McKay.
   Brendan D. McKay
   \textit{ISOMORPH-FREE EXHAUSTIVE GENERATION}.  
   May 13, 2016
+<<<<<<< Updated upstream
+=======
+  
+  \bibitem{erdogranica} 
+  P.  Erdősa,  Some  Remarks  on  the  Theory  of  Graphs,
+  \textit{Bulletin  of  the  American  Mathematical  Society},
+  53(4):292–294,  1947
+  
+  \bibitem{graniceupdown} 
+  Christos Nestor Chachamis
+  \textit{Ramsey Numbers}.  
+  May 13, 2018
+
+ \bibitem{ramsey} 
+ Ramsey, F.P. (1930), 
+ \textit{On a Problem of Formal Logic.}
+ Proceedings of the London Mathematical Society, s2-30: 264-286. https://doi.org/10.1112/plms/s2-30.1.264
+ 
+ \bibitem{erdoshappy} 
+ Erdős, P.; Szekeres, G.
+ A combinatorial problem in geometry. Compositio Mathematica, Volume 2 (1935) , pp. 463-470.
+  
+   \bibitem{aliens} 
+  \textit{Ramsey Theory}
+   by Ronald L. Graham and Joel H. Spencer, in Scientific American (July 1990), p. 112-117
+>>>>>>> Stashed changes
 
   \end{thebibliography}
 
