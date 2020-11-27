@@ -476,7 +476,7 @@ Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu G.
   
 
 \subsection{Zawężanie przedziałów - zasady A-D}
-Zdefiniujmy 3 funkcje działające na X, będącym podzbiorem wierzchołków grafu H, generujące podzbiór grafu H. 
+Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze grafu H oznaczonym jako X, generujące podzbiór grafu H. 
 Funkcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
 H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
 H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków spoza X.
@@ -488,13 +488,7 @@ H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą 
   
   \item   $H_3(X) = { w \in VH | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X}$ 
 \end{itemize}
-Żeby wygenerować prawdopodobne stożki zaczynamy od utworzenia pary {B, T} dla każdego wierzchołka v grafu G.
-B i H to zbiory, B początkowo jest zbiorem pustym, natomiast T zawiera wszystkie wierzchołki grafu H. 
-Interpretujemy B jako minimalny zbiór wierzchołków, które trzeba połączyć z v, T oznacza maksymalny zbiór, który można połączyć.
-Tak więc ostatecznie zbiór $B_u$ ma zawierać wszystkie wierzchołki H z którymi u musi zostać połączone (wierzchołki niezbędne dla u), 
-a $T_u$ wszystkie, z którymi u może zostać połaczone. 
-Następnie korzystając z serii zasad A-D zawężamy przedziały.
-
+Kolejny etap zawężania potencjalnych krawędzi pomiędzy grafami G oraz H odbywa się już w kontekście konkretnego grafu G. Każda możliwa kombinacja wygenerowanych interwałów jest  przydzielana do wierzchołków należących do G, dzięki czemu wzięte pod uwagę są wszystkie możliwe pomiędzy tymi grafami sposoby połączenia. Dla każdego potencjalnego zestawu interwałów łączących grafy G oraz H wykonywany jest poniższy zbiór reguł:
 \begin{itemize}
   \item   A - stosowana do 2 wierzchołków u,v sąsiadujących ze sobą \linebreak
   Jeśli $B_u \cap B_v \cap H_1(B_u \cap B_v)$ nie jest zbiorem pustym to nie da się 
@@ -528,16 +522,31 @@ z którymi przynajmniej 2 wierzchołki spoza zbioru $T_u \cup T_v$ nie sąsiaduj
 Zasada C sprawdza czy istnieją w grafie H dwa nie sąsiadujące wierzchołki, z którymi żaden z wierzchołków zbiory niezależnego u, v, w nie może zostać połączony. 
 Oznaczałoby to, że musi powstać zbiór niezależny $N_5$, a grafów nie można skleić.
 
+
 W innym wypadku do $B_u$ trzeba dodać wierzchołki które nie sąsiadują z wierzchołkiem, 
-z którym żaden z wierczhołków u, v, w nie może zostać połączony, z wyjątkiem tych z którymi może sąsiadować v lub w.  \linebreak
+z którym żaden z wierzchołków u, v, w nie może zostać połączony, z wyjątkiem tych z którymi może sąsiadować v lub w.  \linebreak
 
 Zasada D sprawdza czy graf H zawiera wierzchołek, z którym żaden z nie sąsiadujących wierzchołków u, v, w, z
 nie może sąsiadować. Ponownie, w takim przypadku powstałby zbiór niezależny $N_5$.
 
-Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi v, w, z nie mogą sąsiadować. 
+Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi v, w, z nie mogą sąsiadować. \linebreak
+
+
+Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków nie powoduje już dalszych zmian w interwałach. Wynikowy zbiór interwałów daje sposób lub sposoby połączenia grafów G oraz H w graf 24 wierzchołkowy z zadowoleniem wymagań pod względem ramseyowskości.
 
 \subsection{Wynik sklejania}
 
+Po zakończeniu procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf F. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia przynajmniej jednego z grafów F o jeden wierzchołek powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający R(4,5). 
+Rozszerzanie o jeden wierzchołek zostaje w tym wypadku wykonane metodą podobną do wcześniejszego tworzenia przedziałów. Pierwszym etapem jest jednak stworzenie listy grup wierzchołków F które tworzą kliki lub zbiory niezależne. Celem tej listy jest przyspieszenie eliminacji rozszerzeń, które nie są poprawne.
+Podobnie jak w wypadku sklejania tworzony jest przedział zbiorów wierzchołków opisany zbiorami: górnym i dolnym. Ma on te same własności, co uprzednie przedziały:
+
+Dodatkowo, można jeszcze wyodrębnić dwie własności które nie miały znaczenia dla wcześniejszych przedziałów:
+\begin{enumerate}
+\item Jeżeli zbiór B zawiera przynajmniej jeden wierzchołek ze zb. niezależnego stopnia 5, to wszystkie zbiory w przedziale również go nie zawierają. 
+
+\item Jeżeli zbiór T nie zawiera żadnego wierzchołka ze zb. niezależnego stopnia 5, to żaden stożek w przedziale ich nie zawiera.
+\end {enumerate}
+Dwie powyższe, wraz z wcześniejszymi własnościami pozwalają stworzyć algorym masowo eliminujący wierzchołki z przedziału na podstawie listy klik oraz zbiorów niezależnych, a w efekcie określenie czy istnieje rozszerzenie grafu zadowalające R(4,5).
 
 \section{Implementacja i eksperymenty}
 Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty, która umożliwia łatwe obliczeniowo wykrywanie izomorfizów.
