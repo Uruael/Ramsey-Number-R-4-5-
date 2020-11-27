@@ -423,7 +423,8 @@ Jak łatwo zauważyć graf 1 i graf 5 oraz graf 2 i graf 6 są parami izomorficz
      \begin{theorem}
       Jeżeli graf G posiada klikę stopnia n, oraz istnieje graf H taki że G jest podgrafem H, to H również posiada klikę stopnia n.
    \end{theorem}
-  Dzięki powyższemu twierdzeniu wiemy, że wszelkie próby rozszerzenia grafu nieramseyowskiego powodują powstanie grafów nieramseyowskich. Dzięki temu odrzucanie takich grafów na wczesnym etapie generacji nie powoduje odrzucenia żadnych pożądanych grafów. Dzięki takiemu odrzucaniu znacznie zmniejszona jest ilość grafów powstających na kolejnych etapach generacji, zwłaszcza dla grafów większego stopnia.
+  Dzięki powyższemu twierdzeniu wiemy, że wszelkie próby rozszerzenia grafu posiadającego klikę stopnia n powodują powstanie grafów z przynajmniej tak wielką kliką. Analogiczne rozumowanie można przeprowadzić dla rozszerzania grafów ze zbiorem niezależnym o wystarczającej wielkości. Dzięki temu odrzucanie grafów nieramseyowskich na wczesnym etapie generacji nie powoduje odrzucenia żadnych pożądanych grafów. Takie odrzucanie znacznie zmniejsza ilość grafów powstających na kolejnych etapach generacji, zwłaszcza dla grafów większego stopnia, bez czego wygenerowanie nawet grafów wymaganych do sklejania byłoby trudne.
+[Wg http://oeis.org/A000088 nieizomorficznych grafów 17 wierzchołkowych jest ponad $10^{26}$. Dzięki wczesnym wykluczaniu dla R(4,4) generowany jest tylko jeden taki graf. ]
 
 \section{Sklejanie grafów}
 Efektywne generowanie dużych grafów jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
@@ -431,17 +432,26 @@ Efektywne generowanie dużych grafów jest bardzo wymagające zarówno czasowo j
 \subsection{Idea sklejania}
 Zbiór danych wymagany do poprawnego sklejania jest uzyskany poprzez wygenerowanie wszystkich nieizomorficznych grafów G rzędów 7-13 spełniających R(3,5), oraz wszystkich nieizomorficznych grafów H rzędów 11-17 spełniających R(4, 4).
 
-Grafy dzielone są na grupy pod względem ich stopnia. Celem sklejania jest uzyskanie grafów stopnia 24 poprzez połączenie grafów G oraz H, a więc suma stopni grup grafów G oraz H branych pod uwagę musi być równa 24. Ze względu na R(3,5) = 14 największy stopień grupy grafów G to 13, a ze względu na R(4,4) = 18 grafy H są ograniczone do 17 wierzchołków. Oznacza to, że istnieje 6 par grup spełniających wymagania. 
+Grafy dzielone są na grupy pod względem ich stopnia. Celem sklejania jest uzyskanie grafów stopnia 24 poprzez połączenie grafów G oraz H, a więc suma stopni grup grafów G oraz H branych pod uwagę musi być równa 24. Ze względu na R(3,5) = 14 największy stopień grupy grafów G to 13, a ze względu na R(4,4) = 18 grafy H są ograniczone do 17 wierzchołków. Oznacza to, że istnieje 6 par grup spełniających wymagania.
 
-Zdefiniujmy prawdopodobny stożek (ang. feasible cone) jako podzbiór wszystkich wierzchołków grafu H, który nie tworzy kliki 3.
-Dla przeciętnego grafu (4, 4, 14) znajdziemy około 4000 takich prawdopodobnych stożków. 
-Tak zdefiniowane stożki należy przyporządkować do wierzchołków  grafu G, tak aby w wyniku ich połączenia nie powstała kilka 4 lub zbiór niezależny 5. Każdy taki zbiór stożków jest poprawnym połączeniem grafów G oraz H. Algorytm sklejania ma na celu znalezienie wszystkich poprawnych zbiorów stożków dla wszystkich par G i H, a przez to stworzenie wszystkich grafów 24 wierzchołkowych.
+Potencjalne krawędzie między grafami G oraz H są grupowane w stożki.
+
+\begin{definition}
+Prawdopodobny stożek (ang. feasible cone) to podzbiór wszystkich wierzchołków grafu H, który nie tworzy kliki stopnia 3.
+\end{definition}
+
+Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 takich prawdopodobnych stożków. Jeżeli do każdego z wierzchołków grafu G przypiszemy taki stożek, uzyskamy takie połączenie grafów G oraz H gdzie każdy wierzchołek grafu G jest sąsiadem wszystkich wierzchołków w przypisanym mu stożku. Główna część algorytmu sklejania polega na eliminacji wszystkich kombinacji stożków, które prowadzą do powstania kilki stopnia 4 lub zbiór niezależny stopnia 5. Każdy taki zbiór stożków jest poprawnym połączeniem grafów G oraz H. Taki algorytm sklejania pozwala uzyskać grafy R(4,5) o dowolnym stopniu (poprzez inne parowanie grup grafów G i H), ale na nasze potrzeby tworzymy jedynie grafy 24 wierzchołkowe.
+
+
 
 
 \subsection{Algorytm sklejania}
 Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru stożków. Należy wyodrębnić wszystkie stożki, które obejmują klikę 3 rzędu, ponieważ ten stożek eliminuje już graf wynikowy (połączenie kliki 3 rzędu do dowolnego wierzchołka powoduje wystąpienie kliki 4 rzędu) Podejście naiwne, tj. pojedyncze sprawdzenie wszystkich potencjalnie poprawnych stożków nie jest jednak opłacalne ze względu na fakt, że potencjalnych stożków dla grafu n wierzchołkowego jest $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
 
-Przedziałem nazywamy zbiór stożków ograniczony przez stożek górny i stożek dolny. Przedział zawiera wszystkie stożki które spełniają zależność  $X: B \subseteq X \subseteq T$ i zapisany jest jako $[B, T]$ gdzie B oraz T to podzbiory wierzchołków grafu H oraz $B \subseteq  T$. 
+\begin{definition}
+Przedziałem to zbiór stożków ograniczony przez stożek górny i stożek dolny, który zawiera wszystkie stożki spełniające zależność  $X: B \subseteq X \subseteq T$. Przedział zapisany jest jako $[B, T]$ gdzie B oraz T to stożki grafu H. 
+\end{definition}
+
 
 Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a T obejmuje wszystkie wierzchołki H (taki interwał zawiera wszystkie możliwe stożki). W celu wyodrębnienia poprawnych stożków korzystamy z poniższych własności:
 \begin{enumerate}
