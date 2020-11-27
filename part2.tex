@@ -501,8 +501,8 @@ W celu uniknięcia porównywania wszystkich grafów, do nowo dodanego grafu wyzn
      \begin{theorem}
       Jeżeli graf G posiada klikę stopnia n, oraz istnieje graf H taki że G jest podgrafem H, to H również posiada klikę stopnia n.
    \end{theorem}
-  Dzięki powyższemu twierdzeniu wiemy, że wszelkie próby rozszerzenia grafu posiadającego klikę stopnia n powodują powstanie grafów z przynajmniej tak wielką kliką. Analogiczne rozumowanie można przeprowadzić dla rozszerzania grafów ze zbiorem niezależnym o wystarczającej wielkości. Dzięki temu odrzucanie grafów nieramseyowskich na wczesnym etapie generacji nie powoduje odrzucenia żadnych pożądanych grafów. Takie odrzucanie znacznie zmniejsza ilość grafów powstających na kolejnych etapach generacji, zwłaszcza dla grafów większego rzędu, bez czego wygenerowanie nawet grafów wymaganych do sklejania byłoby trudne.
-[Wg http://oeis.org/A000088 nieizomorficznych grafów 17 wierzchołkowych jest ponad $10^{26}$. Dzięki wczesnym wykluczaniu dla R(4,4) generowany jest tylko jeden taki graf. ]
+  Dzięki powyższemu twierdzeniu wiemy, że wszelkie próby rozszerzenia grafu posiadającego klikę stopnia n powodują powstanie grafów z przynajmniej tak wielką kliką. Analogiczne rozumowanie można przeprowadzić dla rozszerzania grafów ze zbiorem niezależnym o wystarczającej wielkości. Dzięki temu odrzucanie grafów nieramseyowskich na wczesnym etapie generacji nie powoduje odrzucenia żadnych pożądanych grafów. Takie odrzucanie znacznie zmniejsza ilość grafów powstających na kolejnych etapach generacji, zwłaszcza dla grafów większego rzędu, bez czego wygenerowanie nawet grafów wymaganych do sklejania byłoby trudne. Nieizomorficznych grafów 17 wierzchołkowych jest ponad $10^{26}$.\cite{OEIS} Dzięki wczesnym wykluczaniu dla R(4,4) generowany jest tylko jeden taki graf. 
+  
 Odrzucanie grafów nieramseyowskich przy każdym rozszerzeniu pozwala wprowadzić dodatkową optymalizację. Jeżeli wiemy, że graf przed rozszerzeniem nie zawierał niedozwolonej kliki/zb. niezależnego, to mamy gwarancję, że jeżeli nowo rozszerzony graf je zawiera, to nowy wierzchołek musi wchodzić w ich skład. Dzięki temu można uzyskać dalsze przyspieszenie algorytmu generacji grafów.
 
 
@@ -723,6 +723,9 @@ Moedyfikacja metody macierzy sąsiedztwa zastosowane w naszym kodzie polega na o
    \bibitem{aliens} 
   \textit{Ramsey Theory}
    by Ronald L. Graham and Joel H. Spencer, in Scientific American (July 1990), p. 112-117
+   
+   \bibitem{OEIS}
+       OEIS Foundation Inc. (2020), The On-Line Encyclopedia of Integer Sequences, http://oeis.org/A000088.
 
   \end{thebibliography}
 
