@@ -450,17 +450,66 @@ Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakcep
 
 Zdefiniujmy 3 funkcje działające na X, będącym podzbiorem wierzchołków grafu H, generujące podzbiór grafu H. 
 Funkcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
-H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków X. 
-H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków X.
+H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
+H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków spoza X.
 \begin{itemize}
     
-  \item   H1(X) = \{ w $\in$ VH | vw $\in$ EX dla jakiegoś v $\in$ X \} 
+  \item   $H_1(X) = { w \in VH | vw \in EX \textrm{ dla jakiegoś } v \in X }$ 
   
-  \item   H2(X) = \{ w $\in$ VH | vw $\notin$ EX dla jakiegoś v $\notin$ X\}
+  \item   $H_2(X) = { w \in VH | vw \notin EX \textrm{ dla jakiegoś } v \notin X}$
   
-  \item   H3(X) = \{ w $\in$ VH | { u, v, w } jest zbiorem niezależnym dla jakichś v, u $\in$ X\} 
+  \item   $H_3(X) = { w \in VH | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X}$ 
   
 \end{itemize}
+\subsection{Zawężanie przedziałów - zasady A-D}
+Żeby wygenerować prawdopodobne stożki zaczynamy od utworzenia pary {B, T} dla każdego wierzchołka v grafu G.
+B i H to zbiory, B początkowo jest zbiorem pustym, natomiast T zawiera wszystkie wierzchołki grafu H. 
+Interpretujemy B jako minimalny zbiór wierzchołków, które trzeba połączyć z v, T oznacza maksymalny zbiór, który można połączyć.
+Tak więc ostatecznie zbiór $B_u$ ma zawierać wszystkie wierzchołki H z którymi u musi zostać połączone (wierzchołki niezbędne dla u), 
+a $T_u$ wszystkie, z którymi u może zostać połaczone. 
+Następnie korzystając z serii zasad A-D zawężamy przedziały.
+
+\begin{itemize}
+  \item   A - stosowana do 2 wierzchołków u,v sąsiadujących ze sobą \linebreak
+  Jeśli $B_u \cap B_v \cap H_1(B_u \cap B_v)$ nie jest zbiorem pustym to nie da się 
+  poprawnie skleić tej pary grafów. \linebreak
+  W innym wypadku z $T_u$ usuwamy $H_1(B_u \cap B_v) \cap B_v $  
+  \item   B - stosowana do 2 wierzchołków u,v nie sąsiadujących ze sobą \linebreak
+  Jeśli $H_3(T_u \cup T_v) \not\subseteq (T_u \cup T_v)$ to nie da się poprawnie skleić tej 
+  pary grafów. \linebreak
+  W innym wypadku $B_u$ rozszerzamy do $B_u \cup (H_3(T_u \cup T_v) - T_v)$
+  \item   C - stosowana do 3 wierzchołków u,v,w tworzących zbiór niezależny 3 \linebreak
+  Jeśli $H_2(T_u \cup T_v \cup T_w) \not\subseteq (T_u \cup T_v \cup T_w)$ 
+  to nie da się poprawnie skleić tej pary grafów. \linebreak
+  W innym wypadku $B_u$ rozszerzamy do $B_u \cup (H_2(T_u \cup T_v \cup T_w) - (T_v \cup T_w))$
+  \item   D - stosowana do 4 wierzchołków u,v,w,z tworzących zbiór niezależny 4 \linebreak
+  Jeśli $T_u \cup T_v \cup T_w \cup \neq VH $ to nie da się poprawnie skleić tej pary grafów.
+  W innym wypadku $B_u$ rozszerzamy do $B_u \cup (VH - (T_v \cup T_w \cup T_z))$
+\end{itemize}
+
+Zasada A sprawdza czy sąsiednie wierzchołki u, v mają moją jakichkolwiek wspólnych potencjalnych sąsiadów, którzy są sąsiedni względem siebie.
+W takiej sytuacji powstałaby klika $K_4$, więc nie uda się utworzyć grafu. 
+
+Jeżeli tak nie jest, musimy usunąć z $T_u$ niezbędnych sąsiadów v, 
+którzy sąsiadują z przynajmniej jednym z niezbędnych sąsiadów u. \linebreak
+
+Zasada B sprawdza czy istnieją w grafie H zbiory niezależne $N_3$, z których wierzchołkami żaden z wierzchołków u, v 
+nie może zostać połączony. W takim wypadku nie da się skleić grafów bez utworzenia zbioru niezależnego $N_5$. 
+
+W innej sytuacji musimy do zbioru $B_u$ dodać wszystkie wierzchołki, 
+z którymi przynajmniej 2 wierzchołki spoza zbioru $T_u \cup T_v$ nie sąsiadują. Wyjątkiem są te, z którymi można połączyć v.  \linebreak 
+
+Zasada C sprawdza czy istnieją w grafie H dwa nie sąsiadujące wierzchołki, z którymi żaden z wierzchółków zbiory niezależnego u, v, w nie może zostać połączony. 
+Oznaczałoby to, że musi powstać zbiór niezależny $N_5$, a grafów nie można skleić.
+
+W innym wypadku do $B_u$ trzeba dodać wierzchołki które nie sąsiadują z wierzchołkiem, 
+z którym żaden z wierczhołków u, v, w nie może zostać połączony, z wyjątkiem tych z którymi może sąsiadować v lub w.  \linebreak
+
+Zasada D sprawdza czy graf H zawiera wierzchołek, z którym żaden z nie sąsiadujących wierzchołków u, v, w, z
+nie może sąsiadować. Ponownie, w takim przypadku powstałby zbiór niezależny $N_5$.
+
+Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi v, w, z nie mogą sąsiadować. 
+
 \subsection{Wynik sklejania}
 
 
