@@ -18,6 +18,12 @@ typedef struct Graph
 	int deg;
 } Graph;
 
+typedef struct Graphs
+{
+    Graph *graphs;
+    int length;
+} Graphs;
+
 typedef struct Interval
 {
 	Locset bottom;

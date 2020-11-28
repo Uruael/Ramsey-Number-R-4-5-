@@ -10,6 +10,8 @@ typedef unsigned int Locset;
 
 typedef struct Graph;
 
+typedef struct Graphs;
+
 typedef struct Interval;
 
 typedef struct IntervalElement;
