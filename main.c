@@ -153,6 +153,20 @@ int gen(int n)
     }
 }
 
+unsigned int IntToLocset(int input)
+{
+    Locset out = 0;
+    for (int i = 0; i < 31; i++)
+    {
+        out += input % 2;
+        input /= 2;
+        out = out << 1;
+    }
+    out += input % 2;
+
+    return out;
+}
+
 int main(int argc, char *argv[])
 {
     if (argc < 1)
@@ -176,59 +190,61 @@ int main(int argc, char *argv[])
     level_orbits[1][1] = 1;
     level_len[1] = 2;
 
-    g[0] = 54;
-    g[1] = 9;
-    g[2] = 9;
-    g[3] = 6;
-    g[4] = 33;
-    g[5] = 17;
+    g[0] = IntToLocset(54);
+    g[1] = IntToLocset(9);
+    g[2] = IntToLocset(9);
+    g[3] = IntToLocset(6);
+    g[4] = IntToLocset(33);
+    g[5] = IntToLocset(17);
 
-    if (h1(3, g) == 63)
+    printf("H1\n");
+    if (h1(IntToLocset(3), g) == IntToLocset(63))
         printf("OK\n");
     else
-        printf("Fail %d\n", h1(3, g));
-    if (h1(12, g) == 15)
+        printf("Fail %d\n", h1(IntToLocset(3), g));
+    if (h1(IntToLocset(12), g) == IntToLocset(15))
         printf("OK\n");
     else
-        printf("Fail %d\n", h1(12, g));
-    if (h1(18, g) == 41)
+        printf("Fail %d\n", h1(IntToLocset(12), g));
+    if (h1(IntToLocset(18), g) == IntToLocset(41))
         printf("OK\n");
     else
-        printf("Fail %d\n", h1(18, g));
+        printf("Fail %d\n", h1(IntToLocset(18), g));
+    printf("H2\n");
+    if (h2(IntToLocset(3), 6, g) == IntToLocset(63))
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(IntToLocset(3), 6, g));
+    if (h2(IntToLocset(12), 6, g) == IntToLocset(62))
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(IntToLocset(12), 6, g));
+    if (h2(IntToLocset(18), 6, g) == IntToLocset(63))
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(IntToLocset(18), 6, g));
+    if (h2(IntToLocset(60), 6, g) == IntToLocset(60))
+        printf("OK\n");
+    else
+        printf("Fail %d\n", h2(IntToLocset(60), 6, g));
 
-    if (h2(3, 6, g) == 63)
+    printf("H3\n");
+    if (h3(IntToLocset(3), 6, g) == IntToLocset(2))
         printf("OK\n");
     else
-        printf("Fail %d\n", h2(3, 6, g));
-    if (h2(12, 6, g) == 62)
+        printf("Fail %d\n", h3(IntToLocset(3), 6, g));
+    if (h3(IntToLocset(12), 6, g) == IntToLocset(4))
         printf("OK\n");
     else
-        printf("Fail %d\n", h2(12, 6, g));
-    if (h2(18, 6, g) == 63)
+        printf("Fail %d\n", h3(IntToLocset(12), 6, g));
+    if (h3(IntToLocset(18), 6, g) == IntToLocset(2))
         printf("OK\n");
     else
-        printf("Fail %d\n", h2(18, 6, g));
-    if (h2(60, 6, g) == 60)
+        printf("Fail %d\n", h3(IntToLocset(18), 6, g));
+    if (h3(IntToLocset(25), 6, g) == IntToLocset(54))
         printf("OK\n");
     else
-        printf("Fail %d\n", h2(60, 6, g));
-
-    if (h3(3, 6, g) == 2)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(3, 6, g));
-    if (h3(12, 6, g) == 4)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(12, 6, g));
-    if (h3(18, 6, g) == 2)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(18, 6, g));
-    if (h3(25, 6, g) == 54)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(25, 6, g));
+        printf("Fail %d\n", h3(IntToLocset(25), 6, g));
 
     gen(1);
 
