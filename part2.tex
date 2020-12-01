@@ -973,7 +973,7 @@ Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 prawdopodobnych stoż
 
 
 \subsection{Algorytm sklejania}
-Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru prawdopodobnych stożków przed wybraniem grafu G do sklejenia. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu ponieważ takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu n wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
+Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru prawdopodobnych stożków przed wybraniem grafu G do sklejenia. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu. Takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu n wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
 
 \begin{definition}
 Przedział $[B, T]$ to zbiór stożków, ograniczony przez stożek górny T i stożek dolny B, który zawiera wszystkie stożki spełniające zależność:  $$X: B \subseteq X \subseteq T$$ 
@@ -982,11 +982,11 @@ Przedział $[B, T]$ to zbiór stożków, ograniczony przez stożek górny T i st
 
 Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a T zawiera wszystkie wierzchołki H. Taki przedział zawiera wszystkie możliwe stożki. W celu wyodrębnienia prawdopodobnych stożków korzystamy z poniższych własności:
 \begin{enumerate}
-\item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
+\item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest, że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
 
-\item Jeżeli stożek B zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
+\item Jeżeli stożek $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
 
-\item Jeżeli stożek T nie zawiera kliki stopnia 3, to żaden stożek w przedziale jej nie zawiera.
+\item Jeżeli stożek $T$ nie zawiera kliki stopnia 3, to wszystkie stożki w przedziale jej nie zawierają.
 \end{enumerate}
 
 Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału można skorzystać z algorytmu rekurencyjnego dzielącego interwały wzdłuż wierzchołków należących do kliki 3 oraz stożka B, dzięki czemu uzyskujemy zbiór przedziałów dla grafu H zawierający jedynie stożki prawdopodobne. Z tego zbioru korzystamy w następnym etapie algorytmu.
@@ -994,22 +994,22 @@ Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu G.
   
 
 \subsection{Zawężanie przedziałów - zasady A-D}
-Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze wierzchołków grafu H oznaczonym jako X, generujące podzbiór wierzchołków grafu H. 
-Funkcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
-H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
-H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków spoza X.
+Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze wierzchołków grafu $H$ oznaczonym jako $X$, generujące podzbiór wierzchołków grafu $H$. 
+Funkcja $H_1$ będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru $X$.
+$H_2$ wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
+$H_3$ wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków spoza X.
 
 $$H_i: X \subseteq V(G) \to Y \subseteq V(G)$$
 
 \begin{itemize}
     
-  \item   $H_1(X) = \{ w \in VH | vw \in EX \textrm{ dla jakiegoś } v \in X \}$ 
+  \item   $H_1(X) \to X = { w \in V(H) | vw \in E(X) \textrm{ dla jakiegoś } v \in X }$ 
   
-  \item   $H_2(X) = \{ w \in VH | vw \notin EX \textrm{ dla jakiegoś } v \notin X\}$
+  \item   $H_2(X) \to X = { w \in V(H) | vw \notin E(X) \textrm{ dla jakiegoś } v \notin X}$
   
-  \item   $H_3(X) = \{ w \in VH | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X\}$ 
+  \item   $H_3(X) \to X = { w \in V(H) | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X}$ 
 \end{itemize}
-Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami G oraz H odbywa się już w kontekście konkretnego grafu G. Każda możliwa kombinacja wygenerowanych przedziałów jest  przydzielana do wierzchołków należących do G, dzięki czemu rozważone są wszystkie możliwe sposoby połączenia tych grafów. Dla każdego zbioru przedziałów łączących grafy G oraz H wykonywany jest poniższy zbiór reguł:
+Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami $G$ oraz $H$ odbywa się już w kontekście konkretnego grafu $G$. Każda możliwa kombinacja wygenerowanych przedziałów jest  przydzielana do wierzchołków należących do $G$, dzięki czemu rozważone są wszystkie możliwe sposoby połączenia tych grafów. Dla każdego zbioru przedziałów łączących grafy $G$ oraz $H$ wykonywany jest poniższy zbiór reguł działających na wierzchołki i przedziały stożków im przypisane:
 \begin{itemize}
   \item[A] - stosowana do 2 wierzchołków $u,v$ $\in G$ sąsiadujących ze sobą 
   
@@ -1064,25 +1064,128 @@ Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzuce
 
 \subsection{Wynik sklejania}
 
-Po zakończeniu procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf F. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia przynajmniej jednego z grafów F o jeden wierzchołek powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający R(4,5). 
-Rozszerzanie o jeden wierzchołek zostaje w tym wypadku wykonane metodą podobną do wcześniejszego tworzenia przedziałów. Pierwszym etapem jest stworzenie listy podzbiorów wierzchołków F które tworzą kliki lub zbiory niezależne. Lista ta jest potrzebna w celu przyspieszenia eliminacji rozszerzeń, które nie są poprawne.
+Po zakończeniu procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf $\mathcal{F}$. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia przynajmniej jednego z grafów $\mathcal{F}$ o jeden wierzchołek powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający wymagania. 
+Rozszerzanie o jeden wierzchołek zostaje w tym wypadku wykonane metodą podobną do wcześniejszego tworzenia przedziałów stożków, choć w tym wypadku mamy tylko jeden wierzchołek, do którego przypisywane są stożki rozszerzające.
+\begin{definition} Stożek rozszerzający to podzbiór wierzchołków grafu $\mathcal{F}$ symbolizujący możliwe połączenia pomiędzy grafem $\mathcal{F}$ a wierzchołkiem do niego dodawanym.
+\end{definition}
 
-Podobnie jak w wypadku sklejania tworzony jest przedział zbiorów wierzchołków ograniczony zbiorami górnym i dolnym. Ma on te same własności, co uprzednie przedziały:
+Po raz kolejny, wszystkie możliwe stożki rozszerzające są grupowane w przedział, który w trakcie działania algorytmu jest zawężany. Przedziały stożków rozszerzających mają te same własności, co przedziały stożków prawdopodobnych, w tym wypadku mają jednak znaczenie dwie dodatkowe własności:
 
 \begin{enumerate}
-  \item[1.] Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
-  
-  \item[2.] Jeżeli stożek B zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
-  
-  \item[3.] Jeżeli stożek T nie zawiera kliki stopnia 3, to żaden stożek w przedziale jej nie zawiera.
-\end{enumerate}
-Dodatkowo można jeszcze sformułować dwie własności które nie miały znaczenia dla wcześniejszych przedziałów:
-\begin{enumerate}
-\item[4.] Jeżeli zbiór B zawiera przynajmniej jeden wierzchołek ze zbioru niezależnego stopnia 5, to wszystkie zbiory w przedziale również go zawierają. 
+\item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest, że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
 
-\item[5.] Jeżeli zbiór T nie zawiera żadnego wierzchołka ze zbioru niezależnego stopnia 5, to żaden stożek w przedziale ich nie zawiera.
+\item Jeżeli stożek $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
+
+\item Jeżeli stożek $T$ nie zawiera kliki stopnia 3, wszystkie stożki w przedziale jej nie zawierają.
+
+																													  
+				 
+\item Jeżeli zbiór $B$ zawiera przynajmniej jeden wierzchołek ze zbioru niezależnego stopnia 4, to wszystkie zbiory w przedziale również go zawierają. 
+
+\item Jeżeli zbiór $T$ nie zawiera żadnego wierzchołka ze zbioru niezależnego stopnia 4, wszystkie stożki w przedziale ich nie zawierają.
 \end {enumerate}
-Dwie powyższe, wraz z wcześniejszymi własnościami pozwalają masowo eliminować wierzchołki z przedziału na podstawie listy klik oraz zbiorów niezależnych, a w efekcie określić czy istnieje rozszerzenie grafu spełniające R(4,5).
+
+
+
+Etapem przygotowawczym do rozszerzania jest stworzenie listy podzbiorów wierzchołków $\mathcal{F}$ które tworzą kliki lub zbiory niezależne. Takie podzbiory nazywamy dalej strukturami.
+\begin{definition} Struktura to podzbiór wierzchołków grafu $\mathcal{F}$ który nakłada ograniczenia na sposoby rozszerzenia go o wierzchołek.
+\end{definition}
+Celem powstania listy struktur jest przyspieszenie znajdywania stożków rozszerzających, które prowadzą do zaburzenia ramseyowskości grafu wynikowego. Jeżeli nowy wierzchołek zostałby połączony ze wszystkimi wierzchołkami $K_3$, to powstające $K_4$ dyskwalifikuje graf. Podobna sytuacja występuje w przypadku braku połączenia do któregokolwiek z wierzchołków $N_4$ gdzie w wyniku otrzymujemy niedozwolone $N_5$. 
+Mając listę wszystkich struktur, można przystąpić do zawężania przedziału stożków rozszerzających. Rozpoczynamy ponownie od przedziału $[B = \emptyset, T = \{V(F)\} ]$ który obejmuje wszystkie możliwe stożki dla grafu $\mathcal{F}$, a więc również wszystkie możliwe rozszerzenia. Dla każdej struktury $S$, których listę utworzyliśmy wcześniej dokonujemy porównania przedziałów. Porównywanie odbywa się w następujące sposoby, zależne od tego, czy obecnie rozważana struktura opisuję klikę, czy zbiór niezależny.
+
+Rozumowanie dla ograniczenia wynikającego z kliki przebiega następująco:
+\begin{algorithm}[H]
+  \caption{Porównanie przedziału $P$ do struktury $S$ opisującej klikę}
+  \begin{algorithmic}
+  \IF{$S \subseteq T_P$}
+	\IF{$S\subseteq B_P $} 
+	  \STATE Usuń $P$ z listy przedziałów
+	\ELSE
+	  \STATE Podziel przedział $P$ wzdłuż $S \setminus B_P  $
+  	\ENDIF
+  \ENDIF  
+  \end{algorithmic}
+\end{algorithm}
+
+Rozumowanie dla ograniczenia wynikającego ze zbioru niezależnego przebiega z kluczowymi różnicami w warunkach oraz sposobie podziału:
+
+\begin{algorithm}[H]
+  \caption{Porównanie przedziału $P$ do struktury $S$ opisującej zbiór niezależny}
+  \begin{algorithmic}
+  \IF{$S \not\subseteq B_P$}
+	\IF{$S\not\subseteq T_P $} 
+	  \STATE Usuń $P$ z listy przedziałów
+	\ELSE
+	  \STATE Podziel przedział $P$ wzdłuż $S \cap T_P  $
+  	\ENDIF
+  \ENDIF  
+  \end{algorithmic}
+\end{algorithm}
+
+W powyższych algorytmach zostaje użyte pojęcie podziału przedziałów. Podział przedziału polega na  użyciu własności 1 dla podanego zbioru wierzchołków w celu wielokrotnego rozdzielenia przedziału na dwie części a następnie odrzucenia tego z nich, który zawiera wszystkie stożki łączące sprawdzaną strukturę w niepoprawny sposób. Pozostałe przedziały wynikowe są dodawane do listy przedziałów do sprawdzenia, ponieważ nie łamią obecnie analizowanego ograniczenia. 
+
+Dla przykładu załóżmy, że dla grafu $G$, który próbujemy rozszerzyć o wierzchołek $v$ na rysunku poniżej przekształcamy przedział $P =[\{5\},\{1,2,3,4,5\}]$ przy pomocy kliki $S = \{1,2,3\}$.
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][red] (1) at (1*90:1) {$1$};
+ \node[main][red] (2) at (2*0:1.5) {$2$};
+ \node[main] (5) at (3*60:1.5) {$5$};
+ \node[main] (4) at (4*60:2) {$4$};
+ \node[main][red] (3) at (5*60:2) {$3$};
+ \node[main] (v) at (6*180:5) {$v$};
+
+\draw[ultra thick][red] (1) -- (2);
+\draw[ultra thick][red] (2) -- (3);
+\draw[ultra thick][red] (1) -- (3);
+\draw[ultra thick][black] (1) -- (5);
+\draw[ultra thick][black] (4) -- (3);
+\draw[ultra thick][black] (5) -- (3);
+
+
+    \end{tikzpicture}
+    \caption{Graf G wraz z zaznaczoną strukturą $S$ oraz wierzchołkiem $v$}
+ \end{figure}
+ 
+
+ Zaaplikowanie własności 1 dla przedziału $P$ i pierwszego wierzchołka ze struktury czyli $\{1\}$ daje nam 
+$$[\{5\},\{1,2,3,4,5\}] = [\{1,5\},\{1,2,3,4,5\}] \cup [\{5\},\{2,3,4,5\}]$$ 
+Warto zauważyć, że drugi z wynikowych przedziałów nie łamie już ograniczenia narzuconego przez strukturę $P$, a więc można dodać go do listy przedziałów i kontynuować podział jedynie na pierwszym z przedziałów wynikowych. Analogiczna sytuacja zachodzi na każdym etapie podziału, ze względu na naturę ograniczenia wypływającego z kliki, gdzie usunięcie jednego z wierzchołków kliki powoduje akceptacje połączenia do reszty z nich. 
+
+Kontynuujemy podział pozostałego przedziału dla kolejnego wierzchołka ze zbioru $\{2\}$
+$$[\{1,5\},\{1,2,3,4,5\}] = [\{1,2,5\},\{1,2,3,4,5\}] \cup [\{1,5\},\{1,3,4,5\}]$$ 
+Po raz kolejny można zaakceptować drugi z przedziałów i kontynuować podział pierwszego przez kolejny i ostatni wierzchołek $\{3\}$: 
+$$[\{1,2,5\},\{1,2,3,4,5\}] = [\{1,2,3,5\},\{1,2,3,4,5\}] \cup [\{1,2,5\},\{1,2,4,5\}]$$
+Po podziale przez ostatni z wierzchołków można, jak po każdym kroku zaakceptować drugi z wynikowych przedziałów. Pierwszy z nich natomiast zawiera w stożku ograniczającym dolnym strukturę. Dzięki temu można go odrzucić ze względu na to, że wszystkie stożki takiego przedziału powodują niedozwolone rozszerzenie grafu $\mathcal{F}$.
+
+Podział przedziału dla zbioru niezależnego przeprowadzany jest w bardzo podobny sposób. Na każdym etapie podziału akceptowany jest pierwszy przedział wynikowy zamiast drugiego. W ramach przykładu podziału dla zbioru niezależnego załóżmy, że 
+$P = [\emptyset,\{1,2\}]$ oraz $S = \{1,2,3,4\}$ i $S$ jest zbiorem niezależnym. Mamy również inny graf $G$.
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][red] (1) at (1*90:1) {$1$};
+ \node[main][red] (2) at (2*0:1.5) {$2$};
+ \node[main] (5) at (3*60:1.5) {$5$};
+ \node[main][red] (4) at (4*60:2) {$4$};
+ \node[main][red] (3) at (5*60:2) {$3$};
+ \node[main] (v) at (6*180:5) {$v$};
+
+\draw[ultra thick][black] (2) -- (5);
+\draw[ultra thick][black] (1) -- (5);
+\draw[ultra thick][black] (5) -- (3);
+
+    \end{tikzpicture}
+    \caption{Graf $G$ wraz z zaznaczonymi wierzchołkami należącymi do struktury $S$ oraz wierzchołkiem $v$}
+ \end{figure}
+ 
+
+W takim wypadku zbiór wierzchołków, wzdłuż którego dokonujemy podziału nie obejmuje wszystkich wierzchołków należących do $S$. Jest tak dlatego, że część z nich należy już do $T_P$ i nie ma potrzeby ani możliwości dzielić przedziału przy ich pomocy. Dla pomniejszego zbioru wierzchołków {1,2} pierwszym etapem podziału będzie 
+$$[{\emptyset},\{1,2\}]= [\{1\},\{1,2\}] \cup [{\emptyset},\{2\}]$$ Akceptujemy pierwszy przedział i przechodzimy do kolejnego kroku
+$$ [{\emptyset},\{2\}]= [\{2\},\{2\}] \cup [{\emptyset},{\emptyset}]$$ Po przejściu wszystkich wierzchołków i zaakceptowaniu pierwszego przedziału można odrzucić drugi, ponieważ wszystkie stożki przez niego objęte łamią ograniczenie narzucone przez $S$.
+
+Warto zauważyć, że w przypadku podziału przedziałów w taki sposób mamy gwarancje, że jeżeli przedział $P$ spełnia ograniczenie, to wszystkie jego podprzedziały również je spełniają. Ze względu na to, po zaaplikowaniu wszystkich ograniczeń, pozostałe przedziały posiadają poprawne rozszerzenia grafu F o wierzchołek tak, że nie jest zaburzona jego ramseyowskość. 
+
+
 
 \section{Implementacja i eksperymenty}
 Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty and Traces\cite{nauty}, która umożliwia łatwe obliczeniowo wykrywanie orbit, co znacznie przyspiesza proces generowania grafów. 
