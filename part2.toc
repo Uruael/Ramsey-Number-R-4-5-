@@ -1,27 +1,24 @@
 \babel@toc {polish}{}
 \babel@toc {polish}{}
 \contentsline {section}{\numberline {1}Podstawy teoretyczne}{2}{}%
-\contentsline {subsection}{\numberline {1.1}Graf}{2}{}%
-\contentsline {subsection}{\numberline {1.2}Rząd grafu}{2}{}%
-\contentsline {subsection}{\numberline {1.3}Sąsiedzto wierzchołków}{2}{}%
-\contentsline {subsection}{\numberline {1.4}Izomorfizm}{3}{}%
-\contentsline {subsection}{\numberline {1.5}Automorfizm}{3}{}%
-\contentsline {subsection}{\numberline {1.6}Formy kanoniczne grafów}{3}{}%
-\contentsline {subsection}{\numberline {1.7}Klika}{4}{}%
-\contentsline {subsection}{\numberline {1.8}Zbiór niezależny}{4}{}%
-\contentsline {section}{\numberline {2}Twierdzenie Ramseya}{5}{}%
-\contentsline {section}{\numberline {3}Historia liczby i Twierdzenia Ramseya}{5}{}%
-\contentsline {subsection}{\numberline {3.1}Twierdzenie Van der Waerden's}{5}{}%
-\contentsline {subsection}{\numberline {3.2}Paul Erd\"os i Teoria Ramseya}{6}{}%
-\contentsline {subsection}{\numberline {3.3}Wartości liczb Ramseya}{6}{}%
-\contentsline {section}{\numberline {4}Artykuł R(4,5)=25}{10}{}%
-\contentsline {section}{\numberline {5}Generowanie grafów}{10}{}%
-\contentsline {subsection}{\numberline {5.1}Orbity}{10}{}%
-\contentsline {subsection}{\numberline {5.2}Generowanie grafów nieizomorficznych}{10}{}%
-\contentsline {subsection}{\numberline {5.3}Generowanie grafów Ramseya}{12}{}%
-\contentsline {section}{\numberline {6}Sklejanie grafów}{13}{}%
-\contentsline {subsection}{\numberline {6.1}Idea sklejania}{13}{}%
-\contentsline {subsection}{\numberline {6.2}Algorytm sklejania}{14}{}%
-\contentsline {subsection}{\numberline {6.3}Zawężanie przedziałów - zasady A-D}{15}{}%
-\contentsline {subsection}{\numberline {6.4}Wynik sklejania}{17}{}%
-\contentsline {section}{\numberline {7}Implementacja i eksperymenty}{17}{}%
+\contentsline {subsection}{\numberline {1.1}Teoria grafów}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Izomorfizm}{5}{}%
+\contentsline {subsection}{\numberline {1.3}Formy kanoniczne grafów}{6}{}%
+\contentsline {subsection}{\numberline {1.4}Kolorowanie grafu}{7}{}%
+\contentsline {section}{\numberline {2}Twierdzenie Ramseya}{9}{}%
+\contentsline {subsection}{\numberline {2.1}Historia liczby i Twierdzenia Ramseya}{11}{}%
+\contentsline {subsection}{\numberline {2.2}Twierdzenie Van der Waerden's}{11}{}%
+\contentsline {subsection}{\numberline {2.3}Paul Erd\"os i Teoria Ramseya}{11}{}%
+\contentsline {subsection}{\numberline {2.4}Wartości liczb Ramseya}{12}{}%
+\contentsline {section}{\numberline {3}Artykuł R(4,5)=25}{17}{}%
+\contentsline {section}{\numberline {4}Generowanie grafów}{17}{}%
+\contentsline {subsection}{\numberline {4.1}Generowanie grafów nieizomorficznych}{17}{}%
+\contentsline {subsection}{\numberline {4.2}Generowanie grafów Ramseya}{19}{}%
+\contentsline {section}{\numberline {5}Sklejanie grafów}{20}{}%
+\contentsline {subsection}{\numberline {5.1}Dekompozycja problemu}{20}{}%
+\contentsline {subsection}{\numberline {5.2}Grafy potrzebne do sklejania}{21}{}%
+\contentsline {subsection}{\numberline {5.3}Idea sklejania}{21}{}%
+\contentsline {subsection}{\numberline {5.4}Algorytm sklejania}{22}{}%
+\contentsline {subsection}{\numberline {5.5}Zawężanie przedziałów - zasady A-D}{23}{}%
+\contentsline {subsection}{\numberline {5.6}Wynik sklejania}{25}{}%
+\contentsline {section}{\numberline {6}Implementacja i eksperymenty}{26}{}%
