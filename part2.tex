@@ -68,116 +68,6 @@
     \caption{Graf, w którym wierzchołek 1 sąsiaduje z 2 i 5; 2 z 1 i 5; 3 z 4 i 5; 4 z 3 i 5; 5 z 1, 2, 3 i 4 }
   \end{figure}
 
-  \subsection{Izomorfizm}
-
-  \begin{definition}
-    Izomorfizm grafów G i H to taka biekcja f:V(G) -> V(H), że 2 wierchołki u i v sąsiadują w G tylko jeżeli f(u) i f(v) sąsiadują w H.
-  \end{definition}
-
-  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne. Innymi słowy, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
-  aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały dokładnie takie same zbiory sąsiadów.
-  
-
-  Przekształćmy graf z rysunku 1 zamieniając wierzchołek 1 z 2 oraz 3 z 4:
-  \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-      \node[main] (1) {$2$};
-      \node[main] (2) [below right of=1] {$5$};
-      \node[main] (3) [above right of=2] {$1$};
-      \node[main] (4) [below left of=2] {$3$};
-      \node[main] (5) [below right of=2] {$4$};
-
-      \draw (1) -- (2);
-      \draw (2) -- (3);
-      \draw (2) -- (4);
-      \draw (2) -- (5);
-      \draw (1) -- (3);
-      \draw (4) -- (5);
-    \end{tikzpicture}
-    \caption{Mimo przekształcenia graf zachował swoje własności}
-  \end{figure}
-
-  Jak widać, wierzchołki o tych samych numerach zachowały swoje zbiory sąsiadów. 
-
-  Warto zauważyć, że na nasz użytek grafy izomorficzne nie są niezależnie użyteczne. Wszystkie własności opisane w tej pracy są przez izomorfizmy niezmienione, a więc na nasz użytek dwa grafy izomorficzne to efektywnie ten sam graf.
-
-
-  \begin{definition}
-    Automorfizm grafu G to taka permutacja f zbioru wierzchołków G, że para wierzchołków u, v jest sąsiedująca tylko jeżeli f(u) i f(v) sąsiadują. 
-  \end{definition}
-  Automorfizm to izomorfizm z grafu początkowego do tego samego grafu. 
-  Złożenie automorfizmów również jest Automorfizmem.  
-
-  \begin{definition}
-    Grupa automorfizmów grafu G to zbiór składający się z wszystkich automorfizmów grafu G.
-  \end{definition}
-
-  \begin{theorem}
-    Dla grafu $n$-wierzchołkowego grupa automorfizmów może być określona przez nie więcej niż 
-    $n-1$ generatorów. 
-  \end{theorem}
-
-  \subsection{Formy kanoniczne grafów}
-
-  \begin{definition}
-    Forma kanoniczna C(G) grafu G to taki graf izomorficzny do G, że każdy graf izomorficzny do G ma taką samą formę kanoniczną. 
-    [14]$$ Canon \colon G -> G/ \simeq $$
-    $$G \simeq H \iff Canon(G) = Canon(H) $$
-
-
-  \end{definition}
-
-  Forma kanoniczna grafu to takie pokrycie grafu G, 
-  które jest identyczne dla wszystkich grafów izomorficznych z G. Przykładowo, takie pokrycie można zaimplementować
-   jako numerowanie wierzchołków począwszy od takich o najmniejszej liczbie sąsiadów. 
-   Jeżeli kilka wierzchołków ma taką samą liczbę sąsiadów to albo niższy numer otrzymuje wierzchołek, 
-   który ma sąsiada (sąsiadów) z najniższym numerem albo losowy. 
-
-
-   \begin{algorithm}
-    \caption{Sprowadzenie grafu do formy kanonicznej}
-    \begin{algorithmic}
-    \REQUIRE $G(V, E) $
-    \STATE tab = sort(V, iloscSasiadowRekurencyjnie)
-    \FORALL{$v in V$}
-      \STATE $v.numer = tab.indeks(v) $
-    \ENDFOR
-    \end{algorithmic}
-  \end{algorithm}
-  
-  Rzeczywiste algorytmy są dużo bardziej zoptymalizowane i Korzystają z 
-  heurystyk pozwalających zoptymalizować proces dla określonych przypadków.
-  Sprowadzanie do formy kanonicznej jest kluczowe dla szybkiego wyszukiwania izomorfizmów. 
-
-\begin{definition}
-  Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
-\end{definition}
-
-Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
-Przykład: 
-\begin{figure}[H]
-  \centering
-   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-     \node[main] (1) {$1$};  
-     \node[main] (3) [right of=1] {$3$};
-     \node[main] (2) [above of=3] {$2$};
-     \node[main] (4) [below of=3] {$4$};
-     \node[main] (5) [right of=3] {$5$};
-
-     \draw (1) -- (3);
-     \draw (1) -- (2);
-     \draw (1) -- (4);
-     \draw (5) -- (2);
-     \draw (5) -- (3);
-     \draw (5) -- (4);
-    \end{tikzpicture}
-    \caption{Orbita pierwsza: 1, 5 
-    Orbita druga: 2, 3, 4}
- \end{figure}
- 
-
-   \subsection{Klika}
    \begin{definition}
     Klika $K$ w grafie $G(V,E)$ jest takim podzbiorem wierzchołków $V(G)$, że dla każdej pary wierzchołków $$u, v \in K, (u, v) \in E(G)$$ 
    \end{definition}
@@ -222,7 +112,6 @@ Przykład:
     \end{algorithmic}
   \end{algorithm}
 
-  \subsection{Zbiór niezależny}
   \begin{definition}
     Zbiór niezależny $N$ w grafie $G(V,E)$ to taki podzbiór wierzchołków G, że dla każdej pary wierzchołków $$u, v \in N, (u, v) \notin E(V) $$. 
   \end{definition}
@@ -334,6 +223,122 @@ Przykład:
         \caption{ $K_3$ w $G'$ leży między tymi samymi Wierzchołkami co $N_3$ w $G$ }
      \end{figure}
 
+
+     \begin{definition}
+       Dla grafu $G(V,E)$ i podzbioru jego wierzchołków $S \subseteq V$, 
+       podgrafem indukowanym G[S] nazywamy taki graf, którego wszystkie wierzchołki
+       zawierają się w S i którego zbiór krawędzi zawiera wszystkie krawędzie z E kończące się w S.
+       $$ G[S] = H(S, E_2), \forall (v,u) \in E, (v,u) \ in E_2 \iff v \in S \land u \in S$$ 
+     \end{definition}
+
+
+  \subsection{Izomorfizm}
+
+  \begin{definition}
+    Izomorfizm grafów G i H to taka biekcja f:V(G) -> V(H), że 2 wierchołki u i v sąsiadują w G tylko jeżeli f(u) i f(v) sąsiadują w H.
+  \end{definition}
+
+  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne. Innymi słowy, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
+  aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały dokładnie takie same zbiory sąsiadów.
+  
+
+  Przekształćmy graf z rysunku 1 zamieniając wierzchołek 1 z 2 oraz 3 z 4:
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+      \node[main] (1) {$2$};
+      \node[main] (2) [below right of=1] {$5$};
+      \node[main] (3) [above right of=2] {$1$};
+      \node[main] (4) [below left of=2] {$3$};
+      \node[main] (5) [below right of=2] {$4$};
+
+      \draw (1) -- (2);
+      \draw (2) -- (3);
+      \draw (2) -- (4);
+      \draw (2) -- (5);
+      \draw (1) -- (3);
+      \draw (4) -- (5);
+    \end{tikzpicture}
+    \caption{Mimo przekształcenia graf zachował swoje własności}
+  \end{figure}
+
+  Jak widać, wierzchołki o tych samych numerach zachowały swoje zbiory sąsiadów. 
+
+  Warto zauważyć, że na nasz użytek grafy izomorficzne nie są niezależnie użyteczne. Wszystkie własności opisane w tej pracy są przez izomorfizmy niezmienione, a więc na nasz użytek dwa grafy izomorficzne to efektywnie ten sam graf.
+
+
+  \begin{definition}
+    Automorfizm grafu G to taka permutacja f zbioru wierzchołków G, że para wierzchołków u, v jest sąsiedująca tylko jeżeli f(u) i f(v) sąsiadują. 
+  \end{definition}
+  Automorfizm to izomorfizm z grafu początkowego do tego samego grafu. 
+  Złożenie automorfizmów również jest Automorfizmem.  
+
+  \begin{definition}
+    Grupa automorfizmów grafu G to zbiór składający się z wszystkich automorfizmów grafu G.
+  \end{definition}
+
+  \begin{theorem}
+    Dla grafu $n$-wierzchołkowego grupa automorfizmów może być określona przez nie więcej niż 
+    $n-1$ generatorów. 
+  \end{theorem}
+
+  \subsection{Formy kanoniczne grafów}
+
+  \begin{definition}
+    Forma kanoniczna C(G) grafu G to taki graf izomorficzny do G, że każdy graf izomorficzny do G ma taką samą formę kanoniczną. 
+    [14]$$ Canon \colon G -> G/ \simeq $$
+    $$G \simeq H \iff Canon(G) = Canon(H) $$
+
+
+  \end{definition}
+
+  Forma kanoniczna grafu to takie pokrycie grafu G, 
+  które jest identyczne dla wszystkich grafów izomorficznych z G. Przykładowo, takie pokrycie można zaimplementować
+   jako numerowanie wierzchołków począwszy od takich o najmniejszej liczbie sąsiadów. 
+   Jeżeli kilka wierzchołków ma taką samą liczbę sąsiadów to albo niższy numer otrzymuje wierzchołek, 
+   który ma sąsiada (sąsiadów) z najniższym numerem albo losowy. 
+
+
+   \begin{algorithm}
+    \caption{Sprowadzenie grafu do formy kanonicznej}
+    \begin{algorithmic}
+    \REQUIRE $G(V, E) $
+    \STATE tab = sort(V, iloscSasiadowRekurencyjnie)
+    \FORALL{$v in V$}
+      \STATE $v.numer = tab.indeks(v) $
+    \ENDFOR
+    \end{algorithmic}
+  \end{algorithm}
+  
+  Rzeczywiste algorytmy są dużo bardziej zoptymalizowane i Korzystają z 
+  heurystyk pozwalających zoptymalizować proces dla określonych przypadków.
+  Sprowadzanie do formy kanonicznej jest kluczowe dla szybkiego wyszukiwania izomorfizmów. 
+
+\begin{definition}
+  Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
+\end{definition}
+
+Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
+Przykład: 
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+     \node[main] (1) {$1$};  
+     \node[main] (3) [right of=1] {$3$};
+     \node[main] (2) [above of=3] {$2$};
+     \node[main] (4) [below of=3] {$4$};
+     \node[main] (5) [right of=3] {$5$};
+
+     \draw (1) -- (3);
+     \draw (1) -- (2);
+     \draw (1) -- (4);
+     \draw (5) -- (2);
+     \draw (5) -- (3);
+     \draw (5) -- (4);
+    \end{tikzpicture}
+    \caption{Orbita pierwsza: 1, 5 
+    Orbita druga: 2, 3, 4}
+ \end{figure}
 
 
     \subsection{Kolorowanie grafu}
@@ -793,6 +798,61 @@ Odrzucanie grafów nieramseyowskich przy każdym rozszerzeniu pozwala wprowadzi�
 
 \section{Sklejanie grafów}
 Generowanie grafów wysokiego rzędu jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
+
+\subsection{Dekompozycja problemu}
+\begin{definition}
+  Niech $F$ jest grafem, $v \in V(F)$, $W \subseteq V(F)$. 
+  Funkcja $N_F(v,W)$ będzie zwracać podzbiór wierzchołków $W$, które sąsiadują z $v$: 
+  $$N_F(v,W) = \{w \in W | (v,w) \in E(F)\}$$ 
+\end{definition}
+
+\begin{definition}
+  $F[V(F) - {v}]$ będziemy zapisywać jako $F - v$.
+\end{definition}
+
+\begin{theorem}
+  Weźmy $x \in V(F)$. Niech podgraf indukowany $G_x = F[N_F(x,V(F))]$
+  oraz $H_x = F[V(X) - N_F(x,V(F) - x)]$. Jeśli $F$ jest $R(4,5,25)$ to 
+  $G_x$ jest $R(3,5,d)$ a $F_x$ jest $R(4,4,24-d)$.
+\end{theorem}
+
+
+Powyższe twierdzenie jest nieoczywiste, dlatego przeprowadzimy krótki dowód. 
+
+
+  Niech graf $F$ zawiera przynajmniej jedną klikę $K_3$ oraz przynajmniej jeden zbiór niezależny $N_4$.
+  Zauważmy że dla każdej kilki $K_3$ zachodzi jedna z sytuacji:
+  \begin{enumerate}
+    \item $x \in K3$
+    \item $ \exists v \in K_3, (v, x) \in E(F) \land \not \forall u \in K_3, (u,x) \in E(F)$ 
+    \item $\not \exists v \in K_3, (v, x) \in E(F)$
+  \end{enumerate} 
+  
+  W przypadku pierwszym klika zostanie rozbita, 2 wierczhołki będą w $G_x$ a $x$ nie będzie w żadnym.
+  
+  W przypadku drugim wierzchołki tworzące $K_3$, które są połączone z $x$ trafią do $G_x$, niepołączone trafią do $H_x$.
+  
+  W przypadku trzecim całość $K_3$ trafi do grafu $H_x$, gdzie klika K3 może się pojawić, nie łamiąc R(3,5).
+
+  Z kolei dla każdego zbioru $N_4$ musi zachodzić jedna z sytuacji:
+  \begin{enumerate}
+    \item $x \in N_4$
+    \item $ \exists v \in N_4, (v, x) \in E(F) \land \not \forall u \in N_4, (u,x) \in E(F)$ 
+    \item $\not \exists v \in N_4, (v, x) \in E(F)$
+  \end{enumerate} 
+
+  W przypadku pierwszym zbiór niezależny zostanie rozbity, 3 wierczhołki będą w $H_x$ a $x$ nie będzie w żadnym.
+  
+  W przypadku drugim wierzchołki tworzące $N_4$, które są połączone z $x$ trafią do $G_x$, niepołączone trafią do $H_x$.
+  
+  W przypadku trzecim całość $N_4$ trafi do grafu $G_x$, gdzie zbiór niezależny może się pojawić, nie łamiąc R(4,4).
+
+\subsection{Grafy potrzebne do sklejania}
+
+Korzystając z wiedzy z poprzedniego podrozdziału możemy stwierdzić, że do utworzenia wszystkich grafów R(4,5,24) wystarczy połączenie na wszystkie możliwe sposoby
+wszystkich nieizomorficznych grafów R(3,5,d) z wszystkimi nieizomorficznymi grafami R(4,4,24-d). 
+Warto zauważyć, że liczby R(3,5) oraz R(4,4) są znane i wynoszą odpowiednio 14 i 18. Oznacza to, że nasze grafy G będą maksymalnie rzędu 13 a grafy H rzędu 17. Co za tym idzie, możemy też wskaząć ograniczenia dolne:
+minimalny rząd G to 24-17=7 a minimalny rząd H to 24-13 = 11.  
 
 \subsection{Idea sklejania}
 Zbiór danych wymagany do poprawnego sklejania jest uzyskany poprzez wygenerowanie wszystkich nieizomorficznych grafów G rzędów 7-13 spełniających R(3,5), oraz wszystkich nieizomorficznych grafów H rzędów 11-17 spełniających R(4, 4).
