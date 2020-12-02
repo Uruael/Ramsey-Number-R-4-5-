@@ -1,8 +1,5 @@
 \documentclass[11pt]{article}
  
-
-
- 
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
@@ -726,37 +723,11 @@ Jak pokazano wcześniej, wygenerowanie wszystkich możliwych dwukolorowych graf�
 
   
 \section{Generowanie grafów}
-
 \subsection{Rozszerzanie grafu}
 Do przeprowadzenia poprawnego rozumowania na grafach, wymagane jest wpierw pozyskanie zbioru grafów. Operację tą nazywamy generowaniem grafów, i rozpoczyna się ją od rozszerzania grafów. 
 \begin{definition} Rozszerzeniem grafu nazywamy przekształcenie grafu $G$ w graf $G'$ poprzez dodanie do $G$ wierzchołka $v$ i dowolnego podzbioru krawędzi pomiędzy $v$ a $V(G)$.
 \end{definition}
 Możliwych rozszerzeń grafu o n wierzchołkach jest $2^n$. Kompletnym rozszerzeniem nazywamy zbiór grafów uzyskany przez wykonanie każdego możliwego rozszerzenia.
-				   
-											 
-											
-								   
-								 
-		   
-				   
-			   
-
-																			  
-																								  
-				 
-											 
-
-				
-									 
-
-																																	 
-
-																																				
- 
-			  
-			   
-
-									   
 
 Najprostszym przykładem rozszerzenia grafu jest rozszerzanie grafu jednowierzchołkowego, pokazanego na rys. \ref{grafjednowierzcholkowy}.
 \begin{figure}[H]
@@ -777,44 +748,13 @@ Podczas rozszerzania powyższego grafu istnieją dwie możliwości na sposób do
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (2) {$1$};
     \node[main] (3) [right of=2] {$2$};
-   
-									   
-									   
-   
-					 
    \end{tikzpicture}
-			 
-			
-
-																																				 
-
-				 
-			
-																		  
-						  
-									   
-									   
-   
-					 
-					 
    \hfill
    \centering
-						  
-									   
-									   
-   
-					 
-					 
-					 
-		 
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (1)  {$1$};
     \node[main] (2) [right of=2] {$2$};
-									   
-   
     \draw (1) -- (2);
-					 
-					 
    \end{tikzpicture}  
 	\hfill
 	\hfill
@@ -862,11 +802,6 @@ W celu zobrazowania problemu przeprowadźmy dalsze rozszerzenie dwuwierzchołkow
 \end{figure}
 
 Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $G'_n$ zawiera trzy grupy izomorficzne. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów $G$ oraz $H$, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do $G'_n$ dodamy również rozszerzenia grafu $H$ przybędzie tylko jeden unikalny graf.
-		
-																		  
-						
-									 
-									 
 
  Ze względu na naturę problemu poruszanego w tej pracy, grupa grafów izomorficznych nie wnosi więcej informacji, niż tylko jeden jej przedstawiciel. Dzieje się tak głównie ze względu na fakt, że izomorfizm nie zmienia największego stopnia kliki ani zbioru niezależnego w grafie. Wyeliminowanie izomorfizmów ze zbioru wynikowego wydaje się więc wysoko pożądane w celu zwiększenia wydajności generacji zarówno pod względem czasowym jak i pamięciowym. Żeby zobrazować wagę takiej optymalizacji wystarczy podać kilka pierwszych wartości dla ilości grafów wygenerowanych naiwną metodą rozszerzania w porównaniu do ilości grafów nieizomorficznych.
  \begin{figure}[H]
@@ -901,14 +836,44 @@ Na szczęście, na dowolnym etapie generacji grupę grafów izomorficznych w zbi
 Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $G'_n$ oraz $H'_m$, to dla dowolnego elementu zbioru $G'_n$ istnieje izomorfizm do elementu zbioru $H'_m$
 \end{theorem}
 
-				   
-				   
-				   
-																	  
-			
 
-Dzięki powyższemu, jeżeli na każdej iteracji generacji grafów będziemy usuwać nadmiarowe grafy izomorficzne wynikowy zbiór grafów będzie zawierał wszystkie grafy do izomorfizmu.
-Znajdywanie izomorfizmów w zbiorze grafów to problem nietrywialny. Jednak ze względu na metodę generacji można użyć orbit, żeby uczynić go znacznie prostszym.
+Dzięki powyższemu, jeżeli na każdej iteracji generacji grafów będziemy usuwać nadmiarowe grafy izomorficzne wynikowy zbiór grafów będzie zawierał wszystkie grafy do izomorfizmu bez potrzeby odrzucania grafów rozszerzonych z grafów już izomorficznych. Dzięki temu, pozostają dwie możliwości dla powstania grupy izomorficznej do zredukowania: grafy izomorficzne powstałe z rozszerzania różnych grafów, oraz grafy izomorficzne powstałe z rozszerzania tego samego grafu. Obie te możliwości można eliminować, nie porównując grafów w stylu "każdy z każdym", co jest wysoko pożądane, jako że znajdywanie izomorfizmów w zbiorze grafów to problem nietrywialny, i mógłby znacznie spowolnić działanie generacji. Aby zobrazować metody eliminowania, na rysunku \ref{rozszerzenieIzomorfizm1} jest pokazana grupa izomorficzna wynikająca z rozszerzenia grafów dwuwierzchołkowych. 
+
+\begin{figure}[H]
+	\hfill
+	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+   		\node[main] (0) at (0,1.5) {$1$};
+   		\node[main] (1) at (2,1.5)  {$2$};
+   		\node[main] (2) at (1,0)  {$3$};
+    	\draw (0) -- (2);
+		\draw (1) -- (2);
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+   		\node[main] (0) at (0,1.5) {$1$};
+   		\node[main] (1) at (2,1.5)  {$2$};
+   		\node[main] (2) at (1,0)  {$3$};
+    	\draw (0) -- (2);
+		\draw (0) -- (1);
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+   		\node[main] (0) at (0,1.5) {$1$};
+   		\node[main] (1) at (2,1.5)  {$2$};
+   		\node[main] (2) at (1,0)  {$3$};
+    	\draw (1) -- (2);
+		\draw (1) -- (0);
+	\end{tikzpicture}
+	\hfill
+	\hfill
+	\caption{Grupa grafów izomorficznych powstająca z rozszerzania grafów trójwierzchołkowych}
+	\label{rozszerzenieIzomorfizm1}
+\end{figure} 
+Powyższe grafy będą opisywane jako $G_1$ $G_2$ i $G_3$. 
+
+
+
+
 
 \subsection{Generowanie grafów Ramesyowskich}
 
@@ -916,35 +881,6 @@ Generowanie grafów nieizomorficznych jest wciąż zbyt wymagające dla naszych 
 \begin{theorem}Dla dowolnego grafu $G$ posiadającego klikę $K_i$ każdy graf $H$, który może powstać przez dowolną sekwencję rozszerzeń grafu $G$, zawiera klikę $K_j$ gdzie $j \geq i$.
 \end{theorem}
 Powyższe twierdzenie wynika z  następującego rozumowania:
-									   
-									   
-   
-					 
-					 
-		 
-																		   
-						  
-									   
-									   
-   
-					 
-					 
-					 
-		 
-																		   
-						  
-									   
-									   
-   
-					 
-					 
-					 
-					 
-		 
-																		  
-						
-									 
-									 
 
  Gdy graf $G$ rozszerzymy do grafu $G'$, to graf $G$ jest podzbiorem grafu $G'$. Dzieje się tak, ponieważ rozszerzanie nie modyfikuje krawędzi w oryginalnym grafie, a jedynie dodaje krawędzie do nowego wierzchołka. Przy pomocy indukcji matematycznej można więc powiedzieć, że dowolny graf $H$, który powstaje poprzez wielokrotne rozszerzanie grafu $G$ musi zawierać graf $G$ jako swój podgraf. Z tego powodu, graf $H$ musi zawierać klikę z oryginalnego grafu $G$, oraz może posiadać klikę większą powstałą w wyniku rozszerzania. Przykład zachowania oryginalnego grafu podczas rozszerzania pokazany jest na rysunku \ref{rozszerzeniekliki}
 
@@ -1047,8 +983,7 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 			\draw (12) -- (13);
 			\draw (11) -- (13);
 			\draw (10) -- (13);
-			
-			
+
    		\end{tikzpicture}
    		\caption{Kolejne rozszerzenia grafu, które nie zaburzają oryginalnego grafu początkowego zaznaczonego kolorem czerwonym.}
    		\label{rozszerzeniekliki}
@@ -1076,14 +1011,6 @@ Omównienie ograniczenia porwadzą do powstania algorymu generacji grafów w nas
 \end{algorithm}
 
 Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność. 
-																																								
-																																																						
-					
-																																		 
-				
-																																																																																																																																																																																																																 
-  
-																																																																																																																				   
 
 
 \section{Sklejanie grafów}
@@ -1113,16 +1040,16 @@ Powyższe twierdzenie jest nieoczywiste, dlatego przeprowadzimy krótki dowód.
   Niech graf $F$ zawiera przynajmniej jedną klikę $K_3$ oraz przynajmniej jeden zbiór niezależny $N_4$.
   Zauważmy że dla każdej kilki $K_3$ zachodzi jedna z sytuacji:
   \begin{enumerate}
-    \item $x \in K3$
+    \item $x \in K_3$
     \item $ \exists v \in K_3, (v, x) \in E(F) \land \not \forall u \in K_3, (u,x) \in E(F)$ 
     \item $\not \exists v \in K_3, (v, x) \in E(F)$
   \end{enumerate} 
   
-  W przypadku pierwszym klika zostanie rozbita, 2 wierczhołki będą w $G_x$ a $x$ nie będzie w żadnym.
+  W przypadku pierwszym klika zostanie rozbita, 2 wierzchołki będą w $G_x$ a $x$ nie będzie w żadnym.
   
   W przypadku drugim wierzchołki tworzące $K_3$, które są połączone z $x$ trafią do $G_x$, niepołączone trafią do $H_x$.
   
-  W przypadku trzecim całość $K_3$ trafi do grafu $H_x$, gdzie klika K3 może się pojawić, nie łamiąc R(3,5).
+  W przypadku trzecim całość $K_3$ trafi do grafu $H_x$, gdzie klika $K_3$ może się pojawić, nie łamiąc R(3,5,$n$).
 
   Z kolei dla każdego zbioru $N_4$ musi zachodzić jedna z sytuacji:
   \begin{enumerate}
@@ -1131,46 +1058,46 @@ Powyższe twierdzenie jest nieoczywiste, dlatego przeprowadzimy krótki dowód.
     \item $\not \exists v \in N_4, (v, x) \in E(F)$
   \end{enumerate} 
 
-  W przypadku pierwszym zbiór niezależny zostanie rozbity, 3 wierczhołki będą w $H_x$ a $x$ nie będzie w żadnym.
+  W przypadku pierwszym zbiór niezależny zostanie rozbity, 3 wierzchołki będą w $H_x$ a $x$ nie będzie w żadnym.
   
   W przypadku drugim wierzchołki tworzące $N_4$, które są połączone z $x$ trafią do $G_x$, niepołączone trafią do $H_x$.
   
-  W przypadku trzecim całość $N_4$ trafi do grafu $G_x$, gdzie zbiór niezależny może się pojawić, nie łamiąc R(4,4).
+  W przypadku trzecim całość $N_4$ trafi do grafu $G_x$, gdzie zbiór niezależny może się pojawić, nie łamiąc R(4,4,$n$).
 
 \subsection{Grafy potrzebne do sklejania}
 
 Korzystając z wiedzy z poprzedniego podrozdziału możemy stwierdzić, że do utworzenia wszystkich grafów R(4,5,24) wystarczy połączenie na wszystkie możliwe sposoby
 wszystkich nieizomorficznych grafów R(3,5,d) z wszystkimi nieizomorficznymi grafami R(4,4,24-d). 
-Warto zauważyć, że liczby R(3,5) oraz R(4,4) są znane i wynoszą odpowiednio 14 i 18. Oznacza to, że nasze grafy G będą maksymalnie rzędu 13 a grafy H rzędu 17. Co za tym idzie, możemy też wskaząć ograniczenia dolne:
-minimalny rząd G to 24-17=7 a minimalny rząd H to 24-13 = 11.  
+Warto zauważyć, że liczby R(3,5) oraz R(4,4) są znane i wynoszą odpowiednio 14 i 18. Oznacza to, że nasze grafy $G$ będą maksymalnie rzędu 13 a grafy $H$ rzędu 17. Co za tym idzie, możemy też wskazać ograniczenia dolne:
+minimalny rząd $G$ to 24-17=7 a minimalny rząd $H$ to 24-13 = 11.  
 
-\subsection{Idea sklejania}
-Zbiór danych wymagany do poprawnego sklejania jest uzyskany poprzez wygenerowanie wszystkich nieizomorficznych grafów G rzędów 7-13 spełniających R(3,5), oraz wszystkich nieizomorficznych grafów H rzędów 11-17 spełniających R(4, 4).
+Zbiór danych wymagany do poprawnego sklejania jest uzyskany poprzez wygenerowanie wszystkich nieizomorficznych grafów $G$ rzędów 7-13 spełniających R(3,5,$n$), oraz wszystkich nieizomorficznych grafów $H$ rzędów 11-17 spełniających R(4,4,$n$).
 
-Grafy dzielone są na grupy zgodnie z ich rzędem. Dalsze sklejanie przeprowadzone jest na parze grup grafów G i H. Celem sklejania jest uzyskanie grafów rzędu 24 poprzez połączenie grafów G oraz H, a więc suma rzędów grafów G oraz H w grupach branych pod uwagę musi być równa 24. Ze względu na R(3,5) = 14 największy rząd grupy grafów G to 13, a ze względu na R(4,4) = 18 grafy H są ograniczone do 17 wierzchołków. Oznacza to, że istnieje 6 par grup spełniających wymagania.
-
-Potencjalne krawędzie między grafami G oraz H są grupowane w stożki.
-
-\begin{definition}
-Prawdopodobny stożek (ang. feasible cone) to podzbiór wszystkich wierzchołków grafu H, który nie tworzy kliki $K_3$\cite{mainpaper}. 
-\end{definition}
-
-Podzbiór wierzchołków grafu H o którym jeszcze nie wiemy, czy jest prawdopodobnym stożkiem będziemy  określać mianem stożka.
-
-Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 prawdopodobnych stożków. Jeżeli do każdego z wierzchołków grafu G przypiszemy stożek, uzyskamy takie połączenie grafów G oraz H gdzie każdy wierzchołek grafu G jest sąsiadem wszystkich wierzchołków w przypisanym mu stożku. Główna część algorytmu sklejania polega na eliminacji wszystkich kombinacji stożków, które prowadzą do powstania kilki stopnia 4 lub zbioru niezależnego rzędu 5. Każdy taki zbiór prawdopodobnych stożków jest poprawnym połączeniem grafów G oraz H. Taki algorytm sklejania pozwala uzyskać grafy R(4,5) o różnych rzędach (poprzez inne parowanie grup grafów G i H), ale w tej pracy zajmujemy się jedynie grafami 24-wierzchołkowymi.
-
-
-
+Grafy dzielone są na grupy zgodnie z ich rzędem. Dalsze sklejanie przeprowadzone jest na parze grup grafów $G$ i $H$. Celem sklejania jest uzyskanie grafów rzędu 24 poprzez połączenie grafów $G$ oraz $H$, a więc suma rzędów grafów $G$ oraz $H$ w grupach branych pod uwagę musi być równa 24. Ze względu na R(3,5) = 14 największy rząd grupy grafów $G$ to 13, a ze względu na R(4,4) = 18 grafy $H$ są ograniczone do 17 wierzchołków. Oznacza to, że istnieje 6 par grup spełniających wymagania.
 
 \subsection{Algorytm sklejania}
-Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru prawdopodobnych stożków przed wybraniem grafu G do sklejenia. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu. Takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu n wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
+
+Na dalszych etapach sklejania pojawia się pojęcie stożka. Szczególnym przypadkiem stożka używanym na etapie poszukiwania połączeń grafów $G$ oraz $H$ jest stożek prawdopodobny.
+
+\begin{definition} Stożek to podzbiór wierzchołków dowolnego grafu.
+\end{definition}
 
 \begin{definition}
-Przedział $[B, T]$ to zbiór stożków, ograniczony przez stożek górny T i stożek dolny B, który zawiera wszystkie stożki spełniające zależność:  $$X: B \subseteq X \subseteq T$$ 
+Prawdopodobny stożek (ang. feasible cone) to podzbiór wierzchołków grafu H, który nie tworzy kliki $K_3$\cite{mainpaper}. Symbolizuje on połączenia pomiędzy wierzchołkiem grafu $G$ a wszystkimi wierzchołkami $V(H)$, które do niego należą.
+\end{definition}
+
+Podzbiór wierzchołków grafu $H$ o którym jeszcze nie wiemy, czy jest prawdopodobnym stożkiem będziemy  określać mianem stożka.
+
+Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 prawdopodobnych stożków. Jeżeli do każdego z wierzchołków grafu $G$ przypiszemy stożek, uzyskamy takie połączenie grafów $G$ oraz $H$ gdzie każdy wierzchołek grafu $G$ jest sąsiadem wszystkich wierzchołków w przypisanym mu stożku. Główna część algorytmu sklejania polega na eliminacji wszystkich kombinacji stożków, które prowadzą do powstania kilki stopnia 4 lub zbioru niezależnego rzędu 5. Każdy taki zbiór prawdopodobnych stożków zawiera poprawne połączenia grafów $G$ oraz $H$. Następnie zbiory prawdopodobnych stożków są rozbijane, aby wyizolować jedynie akceptowalne grafy. Taki algorytm sklejania pozwala uzyskać grafy R(4,5, n) o różnych rzędach (poprzez inne parowanie grup grafów $G$ i $H$), ale w tej pracy zajmujemy się jedynie grafami 24-wierzchołkowymi.
+
+Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu $H$ zbioru prawdopodobnych stożków przed wybraniem grafu $G$ do sklejenia z nim. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu. Takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu n wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
+
+\begin{definition}
+Przedział $ P = [B, T]$ to zbiór stożków, ograniczony przez stożek górny T i stożek dolny B, który zawiera wszystkie stożki spełniające zależność:  $$X: B \subseteq X \subseteq T$$ 
 \end{definition}
 
 
-Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a T zawiera wszystkie wierzchołki H. Taki przedział zawiera wszystkie możliwe stożki. W celu wyodrębnienia prawdopodobnych stożków korzystamy z poniższych własności:
+Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a T zawiera wszystkie wierzchołki $H$. Taki przedział zawiera wszystkie możliwe stożki. W celu wyodrębnienia prawdopodobnych stożków korzystamy z poniższych własności:
 \begin{enumerate}
 \item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest, że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
 
@@ -1180,7 +1107,7 @@ Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału g
 \end{enumerate}
 
 Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału można skorzystać z algorytmu rekurencyjnego dzielącego interwały wzdłuż wierzchołków należących do kliki 3 oraz stożka B, dzięki czemu uzyskujemy zbiór przedziałów dla grafu H zawierający jedynie stożki prawdopodobne. Z tego zbioru korzystamy w następnym etapie algorytmu.
-Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu G.
+Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu $G$.
   
 
 \subsection{Zawężanie przedziałów - zasady A-D}
@@ -1249,13 +1176,16 @@ nie może sąsiadować. Ponownie, w takim przypadku powstałby zbiór niezależn
 
 Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi v, w, z nie mogą sąsiadować. \par
 
+Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu, w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków nie powoduje już dalszych zmian. Wynikowy zbiór przedziałów daje sposób lub sposoby połączenia grafów $G$ oraz $H$ w graf 24 wierzchołkowy z spełniający wymagania pod względem ramseyowskości. Nie wszystkie sposoby połączenia dane przy zatrzymaniu reguł muszą być jednak poprawne. Istenieje możliwość, że wynikowe przedziały posiadają również połączenia niepoprawne. Z tego powodu, po zakończeniu stosowania reguł należy rozbijać wynikowe przedziały, i ponownie stosować reguły, aż wynikiem ich stosowanie będzie tyklko jeden poprawny graf.
 
-Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu, w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków nie powoduje już dalszych zmian. Wynikowy zbiór przedziałów daje sposób lub sposoby połączenia grafów G oraz H w graf 24 wierzchołkowy z spełniający wymagania pod względem ramseyowskości.
+Przez rozbicie zestawu przedziałów mamy na myśli operację, gdzie przedział jest zamieniany na dwa przedziały przy użyciu własności przedziału numer 1. Należy rozbijać tylko te przedziały, dla których B $\neq$ T, ponieważ takie przedziały obejmują więcej niż jeden stożek prawdopodobny, a więc i więcej niż jeden sposób połączenia $G$ i $H$.
 
-\subsection{Wynik sklejania}
+\subsection{Zakończenie algorytmu sklejania}
 
-Po zakończeniu procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf $\mathcal{F}$. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia przynajmniej jednego z grafów $\mathcal{F}$ o jeden wierzchołek powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający wymagania. 
-Rozszerzanie o jeden wierzchołek zostaje w tym wypadku wykonane metodą podobną do wcześniejszego tworzenia przedziałów stożków, choć w tym wypadku mamy tylko jeden wierzchołek, do którego przypisywane są stożki rozszerzające.
+Po zakończeniu głównej części procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf $\mathcal{F}$. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia grafów $\mathcal{F}$ powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający wymagania. 
+Rozszerzanie zostaje w tym wypadku wykonane metodą inną od wcześniejszego generowania grafów.
+
+Bliższy jest wcześniej opisany algorytm tworzenia przedziałów stożków, choć w tym wypadku mamy tylko jeden wierzchołek, do którego przypisywane są stożki rozszerzające.
 \begin{definition} Stożek rozszerzający to podzbiór wierzchołków grafu $\mathcal{F}$ symbolizujący możliwe połączenia pomiędzy grafem $\mathcal{F}$ a wierzchołkiem do niego dodawanym.
 \end{definition}
 
@@ -1278,9 +1208,11 @@ Po raz kolejny, wszystkie możliwe stożki rozszerzające są grupowane w przedz
 
 
 Etapem przygotowawczym do rozszerzania jest stworzenie listy podzbiorów wierzchołków $\mathcal{F}$ które tworzą kliki lub zbiory niezależne. Takie podzbiory nazywamy dalej strukturami.
+
 \begin{definition} Struktura to podzbiór wierzchołków grafu $\mathcal{F}$ który nakłada ograniczenia na sposoby rozszerzenia go o wierzchołek.
 \end{definition}
-Celem powstania listy struktur jest przyspieszenie znajdywania stożków rozszerzających, które prowadzą do zaburzenia ramseyowskości grafu wynikowego. Jeżeli nowy wierzchołek zostałby połączony ze wszystkimi wierzchołkami $K_3$, to powstające $K_4$ dyskwalifikuje graf. Podobna sytuacja występuje w przypadku braku połączenia do któregokolwiek z wierzchołków $N_4$ gdzie w wyniku otrzymujemy niedozwolone $N_5$. 
+
+Celem powstania listy struktur jest przyspieszenie znajdywania stożków rozszerzających, które prowadzą do zaburzenia ramseyowości grafu wynikowego. Jeżeli nowy wierzchołek zostałby połączony ze wszystkimi wierzchołkami $K_3$, to powstające $K_4$ dyskwalifikuje graf. Podobna sytuacja występuje w przypadku braku połączenia do któregokolwiek z wierzchołków $N_4$ gdzie w wyniku otrzymujemy niedozwolone $N_5$. 
 Mając listę wszystkich struktur, można przystąpić do zawężania przedziału stożków rozszerzających. Rozpoczynamy ponownie od przedziału $[B = \emptyset, T = \{V(F)\} ]$ który obejmuje wszystkie możliwe stożki dla grafu $\mathcal{F}$, a więc również wszystkie możliwe rozszerzenia. Dla każdej struktury $S$, których listę utworzyliśmy wcześniej dokonujemy porównania przedziałów. Porównywanie odbywa się w następujące sposoby, zależne od tego, czy obecnie rozważana struktura opisuję klikę, czy zbiór niezależny.
 
 Rozumowanie dla ograniczenia wynikającego z kliki przebiega następująco:
@@ -1406,21 +1338,9 @@ $\begin{Bmatrix}
 
     \draw (2) -- (5);
     \draw (1) -- (3);
-
- 
-
   \end{tikzpicture}
 \hfill
 \hfill
-				
-					 
-					 
-					 
-					 
-					 
-			   
- 
-				
 	\caption{Graf wraz z odpowiadającą mu macierzą sąsiedztwa. W tej macierzy 0 odpowiada brakowi krawędzi, a 1 odpowiada jej istnieniu.}
 \end{figure}
 
