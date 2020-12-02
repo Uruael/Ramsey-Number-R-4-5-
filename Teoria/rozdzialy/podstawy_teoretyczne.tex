@@ -1,23 +1,27 @@
 \chapter{Podstawy teoretyczne} 
 Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teorii grafów, bez których zrozumienia, nie jest możliwe wyznaczanie liczb Ramseya.
 
-  \subsection{Teoria grafów}
+  \section{Teoria grafów}
   \begin{definition}[Graf nieskierowany]
-    Graf nieskierowany to para G=(V, E), gdzie V to zbiór elementów nazywanych wierzchołkami a E to zbiór par wierzchołków, którego elementy są nazywane krawędziami.
+    Graf nieskierowany to para $G=(V, E)$, gdzie $V$ to zbiór elementów nazywanych wierzchołkami, a $E$ to zbiór par wierzchołków, którego elementy są nazywane krawędziami.
   \end{definition}
 
-  Dla potrzeb naszej pracy, będziemy zakładać, że gdy mówimy o grafie, mamy na myśli graf nieskierowany i prosty (brak duplikatów par w zbiorze E).
+  \begin{definition}[Graf prosty]
+    Graf prosty, to taki graf $G=(V,E)$, gdzie zbiór E nie zawiera duplikatów, ani par ($v,v$), dla $v\in V$.
+  \end{definition}
+
+  Dla potrzeb naszej pracy, będziemy zakładać, że gdy mówimy o grafie, mamy na myśli graf nieskierowany i prosty.
   
   \begin{definition}[Rząd grafu]
-    Liczbę elementów zbioru V w grafie G=(V, E) nazywamy rzędem grafu. 
+    Liczbę elementów zbioru $V$ w grafie $G=(V, E)$ nazywamy rzędem grafu. 
   \end{definition}
 
   Rząd grafu to liczba jego wierzchołków. 
 
   \begin{definition}[Sąsiedztwo]
-    W grafie G (V, E) wierzchołki u, v $\in$ V sąsiadują wtedy i tylko wtedy gdy (u, v) $\in$ E.    
+    W grafie $G=(V, E)$ wierzchołki $u, v \in V$ sąsiadują wtedy i tylko wtedy gdy $(u, v) \in E$.    
   \end{definition}
-  W grafach nieskierowanych sąsiedztwo jest relacją symetryczną. Jest nieprzechodnia - z sąsiedztwa u i v oraz v i w nie wynika sąsiedztwo u i w.
+  W grafach nieskierowanych sąsiedztwo jest relacją symetryczną. Jest nieprzechodnia - z sąsiedztwa $u$ i $v$ oraz $v$ i $w$ nie wynika sąsiedztwo $u$ i $w$ (Patrz rysunek \ref{sasie}).
 
   \begin{figure}[h]
     \centering
@@ -36,13 +40,14 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
       \draw (4) -- (5);
     \end{tikzpicture}
     \caption{Graf, w którym wierzchołek 1 sąsiaduje z 2 i 5; 2 z 1 i 5; 3 z 4 i 5; 4 z 3 i 5; 5 z 1, 2, 3 i 4 }
+    \label{sasie}
   \end{figure}
 
    \begin{definition}[Klika]
-    Klika $K$ w grafie $G(V,E)$ jest takim podzbiorem wierzchołków $V(G)$, że dla każdej pary wierzchołków $$u, v \in K, (u, v) \in E(G)$$ 
+    Klika $K$ w grafie $G=(V,E)$ jest takim podzbiorem wierzchołków $V(G)$, że dla każdej pary wierzchołków $u, v \in K$ zachodzi $$(u, v) \in E(G)$$ 
    \end{definition}
    
-   W uproszczeniu, klika to podzbiór wierzchołków grafu, z których każdy jest połaczony z każdem innym wiechołkiem tego podzbioru.
+   W uproszczeniu, klika to podzbiór wierzchołków grafu, z których każdy jest połączony z każdym innym wiechołkiem tego podzbioru. Przykład grafu zawierającego klikę można zobaczyć na rysunku \ref{klik}
    \begin{figure}[H]
    \centering
     \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -60,6 +65,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
       \draw (1) -- (5);
      \end{tikzpicture}
      \caption{Wierzchołki 1, 2, 3 tworzą klikę stopnia 3 - $K_3$ }
+     \label{klik}
   \end{figure}
 
   Znalezienie stopnia maksymalnej kliki w danym grafie jest trudne obliczeniowo.
@@ -83,7 +89,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
   \end{algorithm}
 
   \begin{definition}[Zbiór niezależny]
-    Zbiór niezależny $N$ w grafie $G(V,E)$ to taki podzbiór wierzchołków G, że dla każdej pary wierzchołków $$u, v \in N, (u, v) \notin E(V) $$. 
+    Zbiór niezależny $N$ w grafie $G=(V,E)$ to taki podzbiór wierzchołków grafu $G$, że dla każdej pary wierzchołków $u, v \in N$ zachodzi $$(u, v) \notin E(V) $$. 
   \end{definition}
 
     \begin{figure}[H]
@@ -100,15 +106,16 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
 
         \end{tikzpicture}
         \caption{Wierzchołki 1, 2, 3, 5 tworzą zbiór niezależny 4 - $N_4$ }
+        \label{zniez}
      \end{figure}
 
 
-     Zbiór niezależny można również zdefiniować jako przeciwieństwo kliki, lub jako klikę w dopełnieniu grafu.
+     Zbiór niezależny można również zdefiniować jako przeciwieństwo kliki, lub jako klikę w dopełnieniu grafu. Rysunek \ref{zniez} prezentuje przykład zbioru niezależnego.
 
     \begin{definition}[Depełnienie grafu]
-      Depełnieniem grafu $G(V,E)$ nazywamy taki graf $G'(V,E')$, 
+      Depełnieniem grafu $G=(V,E)$ nazywamy taki graf $G'=(V,E')$, 
       dla którego zachodzi 
-      $$\forall{u,v} (u,v) \in E \iff (u,v) \notin E'$$
+      $$\forall_{u,v} (u,v) \in E \iff (u,v) \notin E'$$
     \end{definition}
   
     \begin{figure}[H]
@@ -127,11 +134,12 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
          \draw (4) -- (5);
 
         \end{tikzpicture}
-        \caption{Graf G }
+        \caption{Graf $G$ }
+        \label{zbior}
      \end{figure}
 
-     Na pierwszy rzut oka trudno zauważyć czy graf $G$ posiada zbiór niezależny $N_3$.
-     Spójrzmy na jego dopełnienie:
+    Na rysunku \ref{zbior} trudno zauważyć czy graf $G$ posiada zbiór niezależny $N_3$.
+     Spójrzmy na jego dopełnienie (rysunek \ref{dop}):
 
      \begin{figure}[H]
       \centering
@@ -143,17 +151,17 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
          \node[main] (5) at (288:2) {$5$};
 
          \draw (1) -- (2);
-         \draw (1) -- (3);
          \draw (1) -- (5);
          \draw (2) -- (3);
          \draw (2) -- (5);
 
         \end{tikzpicture}
-        \caption{ Dopełnienie grafu G - graf G' }
+        \caption{ Dopełnienie grafu $G$ - graf $G'$ }
+        \label{dop}
      \end{figure}
 
      Natychmiast zauważamy, że graf $G'$ posiada klikę $K_3$:
-    Oznacza to, że $G$ ma $N_3$ na tych samych Wierzchołkach.
+    Oznacza to, że $G$ ma $N_3$ na tych samych wierzchołkach (rysunek \ref{dopwiesz}).
 
     \begin{figure}[H]
       \centering
@@ -184,35 +192,36 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
          \node[main] (5) at (288:2) {$5$};
 
          \draw[red] (1) -- (2);
-         \draw (1) -- (3);
          \draw[red] (1) -- (5);
          \draw (2) -- (3);
          \draw[red] (2) -- (5);
 
         \end{tikzpicture}
         \caption{ $K_3$ w $G'$ leży między tymi samymi Wierzchołkami co $N_3$ w $G$ }
+        \label{dopwiesz}
      \end{figure}
 
 
      \begin{definition}[Podgraf indukowany]
-       Dla grafu $G(V,E)$ i podzbioru jego wierzchołków $S \subseteq V$, 
-       podgrafem indukowanym G[S] nazywamy taki graf, którego wszystkie wierzchołki
-       zawierają się w S i którego zbiór krawędzi zawiera wszystkie krawędzie z E kończące się w S.
-       $$ G[S] = H(S, E_2), \forall (v,u) \in E, (v,u) \ in E_2 \iff v \in S \land u \in S$$ 
+       Dla grafu $G=(V,E)$ i podzbioru jego wierzchołków $S \subseteq V$, 
+       podgrafem indukowanym $G[S]$ nazywamy taki graf, którego wszystkie wierzchołki
+       zawierają się w $S$ i którego zbiór krawędzi zawiera wszystkie krawędzie z $E$ kończące się w $S$.
+       $$ G[S] = H(S, E_2), \forall (v,u) \in E, (v,u) \in E_2 \iff v \in S \land u \in S$$ 
      \end{definition}
 
+     Na potrzeby naszej pracy mówiąc o podgrafie mamy na myśli podgraf indukowany.
 
-  \subsection{Izomorfizm}
+  \section{Izomorfizm}
 
   \begin{definition}[Izomorfizm grafów]
-    Izomorfizm grafów G i H to taka biekcja f:V(G) -> V(H), że 2 wierchołki u i v sąsiadują w G tylko jeżeli f(u) i f(v) sąsiadują w H.
+    Izomorfizm grafów $G$ i $H$ to taka biekcja $f:V(G) \to V(H)$, że 2 wierchołki $u$ i $v$ sąsiadują w $G$ tylko jeżeli $f(u)$ i $f(v)$ sąsiadują w $H$.
   \end{definition}
 
   Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne. Innymi słowy, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
-  aby sąsiadami odpowiadających sobie wierzchołków w obu grafach miały dokładnie takie same zbiory sąsiadów.
+  aby odpowiadające sobie wierzchołki w obu grafach miały dokładnie takie same zbiory sąsiadów.
   
 
-  Przekształćmy graf z rysunku 1 zamieniając wierzchołek 1 z 2 oraz 3 z 4:
+  Przekształćmy graf z rysunku \ref{sasie} zamieniając wierzchołek 1 z 2 oraz 3 z 4:
   \begin{figure}[H]
     \centering
     \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -230,64 +239,61 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
       \draw (4) -- (5);
     \end{tikzpicture}
     \caption{Mimo przekształcenia graf zachował swoje własności}
+    \label{sasieizo}
   \end{figure}
 
-  Jak widać, wierzchołki o tych samych numerach zachowały swoje zbiory sąsiadów. 
+  Jak widać na rysunku \ref{sasieizo}, wierzchołki o tych samych numerach zachowały swoje zbiory sąsiadów. 
 
-  Warto zauważyć, że na nasz użytek grafy izomorficzne nie są niezależnie użyteczne. Wszystkie własności opisane w tej pracy są przez izomorfizmy niezmienione, a więc na nasz użytek dwa grafy izomorficzne to efektywnie ten sam graf.
+  Wszystkie własności opisane w tej pracy są przez izomorfizmy niezmienione, a więc na nasz użytek dwa grafy izomorficzne to efektywnie ten sam graf.
 
 
   \begin{definition}[Automorfizm grafu]
-    Automorfizm grafu G to taka permutacja f zbioru wierzchołków G, że para wierzchołków u, v jest sąsiedująca tylko jeżeli f(u) i f(v) sąsiadują. 
+    Automorfizm grafu $G$ to taka permutacja $f$ zbioru wierzchołków $G$, że para wierzchołków $u$, $v$ jest sąsiedująca tylko jeżeli $f(u)$ i $f(v)$ sąsiadują. 
   \end{definition}
   Automorfizm to izomorfizm z grafu początkowego do tego samego grafu. 
   Złożenie automorfizmów również jest Automorfizmem.  
 
   \begin{definition}[Grupa automorfizmu]
-    Grupa automorfizmów grafu G to zbiór składający się z wszystkich automorfizmów grafu G.
+    Grupa automorfizmów grafu $G$ to zbiór składający się z wszystkich automorfizmów grafu $G$.
   \end{definition}
 
-  \begin{theorem}
-    Dla grafu $n$-wierzchołkowego grupa automorfizmów może być określona przez nie więcej niż 
-    $n-1$ generatorów. 
-  \end{theorem}
-
-  \subsection{Formy kanoniczne grafów}
+  \section{Formy kanoniczne grafów}
 
   \begin{definition}[Forma kanoniczna]
-    Forma kanoniczna C(G) grafu G to taki graf izomorficzny do G, że każdy graf izomorficzny do G ma taką samą formę kanoniczną. 
-    [14]$$ Canon \colon G -> G/ \simeq $$
+    Forma kanoniczna $C(G)$ grafu $G$ to taki graf izomorficzny do $G$, że każdy graf izomorficzny do $G$ ma taką samą formę kanoniczną\cite{canon}. 
+    $$ Canon \colon G \to G / \simeq $$
     $$G \simeq H \iff Canon(G) = Canon(H) $$
   \end{definition}
 
-  Forma kanoniczna grafu to takie pokrycie grafu G, 
-  które jest identyczne dla wszystkich grafów izomorficznych z G. Przykładowo, takie pokrycie można zaimplementować
+  Forma kanoniczna grafu to takie pokrycie grafu $G$, 
+  które jest identyczne dla wszystkich grafów izomorficznych z $G$. Przykładowo, takie pokrycie można zaimplementować
    jako numerowanie wierzchołków począwszy od takich o najmniejszej liczbie sąsiadów. 
    Jeżeli kilka wierzchołków ma taką samą liczbę sąsiadów to albo niższy numer otrzymuje wierzchołek, 
-   który ma sąsiada (sąsiadów) z najniższym numerem albo losowy. 
+   który ma sąsiada (sąsiadów) z najniższym numerem albo losowy.
 
 
-   \begin{algorithm}
+   \begin{algorithm}[H]
     \caption{Sprowadzenie grafu do formy kanonicznej}
     \begin{algorithmic}
     \REQUIRE $G(V, E) $
-    \STATE tab = sort(V, iloscSasiadowRekurencyjnie)
-    \FORALL{$v in V$}
+    \STATE tab = sort($V$, iloscSasiadowRekurencyjnie)
+    \FORALL{$v \in V(G)$}
       \STATE $v.numer = tab.indeks(v) $
     \ENDFOR
     \end{algorithmic}
   \end{algorithm}
   
+  Powyższy algorytm poprawnie tworzy formy kanoniczne jedynie dla bardzo prostych grafów.
   Rzeczywiste algorytmy są dużo bardziej zoptymalizowane i Korzystają z 
-  heurystyk pozwalających zoptymalizować proces dla określonych przypadków.
+  heurystyk pozwalających zoptymalizować proces dla określonych przypadków\cite{canon}.
   Sprowadzanie do formy kanonicznej jest kluczowe dla szybkiego wyszukiwania izomorfizmów. 
 
 \begin{definition}[Orbita]
-  Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
+  Orbita w grafie $G$ to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami.
 \end{definition}
 
 Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
-Przykład: 
+Przykład (rysunek \ref{orbit}): 
 \begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -304,16 +310,16 @@ Przykład:
      \draw (5) -- (3);
      \draw (5) -- (4);
     \end{tikzpicture}
-    \caption{Orbita pierwsza: 1, 5 
-    Orbita druga: 2, 3, 4}
+    \caption{Orbita pierwsza: 1, 5; Orbita druga: 2, 3, 4}
+    \label{orbit}
  \end{figure}
 
 
-    \subsection{Kolorowanie grafu}
+    \section{Kolorowanie grafu}
     \begin{definition}[Oznakowanie grafu]
-      Dla grafu G = (V, E), wierzchołkowym oznakowaniem grafu nazywamy funkcję
-       mapującą wierchołki do oznaczeń. Analogicznie, funkcję mapującą krawędzie do oznaczeń 
-       nazywamy krawędziowym oznakowaniem grafu.  
+      Dla grafu $G=(V, E)$, wierzchołkowym oznakowaniem grafu nazywamy funkcję
+       mapującą wierchołki do oznaczeń (rysunek \ref{kolor1}). Analogicznie, funkcję mapującą krawędzie do oznaczeń 
+       nazywamy krawędziowym oznakowaniem grafu (rysunek \ref{kolor2}).  
     \end{definition}
 
 
@@ -330,7 +336,8 @@ Przykład:
          \draw (4) -- (5);
 
         \end{tikzpicture}
-        \caption{ Przykład wierzchołkowego oznakowania grafu G z rysunku }
+        \caption{ Przykład wierzchołkowego oznakowania grafu $G$ z rysunku }
+        \label{kolor1}
      \end{figure}
 
      \begin{figure}[H]
@@ -346,16 +353,16 @@ Przykład:
          \draw (4) -- (5) node [midway, fill=white] {droga ekspresowa};
 
         \end{tikzpicture}
-        \caption{ Przykład krawędziowego oznakowania grafu G }
+        \caption{ Przykład krawędziowego oznakowania grafu $G$ }
+        \label{kolor2}
      \end{figure}
 
-     Oznakowywanie elementów grafów ma wiele zastosowań. Często nadaje się krawędziom wartości, mające reprezentować, np.
+     Oznakowywanie elementów grafów ma wiele zastosowań. Często nadaje się krawędziom wartości mające reprezentować np.
      koszt pokonania drogi między dwoma punktami. Innym często wykorzystywanym oznakowaniem grafów jest kolorowanie.   
    
     \begin{definition}[Kolorowanie grafu]
-      Kolorowanie grafów jest szczególnym przypadkiem oznakowywania grafu,
-       w którym oznaczenia są nazywane kolorami i mogą być przypisywane tylko zgodnie z określonymi o
-       ogranczeniami. 
+      Kolorowanie grafów jest szczególnym przypadkiem oznakowywania grafu w którym oznaczenia są nazywane kolorami i mogą być przypisywane tylko zgodnie z określonymi o
+       ogranczeniami (rysunek \ref{kolor3} i \ref{kolor4}). 
     \end{definition}
 
     \begin{figure}[H]
@@ -375,6 +382,7 @@ Przykład:
     \draw[ultra thick] (1) -- (3);
         \end{tikzpicture}
         \caption{Przykładowe kolorowanie wierzchołkowe grafu}
+        \label{kolor3}
      \end{figure}
 
     \begin{figure}[H]
@@ -395,10 +403,11 @@ Przykład:
     \draw[ultra thick][blue] (1) -- (3);
         \end{tikzpicture}
         \caption{Przykładowe kolorowanie krawędziowe grafu}
+        \label{kolor4}
      \end{figure}
 
      Kolorowanie najczęściej idzie w parze z ograniczeniami, których należy przestrzegać przypisując elementom wartości.
      Najczęściej dotyczą one zakazu kolorowania sąsiadujących wierzchołków lub krawędzi tym samym kolorem. 
 
-     Innym ograniczeniem dla kolorowania może być zakaz pomalowania kliki ustalonego stopnia n - $K_n$ - tym samym kolorem.
-     Dla $n=2$ otrzymamy zakaz sąsiedztwa wspomniany wcześniej.  
+     Innym ograniczeniem dla kolorowania może być zakaz pomalowania kliki ustalonego stopnia $n$ - $K_n$ - tym samym kolorem.
+     Dla $n=2$ otrzymamy zakaz sąsiedztwa wspomniany wcześniej.
