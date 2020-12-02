@@ -24,6 +24,7 @@
 *.sqlite
 
 # OS generated files #
+.pdf
 .DS_Store
 .DS_Store?
 ._*

@@ -1,0 +1,92 @@
+\documentclass[nostrict]{szablonPG}
+
+%-------------------- Dodatkowe pakiety ---------------------
+
+%%\usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+%\usepackage{subcaption}
+\usepackage{amsfonts} 
+\usepackage{lmodern}
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{tikz} 
+\usepackage{graphicx}
+
+%\usepackage{listing_schemat}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+
+%------------------------------------------------------------
+\usetikzlibrary{graphs,graphs.standard,quotes}
+\selectlanguage{polish}
+\newtheorem{theorem}{Twierdzenie} 
+\newtheorem{definition}{Definicja}[section]
+%------------------------------------------------------------
+%			      Pocz�tek pracy dyplomowej  
+%------------------------------------------------------------
+
+\begin{document}
+
+%------------------------------------------------------------
+%  Dodanie strony tytu�owej wygenerowanej z MojaPG oraz 
+%  						o�wiadczenia
+
+%\includepdf{meta/strona_tytulowa.pdf}
+%\includepdf{meta/oswiadczenie.pdf}
+
+%------------------------------------------------------------
+%  Dodanie streszczenia i abstract
+%  						
+
+%\input{meta/streszczenie.tex}
+%\input{meta/abstract.tex}
+
+%------------------------------------------------------------
+%	Utworzenie spisu tre�ci pracy dyplomowej
+\tableofcontents
+
+%------------------------------------------------------------
+%	Dodanie wykazu wazniejszych skr�t�w i oznacze� 
+%%\input{meta/oznaczenia.tex}
+
+%------------------------------------------------------------
+%	Dodanie rozdzia��w pracy dyplomowej - g��wne cia�o dokumentu 
+
+\input{rozdzialy/podstawy_teoretyczne.tex}
+\input{rozdzialy/twierdzenie_ramseya.tex}
+\input{rozdzialy/generowanie_grafow.tex}
+\input{rozdzialy/sklejanie_grafow.tex}
+\input{rozdzialy/implementacja_i_eksperymenty.tex}
+%\input{rozdzialy/przyklad_rozdzialu_3.tex}
+
+% itd...
+
+% ---------------------- Bibliografia -----------------------
+\input{meta/Bibliografia.tex} % dodanie pliku bibliografii
+% -----------------------------------------------------------
+
+%------------------------------------------------------------
+%	Dodanie wykazu rysunk�w oraz tabeli
+
+%%\renewcommand{\baselinestretch}{1.0}\normalsize	% interlinia w sekcji wykaz�w
+%%\addcontentsline{toc}{chapter}{\listfigurename}	% dodanie wykazu rysunk�w do spisu tre�ci
+%%\listoffigures									% generacja wykazu rysunk�w
+
+%%\addcontentsline{toc}{chapter}{\listtablename}	% dodanie wykazu tabel do spisu tre�ci
+%5\listoftables									% generacja wykazu tabel
+%%\renewcommand{\baselinestretch}{1.3}\normalsize	% powr�t do interlinii 1.5
+
+
+% ---------------------- DODATKI -----------------------
+%%\chapter*{Dodatek A}
+%%\addcontentsline{toc}{chapter}{Dodatek A}
+% Zale�nie od dodatku, zaleca si� dodawa� dodatki jako
+% dokumenty PDF
+% \includepdf{dodatki/dodatek1.pdf}
+
+% -----------------------------------------------------------
+\end{document}
+%------------------------------------------------------------
+			 	%	Koniec pracy dyplomowej  %
+%------------------------------------------------------------

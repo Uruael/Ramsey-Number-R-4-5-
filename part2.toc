@@ -11,14 +11,14 @@
 \contentsline {subsection}{\numberline {2.3}Paul Erd\"os i Teoria Ramseya}{11}{}%
 \contentsline {subsection}{\numberline {2.4}Wartości liczb Ramseya}{12}{}%
 \contentsline {section}{\numberline {3}Artykuł R(4,5)=25}{17}{}%
-\contentsline {section}{\numberline {4}Generowanie grafów}{17}{}%
-\contentsline {subsection}{\numberline {4.1}Generowanie grafów nieizomorficznych}{17}{}%
+\contentsline {section}{\numberline {4}Generowanie grafów}{18}{}%
+\contentsline {subsection}{\numberline {4.1}Generowanie grafów nieizomorficznych}{18}{}%
 \contentsline {subsection}{\numberline {4.2}Generowanie grafów Ramseya}{19}{}%
 \contentsline {section}{\numberline {5}Sklejanie grafów}{20}{}%
 \contentsline {subsection}{\numberline {5.1}Dekompozycja problemu}{20}{}%
 \contentsline {subsection}{\numberline {5.2}Grafy potrzebne do sklejania}{21}{}%
-\contentsline {subsection}{\numberline {5.3}Idea sklejania}{21}{}%
+\contentsline {subsection}{\numberline {5.3}Idea sklejania}{22}{}%
 \contentsline {subsection}{\numberline {5.4}Algorytm sklejania}{22}{}%
 \contentsline {subsection}{\numberline {5.5}Zawężanie przedziałów - zasady A-D}{23}{}%
 \contentsline {subsection}{\numberline {5.6}Wynik sklejania}{25}{}%
-\contentsline {section}{\numberline {6}Implementacja i eksperymenty}{26}{}%
+\contentsline {section}{\numberline {6}Implementacja i eksperymenty}{29}{}%
