@@ -20,5 +20,5 @@
 \contentsline {subsection}{\numberline {5.3}Idea sklejania}{21}{}%
 \contentsline {subsection}{\numberline {5.4}Algorytm sklejania}{22}{}%
 \contentsline {subsection}{\numberline {5.5}Zawężanie przedziałów - zasady A-D}{23}{}%
-\contentsline {subsection}{\numberline {5.6}Wynik sklejania}{25}{}%
-\contentsline {section}{\numberline {6}Implementacja i eksperymenty}{26}{}%
+\contentsline {subsection}{\numberline {5.6}Wynik sklejania}{29}{}%
+\contentsline {section}{\numberline {6}Implementacja i eksperymenty}{33}{}%
