@@ -1,5 +1,8 @@
 \documentclass[11pt]{article}
  
+
+
+ 
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
@@ -447,15 +450,43 @@ Niech r $\in \mathbb{N}$. Istnieje takie n $\in \mathbb{N}$  gdzie dla każdego 
 Z powyższego twierdzenia wynika, że będziemy omawiać dwukolorowe struktury. 
 
 \begin{definition}[Liczba Ramseya]
-Liczba Ramseya, wyrażana jako R(r,b), gdzie r oraz b są dowolnymi liczbami całkowitymi, jest najmniejszą możliwą liczbą n dla grafu $\mathit{K}_{n}$. Używając dwóch kolorów np. czerwonego i niebieskiego, dowolnie kolorując podany graf uzyskamy czerwony podgraf $\mathit{K}_{r}$ lub niebieski podgraf $\mathit{K}_{b}$.  \cite{theory} 
+Niech r $\in \mathbb{N}$ i b $\in \mathbb{N}$. Liczba Ramseya, wyrażana jako n = R(r,b), jest najmniejszą liczbą całkowitą taka że 2-kolorowy graf $\mathit{K}_{n}$, używając koloru czerwonego i niebieskiego do kolorowania krawędzi, implikuje czerwony monochromatyczny podgraf $\mathit{K}_{r}$ lub niebieski monochromatyczny podgraf $\mathit{K}_{b}$
+  \cite{theory} 
 \end{definition}
 
-W kontekście tej pracy, określamy graf jako ramseyowski jeżeli nie posiada on kolorowania określonego w twierdzeniu 1. Oznacza to, że graf spełniający R(4,5) to graf, który nie posiada kliki 4 rzędu ani zbioru niezależnego 5 rzędu. Dodatkowo zapis R(4,5,n) odnosi się do grafu n wierzchołkowego spełniającego R(4,5). 
+\begin{definition}[Graf Ramseyowski]
+Niech r $\in \mathbb{N}$, b $\in \mathbb{N}$ i n $\in \mathbb{N}$. Graf Ramseyowski, zapisany jako R(r,b,n) oznacza graf mający n wierzchołków, nie zawierający kliki o rozmiarze r oraz nie zawierający zbioru niezależnego rozmiary b.
+  \cite{theory} 
+\end{definition}
+
+W kontekście tej pracy, określamy graf jako ramseyowski jeżeli nie posiada on kolorowania określonego w twierdzeniu 2. Oznacza to, że graf spełniający R(4,5,6) to graf zbudowany na 6 wierzchołkach, który nie posiada kliki 4 rzędu ani zbioru niezależnego 5 rzędu. Przykładowy graf R(4,5,6) jest przedstawiony na rysunku poniżej
+
+ \begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main] (4) at (300:2) {$4$};
+
+\draw[ultra thick] (6) -- (1);
+\draw[ultra thick] (6) -- (2);
+\draw[ultra thick] (6) -- (3);
+\draw[ultra thick] (6) -- (4);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (3) -- (4);
+\draw[ultra thick] (2) -- (1);
+    \end{tikzpicture}
+    \caption{}
+ \end{figure}
+
 Celem tej pracy jest wykazanie, że stworzenie grafu R(4,5,25) jest niemożliwe, z czego wynika, że liczba Ramseya R(4,5) = 25.
 
 W celu ułatwienia obliczeń i umożliwienia użycia technik generacji grafów, używamy uproszczenia reprezentacji grafowej. Zamiast wyznaczać kolorowania grafu pełnego, używamy wszystkich grafów prostych gdzie kolor krawędzi zamieniony jest na istnienie lub brak istnienia krawędzi pomiędzy parą wierzchołków.
 
-\section{Historia liczby i Twierdzenia Ramseya}
+\subsection{Historia liczby i Twierdzenia Ramseya}
 
 W 1930 roku zostało opublikowane działo Franka Plumptona Ramseya ''On a Problem of Formal Logic''\cite{ramsey} , które posłużyło jako podstawę do teorii którą dzisiaj znamy jak Teoria Ramseya. 
 
@@ -485,19 +516,66 @@ Dla dowolnej liczby całkowitej N, każdy dowolnie duży i skończony zbiór pun
 
 Prace nad Happy Ending problem sprawiły że Paul Erd\"os natrafił na publikacje Ramseya z 1928 roku. Spowodowało to że Erd\"os rozpoczął prace nad liczbami Raseya, co przyczyniło się do rozwoju tej teorii.
 
+
+\hfill  \par
+Party problem lub inaczej Theorem on Friends and Strangers, jest to problem dzięki któremu można przedstawić przykład zastosowania liczby Ramseya, brzmi on następująco: Jaka jest najmniejsza liczba osób jaką trzeba zaprosić na przyjęcie tak aby trójka z nich były wspólnymi znajomymi lub trójka z nich była dla siebie nieznajomymi\cite{partyproblem}? Aby odpowiedzieć na to pytanie można zasięgnąć o pomoc do teorii Ramseya gdzie znajdziemy że odpowiedź na postawione pytanie stanowi liczba Ramseya R(3,3)=6 która jest opisana w dalszej części pracy. Powyższe pytanie można przedstawić w bardziej formalny sposób: Znajdź najmniejszą liczbę gości którzy muszą zostać zaproszeni tak aby przynajmniej m znało się wzajemnie a n była dla siebie obca \cite{partyformal}, lub inaczej; Znajdź najmniejszą liczbę wierzchołków dla których klika będzie zawierać klikę stopnia n o kolorze czerwonym lub klikę stopnia m o kolorze niebieskim. Rozwiązaniem dla tego problemu to liczby Ramseya. 
+
+
 \subsection{Wartości liczb Ramseya}
 
-\begin{enumerate}
-  \item Trywialne wartości liczby Ramseya \hfill 
-  
-  \begin{itemize}
+\begin{enumerate}  
+
   \item R(1,k) = R(k,1) = 1 \hfill \par
   W przypadku gdy jeden z parametrów wynosi 1 aby spełnić warunek wystarczy jeden wierzchołek.  Jednokolorowy graf $\mathit{K}_{1}$ jest pojedynczym wierzchołkiem i spełnia zarówno warunek dla R(1,b) oraz R(r,1). 
   
-   \item R(2,k) = R(k,2) = k \hfill  \par
-	W przypadku gdy jeden z parametrów wynosi 2 nie możemy postąpić analogicznie jak w poprzednim przykładzie, graf $\mathit{K}_{2}$ nie spełni warunku gdy k > 2 dla kolorowania jednym kolorem. Tak samo każdy graf pełny o rozmiarze mniejszym niż k zostanie odrzucony w sytuacji gdy zostanie użyty k kolor aby pokolorować go w jednolity sposób. Dlatego też liczba wierzchołków w grafie musi wynosić k co zawsze spełni jeden z dwóch warunków, przypadek gdy wszystkie krawędzie zostaną pokolorowane jednym kolorem lub gdy chociaż jedna krawędź będzie drugiego koloru.
+  \begin{figure}[h]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1)  {$1$};
+
+   \end{tikzpicture}
+   \caption{R(1,k,1)}
+\end{figure}
+  
+   \item R(2,k) = R(k,2) = k \hfill \par
+	W przypadku gdy jeden z parametrów wynosi 2 nie możemy postąpić analogicznie jak w poprzednim przykładzie, graf $\mathit{K}_{2}$ nie spełni warunku gdy k > 2 dla kolorowania jednym kolorem. Tak samo każdy graf pełny o rozmiarze mniejszym niż k zostanie odrzucony w sytuacji gdy zostanie użyty k kolor aby pokolorować go w jednolity sposób. Dlatego też liczba wierzchołków w grafie musi wynosić k co zawsze spełni jeden z dwóch warunków, przypadek gdy wszystkie krawędzie zostaną pokolorowane jednym kolorem lub gdy chociaż jedna krawędź będzie drugiego koloru. Przykładowo dla R(2,4) gdzie pierwszy kolor (dla r=2) będzie oznaczony kolorem czerwonym a drugi (b=4) niebieskim.
+	
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (1) at (0:2) {$1$};
+ \node[main] (2) at (90:2) {$2$};
+ \node[main] (3) at (180:2) {$3$};
+ \node[main] (4) at (270:2) {$4$};
+
+
+\draw[ultra thick][blue] (1) -- (2);
+\draw[ultra thick][blue] (1) -- (3);
+\draw[ultra thick][blue] (1) -- (4);
+\draw[ultra thick][blue] (2) -- (3);
+\draw[ultra thick][blue] (2) -- (4);
+\draw[ultra thick][red] (3) -- (4);
+
+    \end{tikzpicture}
+        \hspace{15mm}
+       \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (1) at (0:2) {$1$};
+ \node[main] (2) at (90:2) {$2$};
+ \node[main] (3) at (180:2) {$3$};
+ \node[main] (4) at (270:2) {$4$};
+
+
+\draw[ultra thick][blue] (1) -- (2);
+\draw[ultra thick][blue] (1) -- (3);
+\draw[ultra thick][blue] (1) -- (4);
+\draw[ultra thick][blue] (2) -- (3);
+\draw[ultra thick][red] (2) -- (4);
+\draw[ultra thick][blue] (3) -- (4);
+    \end{tikzpicture}
+    \caption{R(2,4,4)}
+ \end{figure}
   	
-  \end{itemize}
+
 
   
  
@@ -508,11 +586,11 @@ Prace nad Happy Ending problem sprawiły że Paul Erd\"os natrafił na publikacj
 \begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
- \node[main] (1) at (1*90:1) {$1$};
- \node[main] (2) at (2*0:1.5) {$2$};
- \node[main] (5) at (3*60:1.5) {$5$};
- \node[main] (4) at (4*60:2) {$4$};
- \node[main] (3) at (5*60:2) {$3$};
+ \node[main] (1) at (1*90:2) {$1$};
+ \node[main] (5) at (1*162:2) {$5$};
+ \node[main] (4) at (1*234:2) {$4$};
+ \node[main] (3) at (1*306:2) {$3$};
+ \node[main] (2) at (1*18:2) {$2$};
 
 \draw[ultra thick][red] (1) -- (2);
 \draw[ultra thick][red] (2) -- (3);
@@ -569,9 +647,28 @@ Aby udowodnić że R(3,3) = 6 przeanalizujmy kolorowanie grafu pełnego o 6 wier
 \draw[ultra thick][blue] (6) -- (4);
 \draw[ultra thick][blue] (6) -- (5);
 
-\draw[ultra thick][blue] (2) -- (1);
-\draw[ultra thick][blue] (3) -- (2);
-\draw[ultra thick][blue] (1) -- (3);
+\draw[ultra thick][blue, dashed] (2) -- (1);
+\draw[ultra thick][blue, dashed] (3) -- (2);
+\draw[ultra thick][blue, dashed] (1) -- (3);
+    \end{tikzpicture}
+ \hspace{15mm}
+      \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main] (4) at (300:2) {$4$};
+
+\draw[ultra thick][red] (6) -- (1);
+\draw[ultra thick][red] (6) -- (2);
+\draw[ultra thick][red] (6) -- (3);
+\draw[ultra thick][blue] (6) -- (4);
+\draw[ultra thick][blue] (6) -- (5);
+
+\draw[ultra thick][red, dashed] (2) -- (1);
+\draw[ultra thick][red, dashed] (3) -- (2);
+\draw[ultra thick][red, dashed] (1) -- (3);
     \end{tikzpicture}
     \caption{}
  \end{figure}
@@ -585,15 +682,14 @@ Po wybraniu dowolnego wierzchołka i pokolorowaniu wychodzących z niego krawęd
 
 \item Inne liczby Ramseya \hfill \par
 
- Udowodnienie wartości pozostałych liczb Ramseya zostanie pominięte, gdyż stopień skomplikowania dowodu rośnie wraz z ilością wierzchołków, nie istnieje żaden znany łatwy obliczeniowo sposób na określenie dokładnej wartości tej liczby, oraz wyznaczenie dokładnej wartości często jest na tyle trudne że istnieje jedynie jej bliższe oszacowanie. Poniższa tabela prezentuje dokładne wartości lub górne i dolne granice dla dwukolorowych liczb Ramseya R(k,l) k<10, l<10 (wartości dla k i l równego 2 albo 1 zostały opisane wcześniej)
+ Udowodnienie wartości pozostałych liczb Ramseya zostanie pominięte, gdyż stopień skomplikowania dowodu rośnie wraz z ilością wierzchołków, nie istnieje żaden znany łatwy obliczeniowo sposób na określenie dokładnej wartości tej liczby, oraz wyznaczenie dokładnej wartości często jest na tyle trudne że istnieje jedynie jej bliższe oszacowanie. Poniższa tabela prezentuje dokładne wartości lub górne i dolne granice dla dwukolorowych liczb Ramseya R(k,l) k<10, l<10 (wartości dla k i l równego 2 albo 1 zostały opisane wcześniej). Jako że wartości dla liczb Ramseya są symetryczne, R(r,b) = R(b,r) wypełniony został jedynie górny trójkąt w tabeli.
  
-\hfill 
 \begin{figure}[h]
   \centering
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
 \hline
-k\textbackslash{}l & 3 & 4  & 5                                               & 6                                                 & 7                                                 & 8                                                  & 9                                                  & 10                                                  \\ \hline
+R(k,l) & 3 & 4  & 5                                               & 6                                                 & 7                                                 & 8                                                  & 9                                                  & 10                                                  \\ \hline
 3                  & 6 & 9  & 14                                              & 18                                                & 23                                                & 28                                                 & 36                                                 & \begin{tabular}[c]{@{}l@{}}40\\ 42\end{tabular}     \\ \hline
 4                  &   & 18 & 25                                              & \begin{tabular}[c]{@{}l@{}}36\\ 41\end{tabular}   & \begin{tabular}[c]{@{}l@{}}49\\ 61\end{tabular}   & \begin{tabular}[c]{@{}l@{}}59\\ 84\end{tabular}    & \begin{tabular}[c]{@{}l@{}}73\\ 115\end{tabular}   & \begin{tabular}[c]{@{}l@{}}92\\ 149\end{tabular}    \\ \hline
 5                  &   &    & \begin{tabular}[c]{@{}l@{}}43\\ 49\end{tabular} & \begin{tabular}[c]{@{}l@{}}58\\ 87\end{tabular}   & \begin{tabular}[c]{@{}l@{}}80\\ 143\end{tabular}  & \begin{tabular}[c]{@{}l@{}}101\\ 216\end{tabular}  & \begin{tabular}[c]{@{}l@{}}133\\ 316\end{tabular}  & \begin{tabular}[c]{@{}l@{}}143\\ 442\end{tabular}   \\ \hline
@@ -604,10 +700,17 @@ k\textbackslash{}l & 3 & 4  & 5                                               & 
 10                 &   &    &                                                 &                                                   &                                                   &                                                    &                                                    & \begin{tabular}[c]{@{}l@{}}798\\ 23556\end{tabular} \\ \hline
 \end{tabular}%
 }
+ \caption{Wartości liczb ramseya dla 3$\leq$k$\leq$10 i 3$\leq$l$\leq$10. Górny wiersz odpowiada wartością k a boczny wartością l. Dwie liczby zapisane w jednej komórce oznaczają granicę dla danej liczby: najpierw zapisana jest dolna a następnie górna granica}
 \end{figure}
 \hfill 
 
-Powodem dla podawania granicy dolnej oraz górnej jest, jak wspomniano wcześniej, brak uniwersalnej i opłacalnej formuły do określenia dokładnej wartości. Przykładowo dla R(4,6) gdybyśmy chcieli sprawdzić dolną granicę 36 \cite{smallramsey}, należałoby sprawdzić wszystkie dwukolorowania $\mathit{K}_{36}$, który ma ${36\choose 2}$ = 630 krawędzi. Istnieje więc $2^{630} \approx 4,4555 * 10^{189}$ różnych sposobów na pokolorowanie tego grafu. Dlatego przy obecnych możliwościach obliczeniowych nie jest możliwe rozwiązanie tego problemu używając podejścia naiwnego. Aby podsumować problem znajdowania dokładnych warości liczb Ramseya można posłużyć się słowami Paula Erdősa: Jeżeli kosmici najechaliby ziemię i postawili ultimatum, że jeżeli ludzkość nie znajdzie R(5,5) w ciągu roku, to zniszczą ziemię, najlepszym wyborem byłoby zebranie całej mocy obliczeniowej jaką aktualnie dysponuje ludzkość w celu pozyskania tej liczby. Jednak w przypadku gdy kosmici zażądali by R(6,6) najlepszym wyborem było by wypowiedzenie im wojny.\cite{aliens}  \par
+
+Istnieją dwa główne podejścia na wyznaczanie liczb Ramseya. Pierwszym z nich gdy wyznaczenie dokładnej liczby nie jest możliwe wyznacza się górną oraz dolną granicę. Przykładową pracą gdzie udowadniane były granice dla liczb Ramseya (R(5,5)$\leq$49 oraz R(4,6)$\leq$41) jest praca Brendana D. McKaya oraz Stanisława P. Radziszowskiego ''Subgraph Counting Identities and Ramsey Numbers'' \cite{boundproof}. Drugim sposobem natomiast jest wyznaczenie dokładnej wartości tej liczby jest próba uzyskania dokładnej wartości. W tym przypadku bardzo często wykorzystywane są komputery z zaprojektowanymi do tego celu algorytmami. Przykładowymi pracami gdzie ta metoda została wykorzystana jest praca na której Brendana D. McKaya oraz Stanisława P. Radziszowskiego R(4,5)=25\cite{mainpaper} oraz praca Charlesa M. Grinsteada i Sama M. Robertsa ''On the Ramsey Numbers R(3,8) and R(3,9)'' gdzie posłużyli się algorytmem do wyznaczenia R(3,9)=36 oraz ustalenia granic dla liczby R(3,8) (28$\leq$R(3,8)$\leq$29)\cite{computeproof}. \par
+
+Powodem dla podawania granicy dolnej oraz górnej jest, jak wspomniano wcześniej, brak uniwersalnej i opłacalnej formuły do określenia dokładnej wartości. Dla grafu pełnego $\mathit{K}_{n}$, który ma ${\dfrac{n(n-1)}{2}}$ krawędzi, istnieje $c^{\dfrac{n(n-1)}{2}}$ grafów które trzeba przeszukać (gdzie c oznacza liczbę kolorów). Oznacza to że złożoność przeszukiwania wszystkich możliwych grafów metoda naiwną to $O(c^{n^{2}})$ przy c kolorach i n wierzchołkach. Przykładowo dla R(4,6) gdybyśmy chcieli sprawdzić dolną granicę 36 \cite{smallramsey}, należałoby sprawdzić wszystkie dwukolorowania $\mathit{K}_{36}$, który ma ${36\choose 2}$ = 630 krawędzi. Istnieje więc $2^{630} \approx 4,4555 * 10^{189}$ różnych sposobów na pokolorowanie tego grafu. Dlatego przy obecnych możliwościach obliczeniowych nie jest możliwe rozwiązanie tego problemu używając podejścia naiwnego. \par
+
+Aby podsumować problem znajdowania dokładnych warości liczb Ramseya można posłużyć się słowami Paula Erdősa: Jeżeli kosmici najechaliby ziemię i postawili ultimatum, że jeżeli ludzkość nie znajdzie R(5,5) w ciągu roku, to zniszczą ziemię, najlepszym wyborem byłoby zebranie całej mocy obliczeniowej jaką aktualnie dysponuje ludzkość w celu pozyskania tej liczby. Jednak w przypadku gdy kosmici zażądali by R(6,6) najlepszym wyborem było by wypowiedzenie im wojny.\cite{aliens}  \par
+
 
 \item Granice liczby Ramseya \hfill \par
 
@@ -619,181 +722,368 @@ Granica górna może być łatwo wyliczona stosując nierówność $R(r,b) \le R
 
 
 Głównym źródłem wymagań naszej pracy jest publikacja R(4,5) = 25 wydana w 1995 przez Brendana D. McKaya oraz Stanisława P. Radziszowskiego  \cite{mainpaper}. Motywacją do sporządzenia tej pracy było udowodnienie, że dokładna wartość liczby Ramseya R(4,5) wynosi 25, z wykorzystaniem nowych technologii. Prace nad wyznaczeniem wartości R(4,5) zaczęły się w 1955 wraz z wydaniem przez Greenwooda oraz Gleasona artykułu w którym wyznaczyli oni górną granicę R(4,5) $\leq$ 31. W kolejnych latach granica ta była zawężana aż do 25 $\leq$ R(4,5) $\leq$ 27.\par
-Jak pokazano wcześniej, wygenerowanie wszystkich możliwych dwukolorowych grafów a następnie sprawdzenie ich poprawności byłoby zbyt czasochłonne więc wymagane było inne podejście do problemu. Wykorzystano jedynie wyselekcjonowane grafy (s,t,n) gdzie s oznacza rozmiar maksymalnej kliki która znajduje się w grafie, t oznacza wielkość maksymalnego zbioru niezależnego który należy do grafu, a n oznacza liczbę wierzchołków na których zbudowany jest graf. Celem było skonstruowanie rodziny grafów (4,5,24) z grafów (3,5,d) oraz (4,4,24-d) gdzie 7 $\leq$ d $\leq$ 13, przy pomocy algorytmu nazwanym ''sklejaniem''. Ostatnim krokiem przed weryfikacją wyników jest próba rozszerzenia otrzymanych grafów (4,5,24) o jeden wierzchołek.
+Jak pokazano wcześniej, wygenerowanie wszystkich możliwych dwukolorowych grafów a następnie sprawdzenie ich poprawności byłoby zbyt czasochłonne więc wymagane było inne podejście do problemu. Wykorzystano jedynie wyselekcjonowane grafy (s,t,n) gdzie s oznacza rozmiar maksymalnej kliki która znajduje się w grafie, t oznacza wielkość maksymalnego zbioru niezależnego który należy do grafu, a n oznacza liczbę wierzchołków na których zbudowany jest graf. Celem było skonstruowanie rodziny grafów R(4,5,24) z grafów R(3,5,d) oraz R(4,4,24-d) gdzie 7 $\leq$ d $\leq$ 13, przy pomocy algorytmu nazwanym ''sklejaniem''. Ostatnim krokiem przed weryfikacją wyników jest próba rozszerzenia otrzymanych grafów R(4,5,24) o jeden wierzchołek.
 
   
 \section{Generowanie grafów}
 
-\subsection{Generowanie grafów nieizomorficznych} 
+\subsection{Rozszerzanie grafu}
+Do przeprowadzenia poprawnego rozumowania na grafach, wymagane jest wpierw pozyskanie zbioru grafów. Operację tą nazywamy generowaniem grafów, i rozpoczyna się ją od rozszerzania grafów. 
+\begin{definition} Rozszerzeniem grafu nazywamy przekształcenie grafu $G$ w graf $G'$ poprzez dodanie do $G$ wierzchołka $v$ i dowolnego podzbioru krawędzi pomiędzy $v$ a $V(G)$.
+\end{definition}
+Możliwych rozszerzeń grafu o n wierzchołkach jest $2^n$. Kompletnym rozszerzeniem nazywamy zbiór grafów uzyskany przez wykonanie każdego możliwego rozszerzenia.
+				   
+											 
+											
+								   
+								 
+		   
+				   
+			   
 
-\begin{algorithm}
-  \caption{Generowanie grafów nieizomorficznych}
+																			  
+																								  
+				 
+											 
+
+				
+									 
+
+																																	 
+
+																																				
+ 
+			  
+			   
+
+									   
+
+Najprostszym przykładem rozszerzenia grafu jest rozszerzanie grafu jednowierzchołkowego, pokazanego na rys. \ref{grafjednowierzcholkowy}.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1) {$1$};
+   \end{tikzpicture}
+   \caption{Graf jednowierzchołkowy}
+   \label{grafjednowierzcholkowy}
+\end{figure}
+
+
+Podczas rozszerzania powyższego grafu istnieją dwie możliwości na sposób dodania krawędzi pomiędzy Grafem G a nowym wierzchołkiem. W celu wygenerowania wszystkich grafów dwuwierzchołkowych należy przeprowadzić rozszerzenia na wszystkie (dwa) możliwe sposoby jak na rysunku \ref{rozszerzeniedwuwierzcholkowe}.
+\begin{figure}[h]
+  
+  \hfill
+  \centering
+  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (2) {$1$};
+    \node[main] (3) [right of=2] {$2$};
+   
+									   
+									   
+   
+					 
+   \end{tikzpicture}
+			 
+			
+
+																																				 
+
+				 
+			
+																		  
+						  
+									   
+									   
+   
+					 
+					 
+   \hfill
+   \centering
+						  
+									   
+									   
+   
+					 
+					 
+					 
+		 
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    \node[main] (1)  {$1$};
+    \node[main] (2) [right of=2] {$2$};
+									   
+   
+    \draw (1) -- (2);
+					 
+					 
+   \end{tikzpicture}  
+	\hfill
+	\hfill
+   \caption{Oba możliwe rozszerzenia grafu jednowierzchołkowego}
+   \label{rozszerzeniedwuwierzcholkowe}
+\end{figure}
+
+W podobny sposób można uzyskać kompletny zbiór grafów o dowolnej liczbie wierzchołków. Wystarczy jedynie rekurencyjnie rozszerzać zbiór grafów, zaczynając od jednego wierzchołka i kończąc, gdy nasz zbiór zawiera grafy o wymaganym stopniu. Przez rozszerzenie zbioru grafów mamy na myśli rozszerzenie każdego z grafów ze zbioru na wszystkie możliwe sposoby. Takie podejście prowadzi co prawda  do uzyskania każdego możliwego grafu, jest jednak zatrważająco nieefektywne. Jest tak ze względu na obecność grup grafów izomorficznych w zbiorach generowanych w ten sposób. 
+
+W celu zobrazowania problemu przeprowadźmy dalsze rozszerzenie dwuwierzchołkowego grafu pełnego z rysunku \ref{rozszerzeniedwuwierzcholkowe}. Określijmy ten graf jako graf $G$. Rozszerzenie grafu dwuwierzchołkowego w sposób kompletny prowadzi do uzyskania 4 grafów, pokazanych na rysunku \ref{rozszerzenietrzywierzcholki}.
+
+
+\begin{figure}[H]
+ 
+  		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+   			\node[main] (0) at (0,1.5) {$1$};
+   			\node[main] (1) at (2,1.5)  {$2$};
+   			\node[main] (2) at (1,0)  {$3$};
+			
+			\node[main] (3) at (3,1.5) {$1$};
+   			\node[main] (4) at (5,1.5)  {$2$};
+   			\node[main] (5) at (4,0)  {$3$};
+			
+			\node[main] (6) at (6,1.5) {$1$};
+   			\node[main] (7) at (8,1.5)  {$2$};
+   			\node[main] (8) at (7,0)  {$3$};
+			
+			\node[main] (9) at (9,1.5) {$1$};
+   			\node[main] (10) at (11,1.5)  {$2$};
+   			\node[main] (11) at (10,0)  {$3$};
+			
+			\draw (0) -- (1);
+   			\draw (3) -- (4);
+			\draw (6) -- (7);
+			\draw (9) -- (10);
+			
+			\draw (3) -- (5);
+			\draw (7) -- (8);
+			\draw (9) -- (11);
+			\draw (10) -- (11);
+			
+   		\end{tikzpicture}
+   		\caption{Możliwe rozszerzenia grafu $G$ opisane dalej jako $G'_1$ do $G'_4$}
+   		\label{rozszerzenietrzywierzcholki}
+\end{figure}
+
+Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $G'_n$ zawiera trzy grupy izomorficzne. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów $G$ oraz $H$, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do $G'_n$ dodamy również rozszerzenia grafu $H$ przybędzie tylko jeden unikalny graf.
+		
+																		  
+						
+									 
+									 
+
+ Ze względu na naturę problemu poruszanego w tej pracy, grupa grafów izomorficznych nie wnosi więcej informacji, niż tylko jeden jej przedstawiciel. Dzieje się tak głównie ze względu na fakt, że izomorfizm nie zmienia największego stopnia kliki ani zbioru niezależnego w grafie. Wyeliminowanie izomorfizmów ze zbioru wynikowego wydaje się więc wysoko pożądane w celu zwiększenia wydajności generacji zarówno pod względem czasowym jak i pamięciowym. Żeby zobrazować wagę takiej optymalizacji wystarczy podać kilka pierwszych wartości dla ilości grafów wygenerowanych naiwną metodą rozszerzania w porównaniu do ilości grafów nieizomorficznych.
+ \begin{figure}[H]
+ \begin{center}
+ \begin{tabular}{|c c c|} 
+ \hline
+ Rząd grafów & Ilość rozszerzeń\cite{OEIS2} & Ilość grafów nieizomorficznych\cite{OEIS}  \\ 
+ \hline\hline
+ 1 & 1 & 1  \\ 
+ \hline
+ 2 & 2 & 2  \\
+ \hline
+ 3 & 8 & 4  \\
+ \hline
+ 4 & 64 & 11  \\
+ \hline
+ 5 & 1024 & 34  \\
+ \hline
+ 6 & 32768 & 156  \\
+ \hline
+ 7 & 2097152 & 1044  \\
+ \hline
+ 8 & 268435456 & 12346  \\
+ \hline
+\end{tabular}
+\end{center}
+ \caption{Tabela porównująca ilość możliwych rozszerzeń i ilość grafów nieizomorficznych w przypadku tworzenia kompletnego zbioru grafów określonego rzędu}
+ \end{figure}
+\subsection{Generowanie grafów nieizomorficznych}
+Na szczęście, na dowolnym etapie generacji grupę grafów izomorficznych w zbiorze do rozszerzenia można bezproblemowo zredukować do tylko jednego z jej przedstawicieli. Jest tak ze względu na poniższe twierdzenie.
+\begin{theorem}
+Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $G'_n$ oraz $H'_m$, to dla dowolnego elementu zbioru $G'_n$ istnieje izomorfizm do elementu zbioru $H'_m$
+\end{theorem}
+
+				   
+				   
+				   
+																	  
+			
+
+Dzięki powyższemu, jeżeli na każdej iteracji generacji grafów będziemy usuwać nadmiarowe grafy izomorficzne wynikowy zbiór grafów będzie zawierał wszystkie grafy do izomorfizmu.
+Znajdywanie izomorfizmów w zbiorze grafów to problem nietrywialny. Jednak ze względu na metodę generacji można użyć orbit, żeby uczynić go znacznie prostszym.
+
+\subsection{Generowanie grafów Ramesyowskich}
+
+Generowanie grafów nieizomorficznych jest wciąż zbyt wymagające dla naszych potrzeb. Ilość grafów nieizomorficznych poszczególnych rzędów rośnie wykładniczo, i dla grafów rzędu 17, największego generowanego przez rozszerzanie w tej pracy, byłoby ich ponad $2 * 10^{26}$\cite{OEIS}. Jasnym więc jest, że ilość grafów generowanych na poszczególnych etapach rozszerzania należy bardziej zmniejszyć. Z pomocą przychodzi następujące twierdzenie: 
+\begin{theorem}Dla dowolnego grafu $G$ posiadającego klikę $K_i$ każdy graf $H$, który może powstać przez dowolną sekwencję rozszerzeń grafu $G$, zawiera klikę $K_j$ gdzie $j \geq i$.
+\end{theorem}
+Powyższe twierdzenie wynika z  następującego rozumowania:
+									   
+									   
+   
+					 
+					 
+		 
+																		   
+						  
+									   
+									   
+   
+					 
+					 
+					 
+		 
+																		   
+						  
+									   
+									   
+   
+					 
+					 
+					 
+					 
+		 
+																		  
+						
+									 
+									 
+
+ Gdy graf $G$ rozszerzymy do grafu $G'$, to graf $G$ jest podzbiorem grafu $G'$. Dzieje się tak, ponieważ rozszerzanie nie modyfikuje krawędzi w oryginalnym grafie, a jedynie dodaje krawędzie do nowego wierzchołka. Przy pomocy indukcji matematycznej można więc powiedzieć, że dowolny graf $H$, który powstaje poprzez wielokrotne rozszerzanie grafu $G$ musi zawierać graf $G$ jako swój podgraf. Z tego powodu, graf $H$ musi zawierać klikę z oryginalnego grafu $G$, oraz może posiadać klikę większą powstałą w wyniku rozszerzania. Przykład zachowania oryginalnego grafu podczas rozszerzania pokazany jest na rysunku \ref{rozszerzeniekliki}
+
+\begin{figure}[H]
+ 
+  		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+   			\node[main][red] (0) at (0,2) {$1$};
+   			\node[main][red] (1) at (2,2)  {$2$};
+   			\node[main][red] (2) at (0,0)  {$3$};
+			\draw[red] (0) -- (1);
+			\draw[red] (0) -- (2);,
+			\draw[red] (1) -- (2);
+			
+			
+			\node[main][red] (3) at (4,2) {$1$};
+   			\node[main][red] (4) at (6,2)  {$2$};
+   			\node[main][red] (5) at (4,0)  {$3$};
+   			\node[main] (6) at (6,0)  {$4$};
+			\draw[red] (3) -- (4);
+			\draw[red] (3) -- (5);,
+			\draw[red] (4) -- (5);
+			\draw (6) -- (5);
+			\draw (6) -- (4);
+			
+			\node[main][red] (7) at (8,2) {$1$};
+   			\node[main][red] (8) at (10,2)  {$2$};
+   			\node[main][red] (9) at (8,0)  {$3$};
+   			\node[main] (10) at (10,0)  {$4$};
+   			\node[main] (11) at (11,1)  {$5$};
+			\draw[red] (7) -- (8);
+			\draw[red] (7) -- (9);,
+			\draw[red] (8) -- (9);
+			\draw (10) -- (8);
+			\draw (10) -- (9);
+			\draw (11) -- (10);
+			\draw (11) -- (7);
+			\draw (11) -- (8);
+			
+			
+   		\end{tikzpicture}
+		\linebreak
+ 
+  		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+			\node[main][red] (7) at (0,2) {$1$};
+   			\node[main][red] (8) at (2,2)  {$2$};
+   			\node[main][red] (9) at (0,0)  {$3$};
+   			\node[main] (10) at (2,0)  {$4$};
+   			\node[main] (11) at (3,1)  {$5$};
+   			\node[main] (12) at (0.5,-1)  {$6$};
+			\draw[red] (7) -- (8);
+			\draw[red] (7) -- (9);,
+			\draw[red] (8) -- (9);
+			\draw (10) -- (8);
+			\draw (10) -- (9);
+			\draw (11) -- (10);
+			\draw (11) -- (7);
+			\draw (11) -- (8);
+			\draw (12) -- (9);
+			\draw (12) -- (10);
+			
+			\node[main][red] (1) at (4,2) {$1$};
+   			\node[main][red] (2) at (6,2)  {$2$};
+   			\node[main][red] (3) at (4,0)  {$3$};
+   			\node[main] (4) at (6,0)  {$4$};
+			\node[main] (5) at (7,1)  {$5$};
+   			\node[main] (6) at (4.5,-1)  {$6$};
+			\node[main] (Z) at (6.5,-1)  {$7$};
+			\draw[red] (1) -- (2);
+			\draw[red] (1) -- (3);,
+			\draw[red] (2) -- (3);
+			\draw (4) -- (2);
+			\draw (4) -- (3);
+			\draw (4) -- (5);
+			\draw (5) -- (1);
+			\draw (5) -- (2);
+			\draw (6) -- (3);
+			\draw (6) -- (4);
+			\draw (Z) -- (6);
+			\draw (Z) -- (4);
+			\draw (Z) -- (5);
+			
+			\node[main][red] (7) at (8,2) {$1$};
+   			\node[main][red] (8) at (10,2)  {$2$};
+   			\node[main][red] (9) at (8,0)  {$3$};
+   			\node[main] (10) at (10,0)  {$4$};
+   			\node[main] (11) at (11,1)  {$5$};
+   			\node[main] (12) at (8.5,-1)  {$6$};
+			\node[main] (13) at (10.5,-1)  {$7$};
+			\node[main] (14) at (11.5,-0.5)  {$8$};
+			\draw[red] (7) -- (8);
+			\draw[red] (7) -- (9);,
+			\draw[red] (8) -- (9);
+			\draw (10) -- (8);
+			\draw (10) -- (9);
+			\draw (11) -- (10);
+			\draw (11) -- (7);
+			\draw (11) -- (8);
+			\draw (12) -- (9);
+			\draw (12) -- (10);
+			\draw (12) -- (13);
+			\draw (11) -- (13);
+			\draw (10) -- (13);
+			
+			
+   		\end{tikzpicture}
+   		\caption{Kolejne rozszerzenia grafu, które nie zaburzają oryginalnego grafu początkowego zaznaczonego kolorem czerwonym.}
+   		\label{rozszerzeniekliki}
+\end{figure}
+Identyczne rozumowanie można przeprowadzić dla zbiorów niezależnych w oryginalnym grafie, prowadząc do analogicznego twierdzenia dotyczącego zbiorów niezależnych.
+\begin{theorem}
+Dla dowolnego grafu $G$ posiadającego zbiór niezależny $N_i$ każdy graf $H$, który może powstać przez dowolną sekwencję rozszerzeń grafu $G$, zawiera zbiór niezależny $N_j$ gdzie $j \geq i$.
+\end{theorem}
+Twierdzenia te prowadzą do wniosku podobnego do tego o eliminacji grafów izomorficznych, gdzie jeżeli na każdym etapie algorytmu wyeliminujemy grafy łamiące ograniczenia dotyczące kliki oraz zbioru niezależnego, to na dalszych etapach algorytmu nie powstaną takie i tylko takie grafy, które również łamałyby te ograniczenia. Dzięki temu można znacznie ograniczyć ilość grafów tworzonych na późniejszych etapach generacji. 
+Omównienie ograniczenia porwadzą do powstania algorymu generacji grafów w następującej formie:
+
+\begin{algorithm}[H]
+  \caption{Generowanie grafów ramseyowskich o podanym stopniu}
   \begin{algorithmic}
   \REQUIRE $n > 0 $
+  \STATE i <- 1
   \STATE grafy[] <- graf jednowierzchołkowy 
-  \WHILE{$ilośćWierzchołków(grafy) < n$}
-    \STATE dodajWierzchołek(grafy)
-    \STATE usunIzomorfizmy(grafy)
+  \WHILE{$i < n$}
+    \STATE rozszerz(grafy)
+    \STATE wylkuczNieramseyowskie(grafy)
+    \STATE wykluczIzomorfizmy(grafy)
+    \STATE i <- i + 1
   \ENDWHILE
   \end{algorithmic}
 \end{algorithm}
 
-W uproszczeniu: generowanie grafów rozpoczynamy od pojedynczego wierzchołka.
-Następnie powtarzamy następujące kroki dopóki nie osiągniemy docelowej liczby wierzchołków:
-\begin{enumerate}
- \item Generowanie grafów nieizomorficznych 
-
- \begin{itemize}
- \item  Dodanie nowego wierzchołka  
-
- \item Utworzenie wszystkich możliwych zestawów krawędzi zawierających ten wierzchołek. Przy dodawaniu n-tego wierzchołka mamy 
-
- \item Sprawdzenie izomorfizmów - jeżeli wygenerowany graf jest izomorficzny z innym wygenerowanym grafem, to pozostawiamy tylko jeden z nich 
- 
- \end{itemize}
-\end{enumerate}
-
-Zaczynamy od pojedynczego wierzchołka.
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (1) {$1$};
-   \end{tikzpicture}
-   \caption{}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (2) [below of=1] {$1$};
-    \node[main] (3) [right of=2] {$2$};
-   
-    \node[main] (4) [right of=3] {$1$};
-    \node[main] (5) [right of=4] {$2$};
-   
-    \draw (2) -- (3);
-   \end{tikzpicture}
-   \caption{}
-\end{figure}
-
-W pierwszym kroku dodajemy drugi wierzchołek i otrzymujemy dwa różne grafy - jeden, w którym wierzchołki sąsiadują, drugi, w którym nie. 
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (1) {$1$};
-    \node[main] (2) [right of=1] {$2$};
-    \node[main] (3) [below of=1] {$3$};
-   
-    \draw (1) -- (2);
-   \end{tikzpicture} 
-   \hfill
-   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (1) {$1$};
-    \node[main] (2) [right of=1] {$2$};
-    \node[main] (3) [below of=1] {$3$};
-   
-    \draw (1) -- (2);
-    \draw (1) -- (3);
-   \end{tikzpicture} 
-   \hfill
-   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (1) {$1$};
-    \node[main] (2) [right of=1] {$2$};
-    \node[main] (3) [below of=1] {$3$};
-   
-    \draw (1) -- (2);
-    \draw (1) -- (3);
-    \draw (2) -- (3);
-   \end{tikzpicture} 
+Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność. 
+																																								
+																																																						
+					
+																																		 
+				
+																																																																																																																																																																																																																 
   
-  \caption{Grafy wygenerowane z pierwszego grafu z poprzedniego kroku}
-\end{figure}
-
-Następnie bierzemy pierwszy z grafów i dodajemy do niego kolejny wierzchołek, ponownie generując wszystkie możliwości.  
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-  \node[main] (1) {$1$};
-  \node[main] (2) [right of=1] {$2$};
-  \node[main] (3) [below of=1] {$3$};
-
-  \end{tikzpicture}
-  \hfill
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-  \node[main] (1) {$1$};
-  \node[main] (2) [right of=1] {$2$};
-  \node[main] (3) [below of=1] {$3$};
-
-  \draw (3) -- (2);
-  \end{tikzpicture}
-  \hfill
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-  \node[main] (1) {$1$};
-  \node[main] (2) [right of=1] {$2$};
-  \node[main] (3) [below of=1] {$3$};
-
-  \draw (3) -- (2);
-  \draw (1) -- (3);
-  \end{tikzpicture}
-  \caption{{Grafy wygenerowane z drugiego grafu z poprzedniego kroku}}
-\end{figure}
-
-To samo powtarzamy dla grafu drugiego. 
-
-Jak łatwo zauważyć graf 1 i graf 5 oraz graf 2 i graf 6 są parami izomorficzne, więc możne odrzucić po jednym z każdej pary, zmniejszając liczbę grafów rozważanych w kolejnych krokach.  
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (1) {$1$};
-    \node[main] (2) [right of=1] {$2$};
-    \node[main] (3) [below of=1] {$3$};
-   
-    \draw (1) -- (2);
-   \end{tikzpicture} 
-   \hfill
-   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (1) {$1$};
-    \node[main] (2) [right of=1] {$2$};
-    \node[main] (3) [below of=1] {$3$};
-   
-    \draw (1) -- (2);
-    \draw (1) -- (3);
-   \end{tikzpicture} 
-   \hfill
-   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (1) {$1$};
-    \node[main] (2) [right of=1] {$2$};
-    \node[main] (3) [below of=1] {$3$};
-   
-    \draw (1) -- (2);
-    \draw (1) -- (3);
-    \draw (2) -- (3);
-   \end{tikzpicture} 
-   \hfill
-  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-  \node[main] (1) {$1$};
-  \node[main] (2) [right of=1] {$2$};
-  \node[main] (3) [below of=1] {$3$};
-
-  \end{tikzpicture}
-  \caption{Wszystkie nieizomorficzne grafy 3-wierzchołkowe}
-\end{figure}
-
-W celu uniknięcia porównywania wszystkich grafów, do nowo dodanego grafu wyznaczane są orbity - tylko jeden sposób generacji każdego grafu spowoduje sytuację, gdzie nowo dodany wierzchołek znajduje się w pierwszej orbicie, co pozwala łatwo odrzucać izomorfizmy.
-
-   \subsection{Generowanie grafów Ramseya}
-   Generowanie grafów obarczonych ograniczeniami co do rozmiarów klik oraz zbiorów niezależnych wygląda niemal tak samo jak generowanie grafów dowolnych, 
-   ale zawiera dodatkowy krok - sprawdzenie czy graf nie zawiera kliki lub zbioru niezależnego stopnia który zaburzyłby jego ramseyowskość. Takie grafy można odrzucać, ze względu na następujące twierdzenie:
-     \begin{theorem}
-      Jeżeli graf G posiada klikę stopnia n, oraz istnieje graf H taki że G jest podgrafem H, to H również posiada klikę stopnia n.
-   \end{theorem}
-  Dzięki powyższemu twierdzeniu wiemy, że wszelkie próby rozszerzenia grafu posiadającego klikę stopnia n powodują powstanie grafów z kliką przynajmniej tak wielkiego stopnia. Analogiczne rozumowanie można przeprowadzić wobec rozszerzania grafów ze zbiorem niezależnym o określonym stopniu. Dzięki temu odrzucanie grafów nieramseyowskich na wczesnym etapie generacji nie powoduje wykluczenia żadnych pożądanych grafów wyższych rzędów. Takie odrzucanie znacznie zmniejsza ilość grafów powstających na kolejnych etapach generacji, zwłaszcza dla grafów wyższego rzędu, bez czego wygenerowanie nawet grafów wymaganych do sklejania byłoby trudne. Nieizomorficznych grafów 17-wierzchołkowych jest ponad $10^{26}$\cite{OEIS}. Dzięki wczesnym wykluczaniu dla R(4,4) generowany jest tylko jeden taki graf. 
-  
-Odrzucanie grafów nieramseyowskich przy każdym rozszerzeniu pozwala wprowadzić dodatkową optymalizację. Jeżeli rozszerzymy graf o ograniczonym stopniu kliki lub zbioru niezależnego, to nowopowstały graf może mieć jedynie klikę lub zbiór niezależny łamiący ograniczenia jeżeli nowo dodany wierzchołek jest ich częścią. Wynikająca z tego mniejsza liczba wymaganych kontroli ramseyowośći uzyskać dalsze przyspieszenie algorytmu generacji grafów.
+																																																																																																																				   
 
 
 \section{Sklejanie grafów}
@@ -873,7 +1163,7 @@ Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 prawdopodobnych stoż
 
 
 \subsection{Algorytm sklejania}
-Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru prawdopodobnych stożków przed wybraniem grafu G do sklejenia. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu ponieważ takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu n wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
+Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu H zbioru prawdopodobnych stożków przed wybraniem grafu G do sklejenia. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu. Takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu n wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
 
 \begin{definition}
 Przedział $[B, T]$ to zbiór stożków, ograniczony przez stożek górny T i stożek dolny B, który zawiera wszystkie stożki spełniające zależność:  $$X: B \subseteq X \subseteq T$$ 
@@ -882,11 +1172,11 @@ Przedział $[B, T]$ to zbiór stożków, ograniczony przez stożek górny T i st
 
 Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a T zawiera wszystkie wierzchołki H. Taki przedział zawiera wszystkie możliwe stożki. W celu wyodrębnienia prawdopodobnych stożków korzystamy z poniższych własności:
 \begin{enumerate}
-\item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
+\item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest, że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
 
-\item Jeżeli stożek B zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
+\item Jeżeli stożek $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
 
-\item Jeżeli stożek T nie zawiera kliki stopnia 3, to żaden stożek w przedziale jej nie zawiera.
+\item Jeżeli stożek $T$ nie zawiera kliki stopnia 3, to wszystkie stożki w przedziale jej nie zawierają.
 \end{enumerate}
 
 Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału można skorzystać z algorytmu rekurencyjnego dzielącego interwały wzdłuż wierzchołków należących do kliki 3 oraz stożka B, dzięki czemu uzyskujemy zbiór przedziałów dla grafu H zawierający jedynie stożki prawdopodobne. Z tego zbioru korzystamy w następnym etapie algorytmu.
@@ -894,22 +1184,22 @@ Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu G.
   
 
 \subsection{Zawężanie przedziałów - zasady A-D}
-Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze wierzchołków grafu H oznaczonym jako X, generujące podzbiór wierzchołków grafu H. 
-Funkcja H1 będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru X.
-H2 wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
-H3 wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków spoza X.
+Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze wierzchołków grafu $H$ oznaczonym jako $X$, generujące podzbiór wierzchołków grafu $H$. 
+Funkcja $H_1$ będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru $X$.
+$H_2$ wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
+$H_3$ wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków spoza X.
 
 $$H_i: X \subseteq V(G) \to Y \subseteq V(G)$$
 
 \begin{itemize}
     
-  \item   $H_1(X) = \{ w \in VH | vw \in EX \textrm{ dla jakiegoś } v \in X \}$ 
+  \item   $H_1(X) \to X = { w \in V(H) | vw \in E(X) \textrm{ dla jakiegoś } v \in X }$ 
   
-  \item   $H_2(X) = \{ w \in VH | vw \notin EX \textrm{ dla jakiegoś } v \notin X\}$
+  \item   $H_2(X) \to X = { w \in V(H) | vw \notin E(X) \textrm{ dla jakiegoś } v \notin X}$
   
-  \item   $H_3(X) = \{ w \in VH | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X\}$ 
+  \item   $H_3(X) \to X = { w \in V(H) | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X}$ 
 \end{itemize}
-Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami G oraz H odbywa się już w kontekście konkretnego grafu G. Każda możliwa kombinacja wygenerowanych przedziałów jest  przydzielana do wierzchołków należących do G, dzięki czemu rozważone są wszystkie możliwe sposoby połączenia tych grafów. Dla każdego zbioru przedziałów łączących grafy G oraz H wykonywany jest poniższy zbiór reguł:
+Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami $G$ oraz $H$ odbywa się już w kontekście konkretnego grafu $G$. Każda możliwa kombinacja wygenerowanych przedziałów jest  przydzielana do wierzchołków należących do $G$, dzięki czemu rozważone są wszystkie możliwe sposoby połączenia tych grafów. Dla każdego zbioru przedziałów łączących grafy $G$ oraz $H$ wykonywany jest poniższy zbiór reguł działających na wierzchołki i przedziały stożków im przypisane:
 \begin{itemize}
   \item[A] - stosowana do 2 wierzchołków $u,v$ $\in G$ sąsiadujących ze sobą 
   
@@ -964,25 +1254,129 @@ Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzuce
 
 \subsection{Wynik sklejania}
 
-Po zakończeniu procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf F. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia przynajmniej jednego z grafów F o jeden wierzchołek powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający R(4,5). 
-Rozszerzanie o jeden wierzchołek zostaje w tym wypadku wykonane metodą podobną do wcześniejszego tworzenia przedziałów. Pierwszym etapem jest stworzenie listy podzbiorów wierzchołków F które tworzą kliki lub zbiory niezależne. Lista ta jest potrzebna w celu przyspieszenia eliminacji rozszerzeń, które nie są poprawne.
+Po zakończeniu procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf $\mathcal{F}$. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia przynajmniej jednego z grafów $\mathcal{F}$ o jeden wierzchołek powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający wymagania. 
+Rozszerzanie o jeden wierzchołek zostaje w tym wypadku wykonane metodą podobną do wcześniejszego tworzenia przedziałów stożków, choć w tym wypadku mamy tylko jeden wierzchołek, do którego przypisywane są stożki rozszerzające.
+\begin{definition} Stożek rozszerzający to podzbiór wierzchołków grafu $\mathcal{F}$ symbolizujący możliwe połączenia pomiędzy grafem $\mathcal{F}$ a wierzchołkiem do niego dodawanym.
+\end{definition}
 
-Podobnie jak w wypadku sklejania tworzony jest przedział zbiorów wierzchołków ograniczony zbiorami górnym i dolnym. Ma on te same własności, co uprzednie przedziały:
+Po raz kolejny, wszystkie możliwe stożki rozszerzające są grupowane w przedział, który w trakcie działania algorytmu jest zawężany. Przedziały stożków rozszerzających mają te same własności, co przedziały stożków prawdopodobnych, w tym wypadku mają jednak znaczenie dwie dodatkowe własności:
 
 \begin{enumerate}
-  \item[1.] Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
-  
-  \item[2.] Jeżeli stożek B zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
-  
-  \item[3.] Jeżeli stożek T nie zawiera kliki stopnia 3, to żaden stożek w przedziale jej nie zawiera.
-\end{enumerate}
-Dodatkowo można jeszcze sformułować dwie własności które nie miały znaczenia dla wcześniejszych przedziałów:
-\begin{enumerate}
-\item[4.] Jeżeli zbiór B zawiera przynajmniej jeden wierzchołek ze zbioru niezależnego stopnia 5, to wszystkie zbiory w przedziale również go zawierają. 
+\item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest, że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
 
-\item[5.] Jeżeli zbiór T nie zawiera żadnego wierzchołka ze zbioru niezależnego stopnia 5, to żaden stożek w przedziale ich nie zawiera.
+\item Jeżeli stożek $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
+
+\item Jeżeli stożek $T$ nie zawiera kliki stopnia 3, wszystkie stożki w przedziale jej nie zawierają.
+
+																													  
+				 
+\item Jeżeli zbiór $B$ zawiera przynajmniej jeden wierzchołek ze zbioru niezależnego stopnia 4, to wszystkie zbiory w przedziale również go zawierają. 
+
+\item Jeżeli zbiór $T$ nie zawiera żadnego wierzchołka ze zbioru niezależnego stopnia 4, wszystkie stożki w przedziale ich nie zawierają. 
 \end {enumerate}
-Dwie powyższe, wraz z wcześniejszymi własnościami pozwalają masowo eliminować wierzchołki z przedziału na podstawie listy klik oraz zbiorów niezależnych, a w efekcie określić czy istnieje rozszerzenie grafu spełniające R(4,5).
+
+
+
+Etapem przygotowawczym do rozszerzania jest stworzenie listy podzbiorów wierzchołków $\mathcal{F}$ które tworzą kliki lub zbiory niezależne. Takie podzbiory nazywamy dalej strukturami.
+\begin{definition} Struktura to podzbiór wierzchołków grafu $\mathcal{F}$ który nakłada ograniczenia na sposoby rozszerzenia go o wierzchołek.
+\end{definition}
+Celem powstania listy struktur jest przyspieszenie znajdywania stożków rozszerzających, które prowadzą do zaburzenia ramseyowskości grafu wynikowego. Jeżeli nowy wierzchołek zostałby połączony ze wszystkimi wierzchołkami $K_3$, to powstające $K_4$ dyskwalifikuje graf. Podobna sytuacja występuje w przypadku braku połączenia do któregokolwiek z wierzchołków $N_4$ gdzie w wyniku otrzymujemy niedozwolone $N_5$. 
+Mając listę wszystkich struktur, można przystąpić do zawężania przedziału stożków rozszerzających. Rozpoczynamy ponownie od przedziału $[B = \emptyset, T = \{V(F)\} ]$ który obejmuje wszystkie możliwe stożki dla grafu $\mathcal{F}$, a więc również wszystkie możliwe rozszerzenia. Dla każdej struktury $S$, których listę utworzyliśmy wcześniej dokonujemy porównania przedziałów. Porównywanie odbywa się w następujące sposoby, zależne od tego, czy obecnie rozważana struktura opisuję klikę, czy zbiór niezależny.
+
+Rozumowanie dla ograniczenia wynikającego z kliki przebiega następująco:
+\begin{algorithm}[H]
+  \caption{Porównanie przedziału $P$ do struktury $S$ opisującej klikę}
+  \begin{algorithmic}
+  \IF{$S \subseteq T_P$}
+	\IF{$S\subseteq B_P $} 
+	  \STATE Usuń $P$ z listy przedziałów
+	\ELSE
+	  \STATE Podziel przedział $P$ wzdłuż $S \setminus B_P  $
+  	\ENDIF
+  \ENDIF  
+  \end{algorithmic}
+\end{algorithm}
+
+Rozumowanie dla ograniczenia wynikającego ze zbioru niezależnego przebiega z kluczowymi różnicami w warunkach oraz sposobie podziału:
+
+\begin{algorithm}[H]
+  \caption{Porównanie przedziału $P$ do struktury $S$ opisującej zbiór niezależny}
+  \begin{algorithmic}
+  \IF{$S \not\subseteq B_P$}
+	\IF{$S\not\subseteq T_P $} 
+	  \STATE Usuń $P$ z listy przedziałów
+	\ELSE
+	  \STATE Podziel przedział $P$ wzdłuż $S \cap T_P  $
+  	\ENDIF
+  \ENDIF  
+  \end{algorithmic}
+\end{algorithm}
+
+W powyższych algorytmach zostaje użyte pojęcie podziału przedziałów. Podział przedziału polega na  użyciu własności 1 dla podanego zbioru wierzchołków w celu wielokrotnego rozdzielenia przedziału na dwie części a następnie odrzucenia tego z nich, który zawiera wszystkie stożki łączące sprawdzaną strukturę w niepoprawny sposób. Pozostałe przedziały wynikowe są dodawane do listy przedziałów do sprawdzenia, ponieważ nie łamią obecnie analizowanego ograniczenia. 
+
+Dla przykładu załóżmy, że dla grafu $G$, który próbujemy rozszerzyć o wierzchołek $v$ na rysunku poniżej przekształcamy przedział $P =[\{5\},\{1,2,3,4,5\}]$ przy pomocy kliki $S = \{1,2,3\}$.
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][red] (1) at (1*90:1) {$1$};
+ \node[main][red] (2) at (2*0:1.5) {$2$};
+ \node[main] (5) at (3*60:1.5) {$5$};
+ \node[main] (4) at (4*60:2) {$4$};
+ \node[main][red] (3) at (5*60:2) {$3$};
+ \node[main] (v) at (6*180:5) {$v$};
+
+\draw[ultra thick][red] (1) -- (2);
+\draw[ultra thick][red] (2) -- (3);
+\draw[ultra thick][red] (1) -- (3);
+\draw[ultra thick][black] (1) -- (5);
+\draw[ultra thick][black] (4) -- (3);
+\draw[ultra thick][black] (5) -- (3);
+
+
+    \end{tikzpicture}
+    \caption{Graf G wraz z zaznaczoną strukturą $S$ oraz wierzchołkiem $v$}
+    \label{SKlika}
+ \end{figure}
+ 
+
+ Zaaplikowanie własności 1 dla przedziału $P$ i pierwszego wierzchołka ze struktury czyli $\{1\}$ daje nam  \ref{SKlika}
+$$[\{5\},\{1,2,3,4,5\}] = [\{1,5\},\{1,2,3,4,5\}] \cup [\{5\},\{2,3,4,5\}]$$ 
+Warto zauważyć, że drugi z wynikowych przedziałów nie łamie już ograniczenia narzuconego przez strukturę $P$, a więc można dodać go do listy przedziałów i kontynuować podział jedynie na pierwszym z przedziałów wynikowych. Analogiczna sytuacja zachodzi na każdym etapie podziału, ze względu na naturę ograniczenia wypływającego z kliki, gdzie usunięcie jednego z wierzchołków kliki powoduje akceptacje połączenia do reszty z nich. 
+
+Kontynuujemy podział pozostałego przedziału dla kolejnego wierzchołka ze zbioru $\{2\}$
+$$[\{1,5\},\{1,2,3,4,5\}] = [\{1,2,5\},\{1,2,3,4,5\}] \cup [\{1,5\},\{1,3,4,5\}]$$ 
+Po raz kolejny można zaakceptować drugi z przedziałów i kontynuować podział pierwszego przez kolejny i ostatni wierzchołek $\{3\}$: 
+$$[\{1,2,5\},\{1,2,3,4,5\}] = [\{1,2,3,5\},\{1,2,3,4,5\}] \cup [\{1,2,5\},\{1,2,4,5\}]$$
+Po podziale przez ostatni z wierzchołków można, jak po każdym kroku zaakceptować drugi z wynikowych przedziałów. Pierwszy z nich natomiast zawiera w stożku ograniczającym dolnym strukturę. Dzięki temu można go odrzucić ze względu na to, że wszystkie stożki takiego przedziału powodują niedozwolone rozszerzenie grafu $\mathcal{F}$.
+
+Podział przedziału dla zbioru niezależnego przeprowadzany jest w bardzo podobny sposób. Na każdym etapie podziału akceptowany jest pierwszy przedział wynikowy zamiast drugiego. W ramach przykładu podziału dla zbioru niezależnego załóżmy, że 
+$P = [\emptyset,\{1,2\}]$ oraz $S = \{1,2,3,4\}$ i $S$ jest zbiorem niezależnym. Mamy również inny graf $G$.
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][red] (1) at (1*90:1) {$1$};
+ \node[main][red] (2) at (2*0:1.5) {$2$};
+ \node[main] (5) at (3*60:1.5) {$5$};
+ \node[main][red] (4) at (4*60:2) {$4$};
+ \node[main][red] (3) at (5*60:2) {$3$};
+ \node[main] (v) at (6*180:5) {$v$};
+
+\draw[ultra thick][black] (2) -- (5);
+\draw[ultra thick][black] (1) -- (5);
+\draw[ultra thick][black] (5) -- (3);
+
+    \end{tikzpicture}
+    \caption{Graf $G$ wraz z zaznaczonymi wierzchołkami należącymi do struktury $S$ oraz wierzchołkiem $v$}
+ \end{figure}
+ 
+
+W takim wypadku zbiór wierzchołków, wzdłuż którego dokonujemy podziału nie obejmuje wszystkich wierzchołków należących do $S$. Jest tak dlatego, że część z nich należy już do $T_P$ i nie ma potrzeby ani możliwości dzielić przedziału przy ich pomocy. Dla pomniejszego zbioru wierzchołków {1,2} pierwszym etapem podziału będzie 
+$$[{\emptyset},\{1,2\}]= [\{1\},\{1,2\}] \cup [{\emptyset},\{2\}]$$ Akceptujemy pierwszy przedział i przechodzimy do kolejnego kroku
+$$ [{\emptyset},\{2\}]= [\{2\},\{2\}] \cup [{\emptyset},{\emptyset}]$$ Po przejściu wszystkich wierzchołków i zaakceptowaniu pierwszego przedziału można odrzucić drugi, ponieważ wszystkie stożki przez niego objęte łamią ograniczenie narzucone przez $S$.
+
+Warto zauważyć, że w przypadku podziału przedziałów w taki sposób mamy gwarancje, że jeżeli przedział $P$ spełnia ograniczenie, to wszystkie jego podprzedziały również je spełniają. Ze względu na to, po zaaplikowaniu wszystkich ograniczeń, pozostałe przedziały posiadają poprawne rozszerzenia grafu F o wierzchołek tak, że nie jest zaburzona jego ramseyowskość. 
+
+
 
 \section{Implementacja i eksperymenty}
 Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty and Traces\cite{nauty}, która umożliwia łatwe obliczeniowo wykrywanie orbit, co znacznie przyspiesza proces generowania grafów. 
@@ -990,8 +1384,17 @@ Autorem biblioteki jest profesor McKay.
 
 Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób reprezentacji grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji (m, n) odpowiada  krawędzi pomiędzy wierzchołkami m oraz n.
 \begin{figure}[h]
-\begin{subfigure}{0.5\textwidth}
-\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+\centering
+\hfill
+$\begin{Bmatrix}
+	0 & 1 & 0 & 0 & 1 \\
+	1 & 0 & 0 & 0 & 1 \\
+	0 & 0 & 0 & 0 & 1 \\
+	0 & 0 & 0 & 0 & 0 \\
+	1 & 1 & 1 & 0 & 0 \\
+	\end{Bmatrix}$ 
+	\hfill
+\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}, baseline=-8.0ex] 
     \node[main] (1) {$1$};
     \node[main] (2) [below right of=1] {$5$};
     \node[main] (3) [above right of=2] {$2$};
@@ -1004,20 +1407,20 @@ Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechow
     \draw (2) -- (5);
     \draw (1) -- (3);
 
-	
+ 
 
   \end{tikzpicture}
-  \end{subfigure}
-  \begin{subfigure}{0.5\textwidth}
-$\begin{Bmatrix}
-	0 & 1 & 0 & 0 & 1 \\
-	1 & 0 & 0 & 0 & 1 \\
-	0 & 0 & 0 & 0 & 1 \\
-	0 & 0 & 0 & 0 & 0 \\
-	1 & 1 & 1 & 0 & 0 \\
-	\end{Bmatrix}$
-	
-	\end{subfigure}
+\hfill
+\hfill
+				
+					 
+					 
+					 
+					 
+					 
+			   
+ 
+				
 	\caption{Graf wraz z odpowiadającą mu macierzą sąsiedztwa. W tej macierzy 0 odpowiada brakowi krawędzi, a 1 odpowiada jej istnieniu.}
 \end{figure}
 
@@ -1091,11 +1494,47 @@ Modyfikacja metody macierzy sąsiedztwa polega na odejściu od zapisywania każd
    
    \bibitem{OEIS}
        OEIS Foundation Inc. (2020), The On-Line Encyclopedia of Integer Sequences, http://oeis.org/A000088.
+       
+	\bibitem{OEIS2}
+       OEIS Foundation Inc. (2020), The On-Line Encyclopedia of Integer Sequences, http://oeis.org/A006125.
 
   \bibitem{canon}
        Nicolas Bloyet, Pierre-François Marteau, Emmanuel Frenod. Scott : A method for representing graphs
       as rooted trees for graph canonization. COMPLEX NETWORKS 2019, Springer, pp.578-590, 2019,
       Studies in Computational Intelligence Series, $ff10.1007/978-3-030-36687-2_48ff. ffhal-02314658f$
+      
+   \bibitem{partyproblem}
+       Rich Wolski "CS290I Lecture notes -- Ramsey Numbers: Top Hits Played at Parties Thrown by Paul Erdos" https://sites.cs.ucsb.edu/~rich/class/cs293-cloud/notes/Ramsey/index.html
+
+\bibitem{partyformal}
+ Weisstein, Eric W. "Party Problem." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/PartyProblem.html 
+ 
+ \bibitem{boundproof}
+ Brendan D McKay, Stanisław P Radziszowski,
+Subgraph Counting Identities and Ramsey Numbers,
+Journal of Combinatorial Theory, Series B,
+Volume 69, Issue 2,
+1997,
+Pages 193-209,
+ISSN 0095-8956,
+https://doi.org/10.1006/jctb.1996.1741.
+(http://www.sciencedirect.com/science/article/pii/S0095895696917414)
+
+ \bibitem{computeproof}
+Charles M Grinstead, Sam M Roberts,
+On the Ramsey numbers R(3, 8) and R(3, 9),
+Journal of Combinatorial Theory, Series B,
+Volume 33, Issue 1,
+1982,
+Pages 27-51,
+ISSN 0095-8956,
+https://doi.org/10.1016/0095-8956(82)90055-7.
+(http://www.sciencedirect.com/science/article/pii/0095895682900557)
+
+
+
+
+
 
   \end{thebibliography}
 
