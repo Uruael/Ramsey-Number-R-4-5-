@@ -1,4 +1,4 @@
-\section{Sklejanie grafów}
+\chapter{Sklejanie grafów}
 
 Generowanie grafów wysokiego rzędu jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
 
@@ -100,7 +100,7 @@ Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu G.
 Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze wierzchołków grafu $H$ oznaczonym jako $X$, generujące podzbiór wierzchołków grafu $H$. 
 Funkcja $H_1$ będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru $X$.
 $H_2$ wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
-$H_3$ wybiera wszystkie wierzchołki, które nie sąsiadują z dwoma lub większą ilością wierzchołków spoza X.
+$H_3$ wybiera wszystkie wieszchołki, które tworzą zbiór niezależny o stopniu 3 z dwoma wierzchołkami spoza zbioru X.
 
 $$H_i: X \subseteq V(G) \to Y \subseteq V(G)$$
 
@@ -112,11 +112,162 @@ $$H_i: X \subseteq V(G) \to Y \subseteq V(G)$$
   
   \item   $H_3(X) \to X = { w \in V(H) | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X}$ 
 \end{itemize}
+
+
+Rozpatrzmy podany graf, rysunek \ref{zasada0}. Dla tego grafu zostanie zaprezentowanie działanie zasad  $H_1$,  $H_2$ oraz  $H_3$. Na rysunkach \ref{zasada1}, \ref{zasada2}, \ref{zasada2}, przedctawiony jest sposób działania tych funkcji. Pierwszy graf, jest grafem który jest przekazywany do funkcji, a wieszchołki zaznaczone na niebiesko oznaczają wieszchołki ze zbioru $X$. Drugi graf zawiera wieszchołki zaznaczone na czerwono, jest to ten podzbiów wieszchołków które funkcja zwraca.
+
+
+ \begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main] (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main] (4) at (300:2) {$4$};
+
+\draw[ultra thick] (1) -- (2);
+\draw[ultra thick] (1) -- (3);
+\draw[ultra thick] (1) -- (6);
+\draw[ultra thick] (1) -- (5);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (2) -- (4);
+\draw[ultra thick] (3) -- (4);
+    \end{tikzpicture}
+    \caption{}
+ \label{zasada0}
+ \end{figure}
+
+Funkcja $H_1$ znajduje wszystkich sąsiadów wieszchołków ze zbioru wejściowego. W podanym przykładdzie na rysunku \ref{zasada1} oznacza to że musimy znaleść sąsiadów wieszchołków ze zbioru \{3, 4\}. Łatwo zauważyć że wieszchołki z nimi sąsiadujące to zbiór wieszchołków \{1, 2, 3, 4\}.
+
+ \begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][blue]  (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main][blue]  (4) at (300:2) {$4$};
+
+\draw[ultra thick] (1) -- (2);
+\draw[ultra thick] (1) -- (3);
+\draw[ultra thick] (1) -- (6);
+\draw[ultra thick] (1) -- (5);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (2) -- (4);
+\draw[ultra thick] (3) -- (4);
+    \end{tikzpicture}
+    \hspace{15mm}
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][red] (3) at (0:2) {$3$};
+ \node[main][red] (2) at (60:2) {$2$};
+ \node[main][red] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main][red] (4) at (300:2) {$4$};
+
+\draw[ultra thick] (1) -- (2);
+\draw[ultra thick] (1) -- (3);
+\draw[ultra thick] (1) -- (6);
+\draw[ultra thick] (1) -- (5);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (2) -- (4);
+\draw[ultra thick] (3) -- (4);
+    \end{tikzpicture}
+    \caption{}
+ \label{zasada1}
+ \end{figure}
+
+Funkcja $H_2$ znajduje wszystkie wieszchołki, które nie sąsiadują z co najmniej jednym wieszchołkiem z poza zbioru wejściowego. W podanym przykładdzie na rysunku \ref{zasada2} oznacza to że musimy znaleść wieszchołki które nie sąsiadują ze wszystkimi wieszchołkami ze zbioru (wykluczając wieszchołek który aktualnie rozpatrujemy, jeżeli jest w zbiorze) \{1, 2, 5, 6\}. Łatwo zauważyć że jedymym wieszchołkiem który sąsiaduje ze wszystkimi wieszchołkami z tego zbioru jest wieszchołek o numerze 1, więc zbiór wyjściowy będzie wyglądac następująco \{2, 3, 4, 5, 6\}.
+
+ \begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][blue]  (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main][blue]  (4) at (300:2) {$4$};
+
+\draw[ultra thick] (1) -- (2);
+\draw[ultra thick] (1) -- (3);
+\draw[ultra thick] (1) -- (6);
+\draw[ultra thick] (1) -- (5);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (2) -- (4);
+\draw[ultra thick] (3) -- (4);
+    \end{tikzpicture}
+    \hspace{15mm}
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][red] (3) at (0:2) {$3$};
+ \node[main][red] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main][red] (6) at (180:2) {$6$};
+ \node[main][red] (5) at (240:2) {$5$};
+ \node[main][red] (4) at (300:2) {$4$};
+
+\draw[ultra thick] (1) -- (2);
+\draw[ultra thick] (1) -- (3);
+\draw[ultra thick] (1) -- (6);
+\draw[ultra thick] (1) -- (5);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (2) -- (4);
+\draw[ultra thick] (3) -- (4);
+    \end{tikzpicture}
+    \caption{}
+ \label{zasada2}
+ \end{figure}
+
+Funkcja $H_3$ znajduje wszystkie wieszchołki, które tworzą zbiór niezależny o stopniu 3 z dwoma wierzchołkami spoza zbioru X. W podanym przykładzie na rysunku \ref{zasada3} oznacza top że musimy znaleść wieszchołki które tworza zbiór niezależny wraz z dwoma wieszchołkami ze zbioru \{1, 2, 5, 6\}. Łatwo zauważyć że jedynym wieszchołkiem który spełnia to założenie jest wieszchiłek oznaczony numerem 3, gdyż tworzy on zbiór niezależny stopnia 3 wraz z wieszchołkami o numerach 2 oraz 5.
+
+ \begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][blue]  (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main][blue]  (4) at (300:2) {$4$};
+
+\draw[ultra thick] (1) -- (2);
+\draw[ultra thick] (1) -- (3);
+\draw[ultra thick] (1) -- (6);
+\draw[ultra thick] (1) -- (5);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (2) -- (4);
+\draw[ultra thick] (3) -- (4);
+    \end{tikzpicture}
+    \hspace{15mm}
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+ \node[main][red] (3) at (0:2) {$3$};
+ \node[main] (2) at (60:2) {$2$};
+ \node[main] (1) at (120:2) {$1$};
+ \node[main] (6) at (180:2) {$6$};
+ \node[main] (5) at (240:2) {$5$};
+ \node[main] (4) at (300:2) {$4$};
+
+\draw[ultra thick] (1) -- (2);
+\draw[ultra thick] (1) -- (3);
+\draw[ultra thick] (1) -- (6);
+\draw[ultra thick] (1) -- (5);
+\draw[ultra thick] (6) -- (5);
+\draw[ultra thick] (2) -- (4);
+\draw[ultra thick] (3) -- (4);
+    \end{tikzpicture}
+    \caption{}
+ \label{zasada3}
+ \end{figure}
+
+
 Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami $G$ oraz $H$ odbywa się już w kontekście konkretnego grafu $G$. Każda możliwa kombinacja wygenerowanych przedziałów jest  przydzielana do wierzchołków należących do $G$, dzięki czemu rozważone są wszystkie możliwe sposoby połączenia tych grafów. Dla każdego zbioru przedziałów łączących grafy $G$ oraz $H$ wykonywany jest poniższy zbiór reguł działających na wierzchołki i przedziały stożków im przypisane:
 \begin{itemize}
   \item[A] - stosowana do 2 wierzchołków $u,v$ $\in G$ sąsiadujących ze sobą 
   
-  Jeśli $B_u \cap B_v \cap H_1(B_u \cap B_v)$ nie jest zbiorem pustym to nie da się 
+  Jeśli $B_u \cap B_v \cap H_1(B_u \cap B_v) \neq \emptyset $ to nie da się 
   poprawnie skleić tej pary grafów. 
   
   W innym wypadku z $T_u$ usuwamy $H_1(B_u \cap B_v) \cap B_v $  
@@ -142,28 +293,351 @@ Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami $G$ or
 Zasada A sprawdza czy sąsiednie wierzchołki $u, v$ mają jakąkolwiek parę wspólnych potencjalnych sąsiadów, którzy są sąsiedni względem siebie.
 W takiej sytuacji powstałaby klika $K_4$, więc nie uda się utworzyć grafu. \par
 
-Jeżeli tak nie jest, musimy usunąć z $T_u$ niezbędnych sąsiadów$ v$, 
-którzy sąsiadują z przynajmniej jednym z niezbędnych sąsiadów $u$. 
+Przyjrzyjmy się rysunkowi \ref{zasadaA1}. Czerowne wierchołki to $u, v$ z grafu G, 
+a czerwone, przerywane krawędzie reprezentują dolne ograniczenia przypisanych im stożków.
+Jak widać, $u i v$ muszą zostać połączone z parą sąsiadujących wierzchołków 1 i 2, więc nie 
+da się połączyć grafów użyciem takiego przypisania stożków. 
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (60:2) {$2$};
+    \node[main][blue] (3) at (120:2) {$3$};
+    \node[main][blue] (4) at (180:2) {$4$};
+    \node[main][blue] (5) at (240:2) {$5$};
+    \node[main][blue] (6) at (300:2) {$6$};
+
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (6) -- (1);
+    \draw (6) -- (2);
+    \draw (6) -- (3);
+    \draw (6) -- (4);
+    \draw (6) -- (5);
+
+    \vspace{10mm};
+
+    \node[main][red] (7) [below left of=5] {$u$};
+    \node[main][red] (8) [below right of=6] {$v$};
+
+    \draw (7) -- (8);
+
+    \draw [ultra thick][red, dashed] (7) -- (3);
+    \draw [ultra thick][red, dashed] (7) -- (1);
+    \draw [ultra thick][red, dashed] (7) -- (2);
+
+    \draw [ultra thick][red, dashed] (8) -- (1);
+    \draw [ultra thick][red, dashed] (8) -- (2);
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaA1}
+ \end{figure}
+
+ Jeżeli powyższa sytuacja nie zajdzie, musimy usunąć z $T_u$ niezbędnych sąsiadów $v$, 
+ którzy sąsiadują z przynajmniej jednym z niezbędnych sąsiadów $u$. 
+ 
+  Na rysunku \ref{zasadaA2} wprowadzono ograniczenie górne, reprezentowane niebieskimi, 
+  przerywanymi krawędziami.  Jak widać, to połączenie nie jest odrzucane (istnieje możliwość połączenie bez utworzenia $K_4$).
+    
+  Trzeba więc odrzucić potencjalne połączenia pomiędzy $v$ a niezbędnymi sąsiadami $u$. 
+  Na przykładowym rysunku będzie to oznaczało usunięcie krawędzi $(u, 5)$. Zgodnie z zasadą A nie usuwamy jeszcze krawędzi 
+  $(v,2)$ - zostanie ona usunięta kiedy to $v$ będzie pełniła rolę $v$ w funkcji.  
+
+ \begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (60:2) {$2$};
+    \node[main][blue] (3) at (120:2) {$3$};
+    \node[main][blue] (4) at (180:2) {$4$};
+    \node[main][blue] (5) at (240:2) {$5$};
+    \node[main][blue] (6) at (300:2) {$6$};
+
+    \draw (1) -- (2);
+    \draw (1) -- (3);
+    \draw (6) -- (1);
+    \draw (6) -- (2);
+    \draw (6) -- (3);
+    \draw (6) -- (4);
+    \draw (6) -- (5);
+
+    \vspace{20mm};
+
+    \node[main][red] (7) [below left of=5] {$u$};
+    \node[main][red] (8) [below right of=6] {$v$};
+
+    \draw (7) -- (8);
+
+    \draw [ultra thick][red, dashed] (7) -- (3);
+    \draw [ultra thick][red, dashed] (7) -- (1);
+    \draw [ultra thick][blue, dashed] (7) -- (5);
+
+    \draw [ultra thick][red, dashed] (8) -- (1);
+    \draw [ultra thick][red, dashed] (8) -- (5);
+    \draw [ultra thick][blue, dashed] (8) -- (2);
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaA2}
+ \end{figure}
 
 Zasada B sprawdza czy istnieją w grafie H zbiory niezależne $N_3$, z których wierzchołkami żaden z wierzchołków $u, v $ nie może zostać połączony. W takim wypadku nie da się skleić grafów bez utworzenia zbioru niezależnego $N_5$. 
 
-W przeciwnym razie musimy do zbioru $B_u$ dodać wszystkie wierzchołki, 
+Dla przykładu, przeanalizujmy rysunek \ref{zasadaB1}. Wierzchołki 2, 4, 6 tworzą zbiór niezależny i żaden z nich nie mieści się w ograniczeniach gównych wierczhołków 
+$u, v$. W związku z tym, dana próba połączenia nie zakończy się sukcesem. 
+
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (60:2) {$2$};
+    \node[main][blue] (3) at (120:2) {$3$};
+    \node[main][blue] (4) at (180:2) {$4$};
+    \node[main][blue] (5) at (240:2) {$5$};
+    \node[main][blue] (6) at (300:2) {$6$};
+
+    \draw (3) -- (1);
+    \draw (6) -- (1);
+    \draw (6) -- (3);
+    \draw (6) -- (5);
+    \draw (5) -- (1);
+    \draw (4) -- (3);
+
+    \vspace{20mm};
+
+    \node[main][red] (7) [below left of=5] {$u$};
+    \node[main][red] (8) [below right of=6] {$v$};
+
+    \draw [ultra thick][blue, dashed] (7) -- (3);
+    \draw [ultra thick][blue, dashed] (7) -- (1);
+    \draw [ultra thick][blue, dashed] (7) -- (5);
+
+    \draw [ultra thick][blue, dashed] (8) -- (1);
+    \draw [ultra thick][blue, dashed] (8) -- (5);
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaB1}
+ \end{figure}
+
+Jeżeli powyższa sytuacja nie zachodzi, musimy do zbioru $B_u$ dodać wszystkie wierzchołki, 
 z którymi przynajmniej 2 wierzchołki spoza zbioru $T_u \cup T_v$ nie sąsiadują. Wyjątkiem są te, z którymi można połączyć $v$. \par
+
+W przykładzie z rysunku \ref{zasadaB2} trzeba dodać wierchołek 4 do dolnego ograniczenia $u$.
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (60:2) {$2$};
+    \node[main][blue] (3) at (120:2) {$3$};
+    \node[main][blue] (4) at (180:2) {$4$};
+    \node[main][blue] (5) at (240:2) {$5$};
+    \node[main][blue] (6) at (300:2) {$6$};
+
+    \draw (3) -- (1);
+    \draw (6) -- (1);
+    \draw (6) -- (3);
+    \draw (6) -- (5);
+    \draw (5) -- (1);
+    \draw (4) -- (3);
+    \draw (2) -- (3);
+
+    \vspace{20mm};
+
+    \node[main][red] (7) [below left of=5] {$u$};
+    \node[main][red] (8) [below right of=6] {$v$};
+
+    \draw [ultra thick][red, dashed] (8) -- (3);
+    \draw [ultra thick][red, dashed] (8) -- (1);
+    \draw [ultra thick][blue, dashed] (8) -- (5);
+
+    \draw [ultra thick][blue, dashed] (7) -- (1);
+    \draw [ultra thick][blue, dashed] (7) -- (4);
+    \draw [ultra thick][red, dashed] (7) -- (5);
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaB2}
+ \end{figure}
 
 Zasada C sprawdza czy istnieją w grafie H dwa niesąsiadujące wierzchołki, z którymi żaden z wierzchołków zbioru niezależnego $u, v, w$ nie może zostać połączony. 
 Oznaczałoby to, że musi powstać zbiór niezależny $N_5$, a grafów nie można skleić.
 
+W przykładzie z rysunku \ref{zasadaC1} musi powstać zbiór niezależny $N_5$, ponieważ żaden z wierzchołków $u, v, w$ nie może zostać połączony z którymś z niesąsiadujących 
+wierzchołków 2, 4. Ten sposób połączenia zostanie więc odrzucony. 
+
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (60:2) {$2$};
+    \node[main][blue] (3) at (120:2) {$3$};
+    \node[main][blue] (4) at (180:2) {$4$};
+    \node[main][blue] (5) at (240:2) {$5$};
+    \node[main][blue] (6) at (300:2) {$6$};
+
+    \draw (6) -- (1);
+    \draw (6) -- (2);
+    \draw (6) -- (3);
+    \draw (6) -- (4);
+    \draw (6) -- (5);
+    \draw (4) -- (5);
+
+    \vspace{20mm};
+
+    \node[main][red] (7) [below left of=5] {$u$};
+    \node[main][red] (8) [below right of=6] {$v$};
+    \node[main][red] (9) [right of=8] {$w$};
+
+    \draw [ultra thick][blue, dashed] (7) -- (3);
+    \draw [ultra thick][blue, dashed] (7) -- (1);
+    \draw [ultra thick][blue, dashed] (7) -- (5);
+
+    \draw [ultra thick][blue, dashed] (8) -- (1);
+    \draw [ultra thick][blue, dashed] (8) -- (5);
+
+    \draw [ultra thick][blue, dashed] (9) -- (1);
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaC1}
+ \end{figure}
 
 W innym wypadku do $B_u$ trzeba dodać wierzchołki które nie sąsiadują z wierzchołkiem, 
 z którym żaden z wierzchołków $u, v, w$ nie może zostać połączony, z wyjątkiem tych z którymi może sąsiadować $v$ lub $w$.  \par
 
+Dla sytaucji z rysunku \ref{zasadaC2} konieczne jest dodanie do dolnego ograniczenia dla $u$ wierzchołka 4. 
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (60:2) {$2$};
+    \node[main][blue] (3) at (120:2) {$3$};
+    \node[main][blue] (4) at (180:2) {$4$};
+    \node[main][blue] (5) at (240:2) {$5$};
+    \node[main][blue] (6) at (300:2) {$6$};
+
+    \draw (6) -- (1);
+    \draw (6) -- (2);
+    \draw (6) -- (3);
+    \draw (6) -- (4);
+    \draw (6) -- (5);
+    \draw (4) -- (5);
+
+    \vspace{20mm};
+
+    \node[main][red] (7) [below left of=5] {$u$};
+    \node[main][red] (8) [below right of=6] {$v$};
+    \node[main][red] (9) [right of=8] {$w$};
+
+    \draw [ultra thick][red, dashed] (7) -- (3);
+    \draw [ultra thick][blue, dashed] (7) -- (1);
+    \draw [ultra thick][blue, dashed] (7) -- (5);
+    \draw [ultra thick][blue, dashed] (7) -- (4);
+
+    \draw [ultra thick][blue, dashed] (8) -- (1);
+    \draw [ultra thick][blue, dashed] (8) -- (5);
+
+    \draw [ultra thick][blue, dashed] (9) -- (1);
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaC2}
+ \end{figure}
+
 Zasada D sprawdza czy graf H zawiera wierzchołek, z którym żaden z niesąsiadujących wierzchołków $u, v, w, z$
 nie może sąsiadować. Ponownie, w takim przypadku powstałby zbiór niezależny $N_5$.
 
+Na rysunku \ref{zasadaD1} żaden z wierchołków $v, z, w, u$ nie może zostać połączony z wierzchołkiem 6. Ten sposób połączenia należy odrzucić. 
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (60:2) {$2$};
+    \node[main][blue] (3) at (120:2) {$3$};
+    \node[main][blue] (4) at (180:2) {$4$};
+    \node[main][blue] (5) at (240:2) {$5$};
+    \node[main][blue] (6) at (300:2) {$6$};
+
+    \draw (6) -- (1);
+    \draw (6) -- (2);
+    \draw (6) -- (3);
+    \draw (3) -- (4);
+    \draw (4) -- (5);
+    \draw (5) -- (3);
+    \draw (3) -- (2);
+    \draw (4) -- (1);
+
+    \vspace{20mm};
+
+    
+    \node[main][red] (8) [below right of=6] {$u$};
+    \node[main][red] (9) [below left of=5] {$v$};
+    \node[main][red] (7) [left of=8] {$w$};
+    \node[main][red] (10) [right of=9] {$z$};
+
+    \draw [ultra thick][blue, dashed] (7) -- (2);
+    \draw [ultra thick][blue, dashed] (8) -- (4);
+    \draw [ultra thick][blue, dashed] (9) -- (5);
+    \draw [ultra thick][blue, dashed] (10) -- (3);
+    \draw [ultra thick][blue, dashed] (8) -- (1);
+  
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaD1}
+ \end{figure}
+
 Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi v, w, z nie mogą sąsiadować. \par
 
+Przykładowo, na rysunku \ref{zasadaD2} $u$ jest połączone ze wszystkimi wierzchołkami 1-5, ale 1 i 2 mogą też zostać połączone z innymi wierzchołkami, więc do
+$B_u$ zostanie dodany tylko wierzchołek 3.   
+\begin{figure}[H]
+  \centering
+   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+    
+    \node[main][blue] (1) at (0:2) {$1$};
+    \node[main][blue] (2) at (90:2) {$2$};
+    \node[main][blue] (3) at (180:2) {$3$};
+    \node[main][blue] (4) at (270:2) {$4$};
+
+
+    \draw (3) -- (4);
+    \draw (3) -- (2);
+    \draw (4) -- (1);
+
+    \vspace{20mm};
+
+    
+    \node[main][red] (8) [below right of=4] {$w$};
+    \node[main][red] (9) [below left of=4] {$v$};
+    \node[main][red] (7) [left of=9] {$u$};
+    \node[main][red] (10) [right of=8] {$z$};
+
+    \draw [ultra thick][blue, dashed] (7) -- (3);
+    \draw [ultra thick][blue, dashed] (7) -- (2);
+    \draw [ultra thick][blue, dashed] (7) -- (1);
+    \draw [ultra thick][blue, dashed] (9) -- (2);
+    \draw [ultra thick][blue, dashed] (10) -- (1);
+    \draw [ultra thick][blue, dashed] (10) -- (4);
+
+  
+
+\end{tikzpicture}
+ \caption{}
+ \label{zasadaD2}
+ \end{figure}
 
 Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu, w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków nie powoduje już dalszych zmian. Wynikowy zbiór przedziałów daje sposób lub sposoby połączenia grafów G oraz H w graf 24 wierzchołkowy z spełniający wymagania pod względem ramseyowskości.
+
 
 \subsection{Wynik sklejania}
 

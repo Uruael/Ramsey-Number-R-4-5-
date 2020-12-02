@@ -1,23 +1,23 @@
-\section{Podstawy teoretyczne} 
+\chapter{Podstawy teoretyczne} 
 Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teorii grafów, bez których zrozumienia, nie jest możliwe wyznaczanie liczb Ramseya.
 
   \subsection{Teoria grafów}
-  \begin{definition}
+  \begin{definition}[Graf nieskierowany]
     Graf nieskierowany to para G=(V, E), gdzie V to zbiór elementów nazywanych wierzchołkami a E to zbiór par wierzchołków, którego elementy są nazywane krawędziami.
   \end{definition}
 
   Dla potrzeb naszej pracy, będziemy zakładać, że gdy mówimy o grafie, mamy na myśli graf nieskierowany i prosty (brak duplikatów par w zbiorze E).
   
-  \begin{definition}
+  \begin{definition}[Rząd grafu]
     Liczbę elementów zbioru V w grafie G=(V, E) nazywamy rzędem grafu. 
   \end{definition}
 
   Rząd grafu to liczba jego wierzchołków. 
 
-  \begin{definition}
+  \begin{definition}[Sąsiedztwo]
     W grafie G (V, E) wierzchołki u, v $\in$ V sąsiadują wtedy i tylko wtedy gdy (u, v) $\in$ E.    
   \end{definition}
-  W grafach nieskierowanych sąsiedztwo jest relacją symetryczną. Jest nieprzechodnia - z sąsiedztwa u i v oraz v i w nie wynika sąsiedztwo u i w. \linebreak
+  W grafach nieskierowanych sąsiedztwo jest relacją symetryczną. Jest nieprzechodnia - z sąsiedztwa u i v oraz v i w nie wynika sąsiedztwo u i w.
 
   \begin{figure}[h]
     \centering
@@ -38,7 +38,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
     \caption{Graf, w którym wierzchołek 1 sąsiaduje z 2 i 5; 2 z 1 i 5; 3 z 4 i 5; 4 z 3 i 5; 5 z 1, 2, 3 i 4 }
   \end{figure}
 
-   \begin{definition}
+   \begin{definition}[Klika]
     Klika $K$ w grafie $G(V,E)$ jest takim podzbiorem wierzchołków $V(G)$, że dla każdej pary wierzchołków $$u, v \in K, (u, v) \in E(G)$$ 
    \end{definition}
    
@@ -82,7 +82,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
     \end{algorithmic}
   \end{algorithm}
 
-  \begin{definition}
+  \begin{definition}[Zbiór niezależny]
     Zbiór niezależny $N$ w grafie $G(V,E)$ to taki podzbiór wierzchołków G, że dla każdej pary wierzchołków $$u, v \in N, (u, v) \notin E(V) $$. 
   \end{definition}
 
@@ -105,7 +105,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
 
      Zbiór niezależny można również zdefiniować jako przeciwieństwo kliki, lub jako klikę w dopełnieniu grafu.
 
-    \begin{definition}
+    \begin{definition}[Depełnienie grafu]
       Depełnieniem grafu $G(V,E)$ nazywamy taki graf $G'(V,E')$, 
       dla którego zachodzi 
       $$\forall{u,v} (u,v) \in E \iff (u,v) \notin E'$$
@@ -194,7 +194,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
      \end{figure}
 
 
-     \begin{definition}
+     \begin{definition}[Podgraf indukowany]
        Dla grafu $G(V,E)$ i podzbioru jego wierzchołków $S \subseteq V$, 
        podgrafem indukowanym G[S] nazywamy taki graf, którego wszystkie wierzchołki
        zawierają się w S i którego zbiór krawędzi zawiera wszystkie krawędzie z E kończące się w S.
@@ -204,7 +204,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
 
   \subsection{Izomorfizm}
 
-  \begin{definition}
+  \begin{definition}[Izomorfizm grafów]
     Izomorfizm grafów G i H to taka biekcja f:V(G) -> V(H), że 2 wierchołki u i v sąsiadują w G tylko jeżeli f(u) i f(v) sąsiadują w H.
   \end{definition}
 
@@ -237,13 +237,13 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
   Warto zauważyć, że na nasz użytek grafy izomorficzne nie są niezależnie użyteczne. Wszystkie własności opisane w tej pracy są przez izomorfizmy niezmienione, a więc na nasz użytek dwa grafy izomorficzne to efektywnie ten sam graf.
 
 
-  \begin{definition}
+  \begin{definition}[Automorfizm grafu]
     Automorfizm grafu G to taka permutacja f zbioru wierzchołków G, że para wierzchołków u, v jest sąsiedująca tylko jeżeli f(u) i f(v) sąsiadują. 
   \end{definition}
   Automorfizm to izomorfizm z grafu początkowego do tego samego grafu. 
   Złożenie automorfizmów również jest Automorfizmem.  
 
-  \begin{definition}
+  \begin{definition}[Grupa automorfizmu]
     Grupa automorfizmów grafu G to zbiór składający się z wszystkich automorfizmów grafu G.
   \end{definition}
 
@@ -254,12 +254,10 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
 
   \subsection{Formy kanoniczne grafów}
 
-  \begin{definition}
+  \begin{definition}[Forma kanoniczna]
     Forma kanoniczna C(G) grafu G to taki graf izomorficzny do G, że każdy graf izomorficzny do G ma taką samą formę kanoniczną. 
     [14]$$ Canon \colon G -> G/ \simeq $$
     $$G \simeq H \iff Canon(G) = Canon(H) $$
-
-
   \end{definition}
 
   Forma kanoniczna grafu to takie pokrycie grafu G, 
@@ -284,7 +282,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
   heurystyk pozwalających zoptymalizować proces dla określonych przypadków.
   Sprowadzanie do formy kanonicznej jest kluczowe dla szybkiego wyszukiwania izomorfizmów. 
 
-\begin{definition}
+\begin{definition}[Orbita]
   Orbita w grafie G to taki podzbiór jego wierzchołków, których wszystkie permutacje są izomorfizmami. 
 \end{definition}
 
@@ -312,7 +310,7 @@ Przykład:
 
 
     \subsection{Kolorowanie grafu}
-    \begin{definition}
+    \begin{definition}[Oznakowanie grafu]
       Dla grafu G = (V, E), wierzchołkowym oznakowaniem grafu nazywamy funkcję
        mapującą wierchołki do oznaczeń. Analogicznie, funkcję mapującą krawędzie do oznaczeń 
        nazywamy krawędziowym oznakowaniem grafu.  
@@ -354,7 +352,7 @@ Przykład:
      Oznakowywanie elementów grafów ma wiele zastosowań. Często nadaje się krawędziom wartości, mające reprezentować, np.
      koszt pokonania drogi między dwoma punktami. Innym często wykorzystywanym oznakowaniem grafów jest kolorowanie.   
    
-    \begin{definition}
+    \begin{definition}[Kolorowanie grafu]
       Kolorowanie grafów jest szczególnym przypadkiem oznakowywania grafu,
        w którym oznaczenia są nazywane kolorami i mogą być przypisywane tylko zgodnie z określonymi o
        ogranczeniami. 
