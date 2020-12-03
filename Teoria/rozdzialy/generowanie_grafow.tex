@@ -1,8 +1,8 @@
 \chapter{Generowanie grafów}
 
 \section{Rozszerzanie grafu}
-Do przeprowadzenia poprawnego rozumowania na grafach, wymagane jest wpierw pozyskanie zbioru grafów. Operację tą nazywamy generowaniem grafów, i rozpoczyna się ją od rozszerzania grafów. 
-\begin{definition} Rozszerzeniem grafu nazywamy przekształcenie grafu $G$ w graf $G'$ poprzez dodanie do $G$ wierzchołka $v$ i dowolnego podzbioru krawędzi pomiędzy $v$ a $V(G)$.
+Do przeprowadzenia poprawnego rozumowania na grafach, wymagane jest wpierw pozyskanie zbioru grafów. Operację tę nazywamy generowaniem grafów, i rozpoczyna się ją od rozszerzania grafów. 
+\begin{definition} Rozszerzeniem grafu nazywamy przekształcenie grafu $G$ w graf $G'$ poprzez dodanie do $G$ wierzchołka $v$ i dowolnego podzbioru możliwych krawędzi pomiędzy $v$ a $V(G)$.
 \end{definition}
 Możliwych rozszerzeń grafu o n wierzchołkach jest $2^n$. Kompletnym rozszerzeniem nazywamy zbiór grafów uzyskany przez wykonanie każdego możliwego rozszerzenia.
 
@@ -17,7 +17,7 @@ Najprostszym przykładem rozszerzenia grafu jest rozszerzanie grafu jednowierzch
 \end{figure}
 
 
-Podczas rozszerzania powyższego grafu istnieją dwie możliwości na sposób dodania krawędzi pomiędzy Grafem G a nowym wierzchołkiem. W celu wygenerowania wszystkich grafów dwuwierzchołkowych należy przeprowadzić rozszerzenia na wszystkie (dwa) możliwe sposoby jak na rysunku \ref{rozszerzeniedwuwierzcholkowe}.
+Podczas rozszerzania powyższego grafu istnieją dwie możliwości na sposób dodania krawędzi pomiędzy Grafem $G$ a nowym wierzchołkiem. W celu wygenerowania wszystkich grafów dwuwierzchołkowych należy przeprowadzić rozszerzenia na wszystkie (dwa) możliwe sposoby jak na rysunku \ref{rozszerzeniedwuwierzcholkowe}.
 \begin{figure}[h]
   
   \hfill
@@ -39,13 +39,15 @@ Podczas rozszerzania powyższego grafu istnieją dwie możliwości na sposób do
    \label{rozszerzeniedwuwierzcholkowe}
 \end{figure}
 
-W podobny sposób można uzyskać kompletny zbiór grafów o dowolnej liczbie wierzchołków. Wystarczy jedynie rekurencyjnie rozszerzać zbiór grafów, zaczynając od jednego wierzchołka i kończąc, gdy nasz zbiór zawiera grafy o wymaganym stopniu. Przez rozszerzenie zbioru grafów mamy na myśli rozszerzenie każdego z grafów ze zbioru na wszystkie możliwe sposoby. Takie podejście prowadzi co prawda  do uzyskania każdego możliwego grafu, jest jednak zatrważająco nieefektywne. Jest tak ze względu na obecność grup grafów izomorficznych w zbiorach generowanych w ten sposób. 
+W podobny sposób można uzyskać kompletny zbiór grafów o dowolnej liczbie wierzchołków. Wystarczy jedynie rekurencyjnie rozszerzać zbiór grafów, zaczynając od jednego wierzchołka i kończąc, gdy nasz zbiór zawiera grafy o wymaganym rzędzie. Przez rozszerzenie zbioru grafów mamy na myśli rozszerzenie każdego z grafów ze zbioru na wszystkie możliwe sposoby. 
 
-W celu zobrazowania problemu przeprowadźmy dalsze rozszerzenie dwuwierzchołkowego grafu pełnego z rysunku \ref{rozszerzeniedwuwierzcholkowe}. Określijmy ten graf jako graf $G$. Rozszerzenie grafu dwuwierzchołkowego w sposób kompletny prowadzi do uzyskania 4 grafów, pokazanych na rysunku \ref{rozszerzenietrzywierzcholki}.
+Takie podejście prowadzi co prawda  do uzyskania każdego możliwego grafu, jest jednak zatrważająco nieefektywne. Jest tak ze względu na obecność grup grafów izomorficznych w zbiorach generowanych w ten sposób. 
+
+W celu zobrazowania problemu przeprowadźmy dalsze rozszerzenie dwuwierzchołkowego grafu pełnego z rysunku \ref{rozszerzeniedwuwierzcholkowe}. Określmy ten graf jako graf $G$. Rozszerzenie grafu dwuwierzchołkowego w sposób kompletny prowadzi do uzyskania 4 grafów, pokazanych na rysunku \ref{rozszerzenietrzywierzcholki}.
 
 
 \begin{figure}[H]
- 
+		\centering
   		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
    			\node[main] (0) at (0,1.5) {$1$};
    			\node[main] (1) at (2,1.5)  {$2$};
@@ -78,9 +80,9 @@ W celu zobrazowania problemu przeprowadźmy dalsze rozszerzenie dwuwierzchołkow
    		\label{rozszerzenietrzywierzcholki}
 \end{figure}
 
-Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $G'_n$ zawiera trzy grupy izomorficzne. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów $G$ oraz $H$, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do $G'_n$ dodamy również rozszerzenia grafu $H$ przybędzie tylko jeden unikalny graf.
+Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $G'_n$ zawiera trzy zbiory grafów izomorficznych. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów na rysunku \ref{rozszerzenietrzywierzcholki}, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do $G'_n$ dodamy również rozszerzenia drugiogo grafu z \ref{rozszerzenietrzywierzcholki} przybędzie tylko jeden unikalny graf.
 
- Ze względu na naturę problemu poruszanego w tej pracy, grupa grafów izomorficznych nie wnosi więcej informacji, niż tylko jeden jej przedstawiciel. Dzieje się tak głównie ze względu na fakt, że izomorfizm nie zmienia największego stopnia kliki ani zbioru niezależnego w grafie. Wyeliminowanie izomorfizmów ze zbioru wynikowego wydaje się więc wysoko pożądane w celu zwiększenia wydajności generacji zarówno pod względem czasowym jak i pamięciowym. Żeby zobrazować wagę takiej optymalizacji wystarczy podać kilka pierwszych wartości dla ilości grafów wygenerowanych naiwną metodą rozszerzania w porównaniu do ilości grafów nieizomorficznych.
+ Ze względu na naturę problemu poruszanego w tej pracy, zbiór grafów izomorficznych nie wnosi więcej informacji, niż jeden jej przedstawiciel. Dzieje się tak głównie ze względu na fakt, że izomorfizm nie zmienia największego stopnia kliki ani zbioru niezależnego w grafie. Wyeliminowanie nadmiarowych grafów izomorficznych ze zbioru wynikowego wydaje się więc wysoko pożądane w celu zwiększenia wydajności generacji zarówno pod względem czasowym jak i pamięciowym. Żeby zobrazować wagę takiej optymalizacji wystarczy podać kilka pierwszych wartości dla ilości grafów wygenerowanych naiwną metodą rozszerzania w porównaniu do ilości grafów nieizomorficznych.
  \begin{figure}[H]
  \begin{center}
  \begin{tabular}{|c c c|} 
@@ -109,13 +111,13 @@ Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne,
  \end{figure}
 
 \section{Generowanie grafów nieizomorficznych}
-Na szczęście, na dowolnym etapie generacji grupę grafów izomorficznych w zbiorze do rozszerzenia można bezproblemowo zredukować do tylko jednego z jej przedstawicieli. Jest tak ze względu na poniższe twierdzenie.
+Użytecznym jest fakt, że na dowolnym etapie generacji zbiór grafów izomorficznych w zbiorze do rozszerzenia można bezproblemowo zredukować do tylko jednego z jego przedstawicieli. Jest tak ze względu na poniższe twierdzenie.
 \begin{theorem}
 Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $G'_n$ oraz $H'_m$, to dla dowolnego elementu zbioru $G'_n$ istnieje izomorfizm do elementu zbioru $H'_m$
 \end{theorem}
 
 
-Dzięki powyższemu, jeżeli na każdej iteracji generacji grafów będziemy usuwać nadmiarowe grafy izomorficzne wynikowy zbiór grafów będzie zawierał wszystkie grafy do izomorfizmu bez potrzeby odrzucania grafów rozszerzonych z grafów już izomorficznych. Dzięki temu, pozostają dwie możliwości dla powstania grupy izomorficznej do zredukowania: grafy izomorficzne powstałe z rozszerzania różnych grafów, oraz grafy izomorficzne powstałe z rozszerzania tego samego grafu. Obie te możliwości można eliminować, nie porównując grafów w stylu "każdy z każdym", co jest wysoko pożądane, jako że znajdywanie izomorfizmów w zbiorze grafów to problem nietrywialny, i mógłby znacznie spowolnić działanie generacji. Aby zobrazować metody eliminowania, na rysunku \ref{rozszerzenieIzomorfizm1} jest pokazana grupa izomorficzna wynikająca z rozszerzenia grafów dwuwierzchołkowych. 
+Dzięki powyższemu twierdzeniu, jeżeli na każdej iteracji generacji grafów będziemy usuwać nadmiarowe grafy izomorficzne to wynikowy zbiór grafów nie będzie zawierał  grafów rozszerzonych z grafów już izomorficznych, ale nie straci żadnych istotnych dla nas grafów. Dzięki temu, pozostają dwie możliwości powstania zbiorów grafów izomorficznych do zredukowania: grafy izomorficzne powstałe z rozszerzania różnych grafów, oraz grafy izomorficzne powstałe z rozszerzania tego samego grafu. Obie te możliwości można eliminować, nie porównując grafów w stylu "każdy z każdym", co jest wysoko pożądane, jako że znajdywanie izomorfizmów w zbiorze grafów to problem nietrywialny, który mógłby znacznie spowolnić działanie generacji. Aby zobrazować metody eliminowania, na rysunku \ref{rozszerzenieIzomorfizm1} jest pokazana grupa izomorfizmów wynikająca z rozszerzenia grafów dwuwierzchołkowych. 
 
 \begin{figure}[H]
 	\hfill
@@ -152,44 +154,43 @@ Powyższe grafy będą opisywane jako $G_1$, $G_2$ i $G_3$.
 Każdy z tych grafów należy sprowadzić do formy kanonicznej a następnie wyznaczyć istniejące w nim orbity.
 
 Przykładowym przekształceniem grafu $G_2$ do formy kanonicznej jest 
-$$ {0,1,2} \to {2,0,1} $$
-I efektem takiego przekształcenia jest graf przedstawiony na rysunku \ref{G2canon}
+$$ \{1,2,3\} \to \{2,1,3\} $$
+Efektem takiego przekształcenia jest graf przedstawiony na rysunku \ref{g2canon}
 
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-   		\node[main] (2) at (0,1.5) {$1$};
-   		\node[main] (0) at (2,1.5)  {$2$};
+   		\node[main] (2) at (0,1.5) {$2$};
+   		\node[main] (0) at (2,1.5)  {$1$};
    		\node[main] (1) at (1,0)  {$3$};
     	\draw (0) -- (2);
 		\draw (0) -- (1);
 	\end{tikzpicture}
-	\caption{Graf G2 w formie kanonicznej}
+	\caption{Graf $G_3$ w formie kanonicznej}
 	\label{g2canon}
 \end{figure} 
 
-Orbitami tego grafu będą zbiory {0} oraz {1,2}.
+Orbitami tego grafu będą zbiory \{1\} oraz \{2,3\}.
 
-Dzięku temu wiemy, że w kolejnym kroku nie trzeba podłączać nowego wierzchołka zarówno do 1 jak i do 2. Wystaczy 
-zrobić to dla jednego wierzchołka w orbicie, co widać na rysunku \ref{g2extend}.
+Dzięku temu wiemy, że w kolejnym kroku nie trzeba podłączać nowego wierzchołka do obu wierzchołków z orbity, wystaczy zrobić to tylko dla jednego wierzchołka z orbity \{2,3\}, co widać na rysunku \ref{g2extend}.
 
 \begin{figure}[H]
   \centering
   \hfill
   
 	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-   		\node[main] (2) at (0,1.5) {$1$};
-   		\node[main] (0) at (2,1.5)  {$2$};
+   		\node[main] (2) at (0,1.5) {$2$};
+   		\node[main] (0) at (2,1.5)  {$1$};
        \node[main] (1) at (2,3.5)  {$3$};
        \node[main] (3) at (0,3.5)  {$4$};
     	\draw (0) -- (2);
     \draw (0) -- (1);
     \draw (3) -- (1);
   \end{tikzpicture}
-  \hfill
+  \hspace{15mm}
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
-    \node[main] (2) at (0,1.5) {$1$};
-   		\node[main] (0) at (2,1.5)  {$2$};
+    \node[main] (2) at (0,1.5) {$2$};
+   		\node[main] (0) at (2,1.5)  {$1$};
        \node[main] (1) at (2,3.5)  {$3$};
        \node[main] (3) at (0,3.5)  {$4$};
    \draw (0) -- (2);
@@ -197,7 +198,7 @@ zrobić to dla jednego wierzchołka w orbicie, co widać na rysunku \ref{g2exten
  \draw (3) -- (2);
 \end{tikzpicture}
 \hfill
-  \caption{Przykładowe izomorficzne rozszerzenia grafu $G_2$}
+  \caption{Przykładowe izomorficzne rozszerzenia grafu $G_3$}
 	\label{g2extend}
 \end{figure} 
 
@@ -214,12 +215,17 @@ izomorficzny powstanie w innej gałęzi.
 
 \section{Generowanie grafów Ramesyowskich}
 
-Generowanie grafów nieizomorficznych jest wciąż zbyt wymagające dla naszych potrzeb. Ilość grafów nieizomorficznych poszczególnych rzędów rośnie wykładniczo, i dla grafów rzędu 17, największego generowanego przez rozszerzanie w tej pracy, byłoby ich ponad $2 * 10^{26}$\cite{OEIS}. Jasnym więc jest, że ilość grafów generowanych na poszczególnych etapach rozszerzania należy bardziej zmniejszyć. Z pomocą przychodzi następujące twierdzenie: 
-\begin{theorem}Dla dowolnego grafu $G$ posiadającego klikę $K_i$ każdy graf $H$, który może powstać przez dowolną sekwencję rozszerzeń grafu $G$, zawiera klikę $K_j$ gdzie $j \geq i$.
+Generowanie grafów nieizomorficznych jest wciąż zbyt wymagające dla naszych potrzeb. Ilość grafów nieizomorficznych poszczególnych rzędów rośnie wykładniczo, i dla grafów rzędu 17, największego generowanego przez rozszerzanie w tej pracy, byłoby ich ponad $2 * 10^{26}$\cite{OEIS}. Jasnym więc jest, że ilość grafów generowanych na poszczególnych etapach rozszerzania należy bardziej ograniczyć. Z pomocą przychodzi następujące twierdzenie: 
+
+
+\begin{theorem}
+	Dla dowolnego grafu $G$ posiadającego klikę $K_i$ każdy graf $H$, który powstaje przez dowolną sekwencję rozszerzeń grafu $G$, zawiera klikę $K_j$ gdzie $j \geq i$.
 \end{theorem}
+
+
 Powyższe twierdzenie wynika z  następującego rozumowania:
 
- Gdy graf $G$ rozszerzymy do grafu $G'$, to graf $G$ jest podzbiorem grafu $G'$. Dzieje się tak, ponieważ rozszerzanie nie modyfikuje krawędzi w oryginalnym grafie, a jedynie dodaje krawędzie do nowego wierzchołka. Przy pomocy indukcji matematycznej można więc powiedzieć, że dowolny graf $H$, który powstaje poprzez wielokrotne rozszerzanie grafu $G$ musi zawierać graf $G$ jako swój podgraf. Z tego powodu, graf $H$ musi zawierać klikę z oryginalnego grafu $G$, oraz może posiadać klikę większą powstałą w wyniku rozszerzania. Przykład zachowania oryginalnego grafu podczas rozszerzania pokazany jest na rysunku \ref{rozszerzeniekliki}
+ Gdy graf $G$ rozszerzymy do grafu $G'$, to graf $G$ jest podgrafem grafu $G'$. Dzieje się tak, ponieważ rozszerzanie nie modyfikuje krawędzi w oryginalnym grafie, a jedynie dodaje krawędzie do nowego wierzchołka. Przy pomocy indukcji matematycznej można więc powiedzieć, że dowolny graf $H$, który powstaje poprzez wielokrotne rozszerzanie grafu $G$ musi zawierać graf $G$ jako swój podgraf. Z tego powodu, graf $H$ musi również zawierać klikę z oryginalnego grafu $G$, oraz może posiadać klikę większą powstałą w wyniku rozszerzania. Przykład zachowania oryginalnego grafu podczas rozszerzania jest pokazany na rysunku \ref{rozszerzeniekliki}
 
 \begin{figure}[H]
  
@@ -327,10 +333,10 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 \end{figure}
 Identyczne rozumowanie można przeprowadzić dla zbiorów niezależnych w oryginalnym grafie, prowadząc do analogicznego twierdzenia dotyczącego zbiorów niezależnych.
 \begin{theorem}
-Dla dowolnego grafu $G$ posiadającego zbiór niezależny $N_i$ każdy graf $H$, który może powstać przez dowolną sekwencję rozszerzeń grafu $G$, zawiera zbiór niezależny $N_j$ gdzie $j \geq i$.
+Dla dowolnego grafu $G$ posiadającego zbiór niezależny $N_i$ każdy graf $H$, który powstaje przez dowolną sekwencję rozszerzeń grafu $G$, zawiera zbiór niezależny $N_j$ gdzie $j \geq i$.
 \end{theorem}
 Twierdzenia te prowadzą do wniosku podobnego do tego o eliminacji grafów izomorficznych, gdzie jeżeli na każdym etapie algorytmu wyeliminujemy grafy łamiące ograniczenia dotyczące kliki oraz zbioru niezależnego, to na dalszych etapach algorytmu nie powstaną takie i tylko takie grafy, które również łamałyby te ograniczenia. Dzięki temu można znacznie ograniczyć ilość grafów tworzonych na późniejszych etapach generacji. 
-Omównienie ograniczenia porwadzą do powstania algorymu generacji grafów w następującej formie:
+Omównione ograniczenia porwadzą do powstania algorytmu generacji grafów w następującej formie:
 
 \begin{algorithm}[H]
   \caption{Generowanie grafów ramseyowskich o podanym stopniu}
@@ -347,5 +353,5 @@ Omównienie ograniczenia porwadzą do powstania algorymu generacji grafów w nas
   \end{algorithmic}
 \end{algorithm}
 
-Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność. 
+Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie bardziej skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność. 
 

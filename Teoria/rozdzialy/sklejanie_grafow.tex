@@ -2,7 +2,7 @@
 
 Generowanie grafów wysokiego rzędu jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
 \begin{definition}
-Sklejanie grafów opiera się na połączeniu dwóch grafów wejściowych w celu uzyskania grafu wyjściowego o pożądanych charakterystykach.
+Sklejanie grafów opiera się na połączeniu dwóch zbiorów grafów wejściowych w celu uzyskania zbioru grafów wyjściowych o pożądanych charakterystykach.
 \end{definition}
 \section{Dekompozycja problemu}
 \begin{definition}
@@ -33,35 +33,36 @@ Powyższe twierdzenie jest nieoczywiste, dlatego przeprowadzimy krótki dowód.
     \item $\not \exists v \in K_3, (v, x) \in E(F)$
   \end{enumerate} 
   
-  W przypadku pierwszym klika zostanie rozbita, 2 wierzchołki będą w $G_x$ a $x$ nie będzie w żadnym.
+  W przypadku pierwszym klika zostanie rozbita, dwa jej wierzchołki będą w $G_x$, a $x$ nie będzie w żadnym.
   
   W przypadku drugim wierzchołki tworzące $K_3$, które są połączone z $x$ trafią do $G_x$, niepołączone trafią do $H_x$.
   
-  W przypadku trzecim całość $K_3$ trafi do grafu $H_x$, gdzie klika $K_3$ może się pojawić, nie łamiąc R(3,5,$n$).
+  W przypadku trzecim całość $K_3$ trafi do grafu $H_x$, gdzie klika $K_3$ może się pojawić, nie łamiąc $R(4,4,n)$.
 
   Z kolei dla każdego zbioru $N_4$ musi zachodzić jedna z sytuacji:
+
   \begin{enumerate}
     \item $x \in N_4$
     \item $ \exists v \in N_4, (v, x) \in E(F) \land \not \forall u \in N_4, (u,x) \in E(F)$ 
     \item $\not \exists v \in N_4, (v, x) \in E(F)$
   \end{enumerate} 
 
-  W przypadku pierwszym zbiór niezależny zostanie rozbity, 3 wierzchołki będą w $H_x$ a $x$ nie będzie w żadnym.
+  W przypadku pierwszym zbiór niezależny zostanie rozbity, trzy jego wierzchołki będą w $H_x$, a $x$ nie będzie w żadnym.
   
   W przypadku drugim wierzchołki tworzące $N_4$, które są połączone z $x$ trafią do $G_x$, niepołączone trafią do $H_x$.
   
-  W przypadku trzecim całość $N_4$ trafi do grafu $G_x$, gdzie zbiór niezależny może się pojawić, nie łamiąc R(4,4,$n$).
+  W przypadku trzecim całość $N_4$ trafi do grafu $G_x$, gdzie zbiór niezależny może się pojawić, nie łamiąc $R(3,5,n)$.
 
 \section{Grafy potrzebne do sklejania}
 
-Korzystając z wiedzy z poprzedniego podrozdziału możemy stwierdzić, że do utworzenia wszystkich grafów R(4,5,24) wystarczy połączenie na wszystkie możliwe sposoby
-wszystkich nieizomorficznych grafów R(3,5,d) z wszystkimi nieizomorficznymi grafami R(4,4,24-d). 
-Warto zauważyć, że liczby R(3,5) oraz R(4,4) są znane i wynoszą odpowiednio 14 i 18. Oznacza to, że nasze grafy $G$ będą maksymalnie rzędu 13 a grafy $H$ rzędu 17. Co za tym idzie, możemy też wskazać ograniczenia dolne:
-minimalny rząd $G$ to 24-17=7 a minimalny rząd $H$ to 24-13 = 11.  
+Korzystając z wiedzy z poprzedniego podrozdziału możemy stwierdzić, że do utworzenia wszystkich grafów $R(4,5,24)$ wystarczy połączenie na wszystkie możliwe sposoby
+wszystkich nieizomorficznych grafów $R(3,5,d)$ z wszystkimi nieizomorficznymi grafami $R(4,4,24-d)$. 
+Warto zauważyć, że liczby $R(3,5)$ oraz $R(4,4)$ są znane i wynoszą odpowiednio 14 i 18. Oznacza to, że nasze grafy $G$ będą maksymalnie rzędu 13 a grafy $H$ rzędu 17. Co za tym idzie, możemy też wskazać ograniczenia dolne:
+minimalny rząd $G$ to $24-17=7$ a minimalny rząd $H$ to $24-13 = 11$.  
 
 Zbiór danych wymagany do poprawnego sklejania jest uzyskany poprzez wygenerowanie wszystkich nieizomorficznych grafów $G$ rzędów 7-13 spełniających R(3,5,$n$), oraz wszystkich nieizomorficznych grafów $H$ rzędów 11-17 spełniających R(4,4,$n$).
 
-Grafy dzielone są na grupy zgodnie z ich rzędem. Dalsze sklejanie przeprowadzone jest na parze grup grafów $G$ i $H$. Celem sklejania jest uzyskanie grafów rzędu 24 poprzez połączenie grafów $G$ oraz $H$, a więc suma rzędów grafów $G$ oraz $H$ w grupach branych pod uwagę musi być równa 24. Ze względu na R(3,5) = 14 największy rząd grupy grafów $G$ to 13, a ze względu na R(4,4) = 18 grafy $H$ są ograniczone do 17 wierzchołków. Oznacza to, że istnieje 6 par grup spełniających wymagania.
+Grafy dzielone są na grupy zgodnie z ich rzędem. Dalsze sklejanie przeprowadzone jest na parze grup grafów $G$ i $H$. Celem sklejania jest uzyskanie grafów rzędu 24 poprzez połączenie grafów $G$ oraz $H$, a więc suma rzędów grafów $G$ oraz $H$ w grupach branych pod uwagę musi być równa 24. Oznacza to, że istnieje 6 par grup spełniających wymagania.
 
 \section{Algorytm sklejania}
 
@@ -71,38 +72,38 @@ Na dalszych etapach sklejania pojawia się pojęcie stożka. Szczególnym przypa
 \end{definition}
 
 \begin{definition}
-Prawdopodobny stożek (ang. feasible cone) to podzbiór wierzchołków grafu H, który nie tworzy kliki $K_3$\cite{mainpaper}. Symbolizuje on połączenia pomiędzy wierzchołkiem grafu $G$ a wszystkimi wierzchołkami $V(H)$, które do niego należą.
+Prawdopodobny stożek (ang. feasible cone) to podzbiór wierzchołków grafu H, który nie tworzy kliki $K_3$\cite{mainpaper}. Symbolizuje on połączenia pomiędzy wierzchołkiem grafu $G$ a wszystkimi wierzchołkami $V(H)$, które należą do stożka.
 \end{definition}
 
 Podzbiór wierzchołków grafu $H$ o którym jeszcze nie wiemy, czy jest prawdopodobnym stożkiem będziemy  określać mianem stożka.
 
-Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 prawdopodobnych stożków. Jeżeli do każdego z wierzchołków grafu $G$ przypiszemy stożek, uzyskamy takie połączenie grafów $G$ oraz $H$ gdzie każdy wierzchołek grafu $G$ jest sąsiadem wszystkich wierzchołków w przypisanym mu stożku. Główna część algorytmu sklejania polega na eliminacji wszystkich kombinacji stożków, które prowadzą do powstania kilki stopnia 4 lub zbioru niezależnego rzędu 5. Każdy taki zbiór prawdopodobnych stożków zawiera poprawne połączenia grafów $G$ oraz $H$. Następnie zbiory prawdopodobnych stożków są rozbijane, aby wyizolować jedynie akceptowalne grafy. Taki algorytm sklejania pozwala uzyskać grafy R(4,5, n) o różnych rzędach (poprzez inne parowanie grup grafów $G$ i $H$), ale w tej pracy zajmujemy się jedynie grafami 24-wierzchołkowymi.
+Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 prawdopodobnych stożków. Jeżeli do każdego z wierzchołków grafu $G$ przypiszemy stożek, uzyskamy takie połączenie grafów $G$ oraz $H$ gdzie każdy wierzchołek grafu $G$ jest sąsiadem wszystkich wierzchołków w przypisanym mu stożku. Główna część algorytmu sklejania polega na eliminacji wszystkich kombinacji stożków, które prowadzą do powstania kilki rzędu 4 lub zbioru niezależnego rzędu 5. Każdy taki zbiór prawdopodobnych stożków zawiera poprawne połączenia grafów $G$ oraz $H$. Następnie zbiory prawdopodobnych stożków są rozbijane, aby wyizolować jedynie akceptowalne grafy. Taki algorytm sklejania pozwala uzyskać grafy $R(4,5,n)$ o różnych rzędach (poprzez inne parowanie grup grafów $G$ i $H$), ale w tej pracy zajmujemy się jedynie grafami 24-wierzchołkowymi.
 
-Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu $H$ zbioru prawdopodobnych stożków przed wybraniem grafu $G$ do sklejenia z nim. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu. Takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu n wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
+Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu $H$ zbioru prawdopodobnych stożków przed wybraniem grafu $G$ do sklejenia. Należy odrzucić wszystkie stożki które obejmują klikę trzeciego rzędu. Takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki trzeciego rzędu z dowolnym wierzchołkiem powoduje wystąpienie kliki czwartego rzędu. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu $n$ wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
 
 \begin{definition}
-Przedział $ P = [B, T]$ to zbiór stożków, ograniczony przez stożek górny T i stożek dolny B, który zawiera wszystkie stożki spełniające zależność:  $$X: B \subseteq X \subseteq T$$ 
+Przedział $ P = [B, T]$ to zbiór stożków, ograniczony przez stożek górny $T$ i stożek dolny $B$, który zawiera wszystkie stożki spełniające zależność:  $$X: B \subseteq X \subseteq T$$ 
 \end{definition}
 
 
-Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a T zawiera wszystkie wierzchołki $H$. Taki przedział zawiera wszystkie możliwe stożki. W celu wyodrębnienia prawdopodobnych stożków korzystamy z poniższych własności:
+Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału gdzie $B = \emptyset$, a $T$ zawiera wszystkie wierzchołki $H$. Taki przedział zawiera wszystkie możliwe stożki. W celu wyodrębnienia prawdopodobnych stożków korzystamy z poniższych własności:
 \begin{enumerate}
 \item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest, że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
 
-\item Jeżeli stożek $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
+\item Jeżeli ograniczenie przedziału $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
 
-\item Jeżeli stożek $T$ nie zawiera kliki stopnia 3, to wszystkie stożki w przedziale jej nie zawierają.
+\item Jeżeli ograniczenie przedziału $T$ nie zawiera kliki stopnia 3, to wszystkie stożki w przedziale jej nie zawierają.
 \end{enumerate}
 
-Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału można skorzystać z algorytmu rekurencyjnego dzielącego interwały wzdłuż wierzchołków należących do kliki 3 oraz stożka B, dzięki czemu uzyskujemy zbiór przedziałów dla grafu H zawierający jedynie stożki prawdopodobne. Z tego zbioru korzystamy w następnym etapie algorytmu.
+Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału można skorzystać z algorytmu rekurencyjnego dzielącego interwały wzdłuż wierzchołków należących do kliki 3 oraz stożka $B$, dzięki czemu uzyskujemy zbiór przedziałów dla grafu $H$ zawierający jedynie stożki prawdopodobne. Z tego zbioru korzystamy w następnym etapie algorytmu.
 Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu $G$.
   
 
 \section{Zawężanie przedziałów - zasady A-D}
 Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze wierzchołków grafu $H$ oznaczonym jako $X$, generujące podzbiór wierzchołków grafu $H$. 
 Funkcja $H_1$ będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru $X$.
-$H_2$ wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza X. 
-$H_3$ wybiera wszystkie wieszchołki, które tworzą zbiór niezależny o stopniu 3 z dwoma wierzchołkami spoza zbioru X.
+$H_2$ wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza $X$. 
+$H_3$ wybiera wszystkie wierzchołki, które tworzą zbiór niezależny o stopniu 3 z dwoma wierzchołkami spoza zbioru $X$.
 
 $$H_i: X \subseteq V(G) \to Y \subseteq V(G)$$
 
@@ -116,7 +117,7 @@ $$H_i: X \subseteq V(G) \to Y \subseteq V(G)$$
 \end{itemize}
 
 
-Rozpatrzmy podany graf, rysunek \ref{zasada0}. Dla tego grafu zostanie zaprezentowanie działanie zasad  $H_1$,  $H_2$ oraz  $H_3$. Na rysunkach \ref{zasada1}, \ref{zasada2}, \ref{zasada2}, przedctawiony jest sposób działania tych funkcji. Pierwszy graf, jest grafem który jest przekazywany do funkcji, a wieszchołki zaznaczone na niebiesko oznaczają wieszchołki ze zbioru $X$. Drugi graf zawiera wieszchołki zaznaczone na czerwono, jest to ten podzbiów wieszchołków które funkcja zwraca.
+Rozpatrzmy podany graf, rysunek \ref{zasada0}. Dla tego grafu zostanie zaprezentowanie działanie zasad  $H_1$,  $H_2$ oraz  $H_3$. Na rysunkach \ref{zasada1}, \ref{zasada2}, \ref{zasada3}, przedctawiony jest sposób działania tych funkcji. Pierwszy graf jest grafem, który jest przekazywany do funkcji, a wierzchołki zaznaczone na niebiesko oznaczają wierzchołki ze zbioru $X$. Drugi graf zawiera wierzchołki zaznaczone na czerwono, jest to podzbiór wierzchołków które zwraca funkcja.
 
 
  \begin{figure}[H]
@@ -137,11 +138,11 @@ Rozpatrzmy podany graf, rysunek \ref{zasada0}. Dla tego grafu zostanie zaprezent
 \draw[ultra thick] (2) -- (4);
 \draw[ultra thick] (3) -- (4);
     \end{tikzpicture}
-    \caption{}
+    \caption{Graf służący do zaprezentowania poszczególnych funkcji $H$}
  \label{zasada0}
  \end{figure}
 
-Funkcja $H_1$ znajduje wszystkich sąsiadów wieszchołków ze zbioru wejściowego. W podanym przykładdzie na rysunku \ref{zasada1} oznacza to że musimy znaleść sąsiadów wieszchołków ze zbioru \{3, 4\}. Łatwo zauważyć że wieszchołki z nimi sąsiadujące to zbiór wieszchołków \{1, 2, 3, 4\}.
+Funkcja $H_1$ znajduje wszystkich sąsiadów wierzchołków ze zbioru wejściowego. W podanym przykładzie na rysunku \ref{zasada1} oznacza to, że musimy znaleźć sąsiadów wierzchołków ze zbioru \{3, 4\}. Łatwo zauważyć że wierzchołki z nimi sąsiadujące to zbiór wierzchołków \{1, 2, 3, 4\}.
 
  \begin{figure}[H]
   \centering
@@ -178,11 +179,11 @@ Funkcja $H_1$ znajduje wszystkich sąsiadów wieszchołków ze zbioru wejściowe
 \draw[ultra thick] (2) -- (4);
 \draw[ultra thick] (3) -- (4);
     \end{tikzpicture}
-    \caption{}
+    \caption{Wynik działania funkcji $H_1$}
  \label{zasada1}
  \end{figure}
 
-Funkcja $H_2$ znajduje wszystkie wieszchołki, które nie sąsiadują z co najmniej jednym wieszchołkiem z poza zbioru wejściowego. W podanym przykładdzie na rysunku \ref{zasada2} oznacza to że musimy znaleść wieszchołki które nie sąsiadują ze wszystkimi wieszchołkami ze zbioru (wykluczając wieszchołek który aktualnie rozpatrujemy, jeżeli jest w zbiorze) \{1, 2, 5, 6\}. Łatwo zauważyć że jedymym wieszchołkiem który sąsiaduje ze wszystkimi wieszchołkami z tego zbioru jest wieszchołek o numerze 1, więc zbiór wyjściowy będzie wyglądac następująco \{2, 3, 4, 5, 6\}.
+Funkcja $H_2$ znajduje wszystkie wierzchołki, które nie sąsiadują z co najmniej jednym wierzchołkiem spoza zbioru wejściowego. W podanym przykładzie na rysunku \ref{zasada2} oznacza to że musimy znaleźć wierzchołki które nie sąsiadują ze wszystkimi wierzchołkami ze zbioru (wykluczając wierzchołek który aktualnie rozpatrujemy, jeżeli jest w zbiorze) \{1, 2, 5, 6\}. Łatwo zauważyć że jedynym wierzchołkiem który sąsiaduje ze wszystkimi wierzchołkami z tego zbioru jest wierzchołek o numerze 1, więc zbiór wyjściowy będzie wyglądać następująco \{2, 3, 4, 5, 6\}.
 
  \begin{figure}[H]
   \centering
@@ -219,11 +220,11 @@ Funkcja $H_2$ znajduje wszystkie wieszchołki, które nie sąsiadują z co najmn
 \draw[ultra thick] (2) -- (4);
 \draw[ultra thick] (3) -- (4);
     \end{tikzpicture}
-    \caption{}
+    \caption{Wynik działania funkcji $H_2$}
  \label{zasada2}
  \end{figure}
 
-Funkcja $H_3$ znajduje wszystkie wieszchołki, które tworzą zbiór niezależny o stopniu 3 z dwoma wierzchołkami spoza zbioru X. W podanym przykładzie na rysunku \ref{zasada3} oznacza top że musimy znaleść wieszchołki które tworza zbiór niezależny wraz z dwoma wieszchołkami ze zbioru \{1, 2, 5, 6\}. Łatwo zauważyć że jedynym wieszchołkiem który spełnia to założenie jest wieszchiłek oznaczony numerem 3, gdyż tworzy on zbiór niezależny stopnia 3 wraz z wieszchołkami o numerach 2 oraz 5.
+Funkcja $H_3$ znajduje wszystkie wierzchołki, które tworzą zbiór niezależny o stopniu 3 z dwoma wierzchołkami spoza zbioru $X$. W podanym przykładzie na rysunku \ref{zasada3} oznacza to, że musimy znaleźć wierzchołki które tworzą zbiór niezależny wraz z dwoma wierzchołkami ze zbioru \{1, 2, 5, 6\}. Łatwo zauważyć że jedynym wierzchołkiem który spełnia to założenie jest wierzchołek oznaczony numerem 3, gdyż tworzy on zbiór niezależny stopnia 3 wraz z wierzchołkami o numerach 2 oraz 5.
 
  \begin{figure}[H]
   \centering
@@ -260,7 +261,7 @@ Funkcja $H_3$ znajduje wszystkie wieszchołki, które tworzą zbiór niezależny
 \draw[ultra thick] (2) -- (4);
 \draw[ultra thick] (3) -- (4);
     \end{tikzpicture}
-    \caption{}
+    \caption{Wynik działania funkcji $H_3$}
  \label{zasada3}
  \end{figure}
 
@@ -295,10 +296,10 @@ Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami $G$ or
 Zasada A sprawdza czy sąsiednie wierzchołki $u, v$ mają jakąkolwiek parę wspólnych potencjalnych sąsiadów, którzy są sąsiedni względem siebie.
 W takiej sytuacji powstałaby klika $K_4$, więc nie uda się utworzyć grafu. \par
 
-Przyjrzyjmy się rysunkowi \ref{zasadaA1}. Czerowne wierchołki to $u, v$ z grafu G, 
+Przyjrzyjmy się rysunkowi \ref{zasadaA1}. Czerowne wierchołki to $u, v$ z grafu $G$, 
 a czerwone, przerywane krawędzie reprezentują dolne ograniczenia przypisanych im stożków.
 Jak widać, $u i v$ muszą zostać połączone z parą sąsiadujących wierzchołków 1 i 2, więc nie 
-da się połączyć grafów użyciem takiego przypisania stożków. 
+da się poprawnie połączyć grafów użyciem takiego przypisania stożków.
 \begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -333,7 +334,7 @@ da się połączyć grafów użyciem takiego przypisania stożków.
     \draw [ultra thick][red, dashed] (8) -- (2);
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład sytuacji odrzucanej przez zasadę A}
  \label{zasadaA1}
  \end{figure}
 
@@ -345,7 +346,7 @@ da się połączyć grafów użyciem takiego przypisania stożków.
     
   Trzeba więc odrzucić potencjalne połączenia pomiędzy $v$ a niezbędnymi sąsiadami $u$. 
   Na przykładowym rysunku będzie to oznaczało usunięcie krawędzi $(u, 5)$. Zgodnie z zasadą A nie usuwamy jeszcze krawędzi 
-  $(v,2)$ - zostanie ona usunięta kiedy to $v$ będzie pełniła rolę $v$ w funkcji.  
+  $(v,2)$ - zostanie ona usunięta kiedy to $v$ będzie pełniła rolę $u$ w funkcji.  
 
  \begin{figure}[H]
   \centering
@@ -382,11 +383,11 @@ da się połączyć grafów użyciem takiego przypisania stożków.
     \draw [ultra thick][blue, dashed] (8) -- (2);
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład przedziału zawężanego przez zasadę A}
  \label{zasadaA2}
  \end{figure}
 
-Zasada B sprawdza czy istnieją w grafie H zbiory niezależne $N_3$, z których wierzchołkami żaden z wierzchołków $u, v $ nie może zostać połączony. W takim wypadku nie da się skleić grafów bez utworzenia zbioru niezależnego $N_5$. 
+Zasada B sprawdza czy istnieją w grafie $H$ zbiory niezależne $N_3$, z których wierzchołkami żaden z wierzchołków $u, v$ nie może zostać połączony. W takim wypadku nie da się skleić grafów bez utworzenia zbioru niezależnego $N_5$. 
 
 Dla przykładu, przeanalizujmy rysunek \ref{zasadaB1}. Wierzchołki 2, 4, 6 tworzą zbiór niezależny i żaden z nich nie mieści się w ograniczeniach gównych wierczhołków 
 $u, v$. W związku z tym, dana próba połączenia nie zakończy się sukcesem. 
@@ -422,7 +423,7 @@ $u, v$. W związku z tym, dana próba połączenia nie zakończy się sukcesem.
     \draw [ultra thick][blue, dashed] (8) -- (5);
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład sytuacji odrzucanej przez zasadę B}
  \label{zasadaB1}
  \end{figure}
 
@@ -463,11 +464,11 @@ W przykładzie z rysunku \ref{zasadaB2} trzeba dodać wierchołek 4 do dolnego o
     \draw [ultra thick][red, dashed] (7) -- (5);
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład przedziału zawężanego przez zasadę B}
  \label{zasadaB2}
  \end{figure}
 
-Zasada C sprawdza czy istnieją w grafie H dwa niesąsiadujące wierzchołki, z którymi żaden z wierzchołków zbioru niezależnego $u, v, w$ nie może zostać połączony. 
+Zasada C sprawdza czy istnieją w grafie $H$ dwa niesąsiadujące wierzchołki, z którymi żaden z wierzchołków zbioru niezależnego $u, v, w$ nie może zostać połączony. 
 Oznaczałoby to, że musi powstać zbiór niezależny $N_5$, a grafów nie można skleić.
 
 W przykładzie z rysunku \ref{zasadaC1} musi powstać zbiór niezależny $N_5$, ponieważ żaden z wierzchołków $u, v, w$ nie może zostać połączony z którymś z niesąsiadujących 
@@ -507,7 +508,7 @@ wierzchołków 2, 4. Ten sposób połączenia zostanie więc odrzucony.
     \draw [ultra thick][blue, dashed] (9) -- (1);
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład sytuacji odrzucanej przez zasadę C}
  \label{zasadaC1}
  \end{figure}
 
@@ -550,11 +551,11 @@ Dla sytaucji z rysunku \ref{zasadaC2} konieczne jest dodanie do dolnego ogranicz
     \draw [ultra thick][blue, dashed] (9) -- (1);
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład przedziału zawężanego przez zasadę C}
  \label{zasadaC2}
  \end{figure}
 
-Zasada D sprawdza czy graf H zawiera wierzchołek, z którym żaden z niesąsiadujących wierzchołków $u, v, w, z$
+Zasada D sprawdza czy graf $H$ zawiera wierzchołek, z którym żaden z niesąsiadujących wierzchołków $u, v, w, z$
 nie może sąsiadować. Ponownie, w takim przypadku powstałby zbiór niezależny $N_5$.
 
 Na rysunku \ref{zasadaD1} żaden z wierchołków $v, z, w, u$ nie może zostać połączony z wierzchołkiem 6. Ten sposób połączenia należy odrzucić. 
@@ -594,11 +595,11 @@ Na rysunku \ref{zasadaD1} żaden z wierchołków $v, z, w, u$ nie może zostać 
   
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład sytuacji odrzucanej przez zasadę D}
  \label{zasadaD1}
  \end{figure}
 
-Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi v, w, z nie mogą sąsiadować. \par
+Jeżeli powyższe nie zajdzie, musimy dodać do $B_u$ wszystkie wierzchołki, z którymi $v, w, z$ nie mogą sąsiadować. \par
 
 Przykładowo, na rysunku \ref{zasadaD2} $u$ jest połączone ze wszystkimi wierzchołkami 1-5, ale 1 i 2 mogą też zostać połączone z innymi wierzchołkami, więc do
 $B_u$ zostanie dodany tylko wierzchołek 3.   
@@ -634,22 +635,22 @@ $B_u$ zostanie dodany tylko wierzchołek 3.
   
 
 \end{tikzpicture}
- \caption{}
+ \caption{Przykład przedziału zawężanego przez zasadę D}
  \label{zasadaD2}
  \end{figure}
 
-Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu, w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków nie powoduje już dalszych zmian. Wynikowy zbiór przedziałów daje sposób lub sposoby połączenia grafów $G$ oraz $H$ w graf 24 wierzchołkowy z spełniający wymagania pod względem ramseyowskości. Nie wszystkie sposoby połączenia dane przy zatrzymaniu reguł muszą być jednak poprawne. Istenieje możliwość, że wynikowe przedziały posiadają również połączenia niepoprawne. Z tego powodu, po zakończeniu stosowania reguł należy rozbijać wynikowe przedziały, i ponownie stosować reguły, aż wynikiem ich stosowanie będzie tyklko jeden poprawny graf.
+Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu, w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków grafu $G$ i odpowiadających im przedziałom nie powoduje już dalszych zmian. Wynikowy zbiór przedziałów daje sposób lub sposoby połączenia grafów $G$ oraz $H$ w graf 24 wierzchołkowy spełniający wymagania pod względem ramseyowskości. Nie wszystkie sposoby połączenia pozostałe przy zatrzymaniu reguł muszą być jednak poprawne. Istenieje możliwość, że wynikowe przedziały posiadają również połączenia niepoprawne. Z tego powodu, po zakończeniu stosowania reguł należy rozbijać wynikowe przedziały, i ponownie stosować reguły, aż wynikiem ich stosowania będzie tyklko jeden poprawny graf.
 
-Przez rozbicie zestawu przedziałów mamy na myśli operację, gdzie przedział jest zamieniany na dwa przedziały przy użyciu własności przedziału numer 1. Należy rozbijać tylko te przedziały, dla których B $\neq$ T, ponieważ takie przedziały obejmują więcej niż jeden stożek prawdopodobny, a więc i więcej niż jeden sposób połączenia $G$ i $H$.
-
+Przez rozbicie zestawu przedziałów mamy na myśli operację, gdzie przedział jest zamieniany na dwa przedziały przy użyciu własności przedziału numer 1. Należy rozbijać tylko te przedziały, dla których $B \neq T$, ponieważ takie przedziały obejmują więcej niż jeden stożek prawdopodobny, a więc i więcej niż jeden sposób połączenia $G$ i $H$.
 
 \section{Zakończenie algorytmu sklejania}
 
-Po zakończeniu głównej części procesu sklejania uzyskujemy zbiór grafów R(4,5,24). W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf $\mathcal{F}$. Jeżeli zbiór R(4,5,25) $\neq \emptyset$ to w wyniku rozszerzenia grafów $\mathcal{F}$ powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający wymagania. 
+Po zakończeniu głównej części procesu sklejania uzyskujemy zbiór grafów $R(4,5,24)$. W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf $\mathcal{F}$. Jeżeli zbiór $R(4,5,25) \neq \emptyset$ to w wyniku rozszerzenia grafów $\mathcal{F}$ powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający wymagania. 
 Rozszerzanie zostaje w tym wypadku wykonane metodą inną od wcześniejszego generowania grafów.
 
-Bliższy jest wcześniej opisany algorytm tworzenia przedziałów stożków, choć w tym wypadku mamy tylko jeden wierzchołek, do którego przypisywane są stożki rozszerzające.
-\begin{definition} Stożek rozszerzający to podzbiór wierzchołków grafu $\mathcal{F}$ symbolizujący możliwe połączenia pomiędzy grafem $\mathcal{F}$ a wierzchołkiem do niego dodawanym.
+Ta metoda bliższa jest wcześniej opisanemu algorytmowi tworzenia przedziałów stożków, choć w tym wypadku mamy tylko jeden wierzchołek, do którego przypisywane są stożki rozszerzające.
+\begin{definition}
+  Stożek rozszerzający to podzbiór wierzchołków grafu $\mathcal{F}$ symbolizujący możliwe połączenia pomiędzy grafem $\mathcal{F}$ a wierzchołkiem do niego dodawanym.
 \end{definition}
 
 Po raz kolejny, wszystkie możliwe stożki rozszerzające są grupowane w przedział, który w trakcie działania algorytmu jest zawężany. Przedziały stożków rozszerzających mają te same własności, co przedziały stożków prawdopodobnych, w tym wypadku mają jednak znaczenie dwie dodatkowe własności:
@@ -657,15 +658,15 @@ Po raz kolejny, wszystkie możliwe stożki rozszerzające są grupowane w przedz
 \begin{enumerate}
 \item Dla wierzchołka $w$, który spełnia $w \notin B$ oraz $w\in T$ prawdą jest, że $[B, T] = [B + \{ w\}, T] \cup [B , T - \{ w\}]$ oraz $[B +\{ w\}, T] \cap [B , T - \{ w\}] = \emptyset$
 
-\item Jeżeli stożek $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
+\item Jeżeli ograniczenie przedziału $B$ zawiera klikę stopnia 3, to wszystkie stożki w przedziale również ją zawierają. 
 
-\item Jeżeli stożek $T$ nie zawiera kliki stopnia 3, wszystkie stożki w przedziale jej nie zawierają.
+\item Jeżeli ograniczenie przedziału $T$ nie zawiera kliki stopnia 3, wszystkie stożki w przedziale jej nie zawierają.
 
 																													  
 				 
-\item Jeżeli zbiór $B$ zawiera przynajmniej jeden wierzchołek ze zbioru niezależnego stopnia 4, to wszystkie zbiory w przedziale również go zawierają. 
+\item Jeżeli ograniczenie przedziału $B$ zawiera przynajmniej jeden wierzchołek ze zbioru niezależnego stopnia 4, to wszystkie stożki w przedziale również go zawierają. 
 
-\item Jeżeli zbiór $T$ nie zawiera żadnego wierzchołka ze zbioru niezależnego stopnia 4, wszystkie stożki w przedziale ich nie zawierają. 
+\item Jeżeli ograniczenie przedziału $T$ nie zawiera żadnego wierzchołka ze zbioru niezależnego stopnia 4, wszystkie stożki w przedziale ich nie zawierają. 
 \end {enumerate}
 
 
@@ -707,9 +708,9 @@ Rozumowanie dla ograniczenia wynikającego ze zbioru niezależnego przebiega z k
   \end{algorithmic}
 \end{algorithm}
 
-W powyższych algorytmach zostaje użyte pojęcie podziału przedziałów. Podział przedziału polega na  użyciu własności 1 dla podanego zbioru wierzchołków w celu wielokrotnego rozdzielenia przedziału na dwie części a następnie odrzucenia tego z nich, który zawiera wszystkie stożki łączące sprawdzaną strukturę w niepoprawny sposób. Pozostałe przedziały wynikowe są dodawane do listy przedziałów do sprawdzenia, ponieważ nie łamią obecnie analizowanego ograniczenia. 
+W powyższych algorytmach zostaje użyte pojęcie podziału przedziałów. Podział przedziału polega na użyciu własności 1 dla podanego zbioru wierzchołków w celu wielokrotnego rozdzielenia przedziału na dwie części a następnie odrzucenia tego z nich, który zawiera wszystkie stożki łączące sprawdzaną strukturę w niepoprawny sposób. Pozostałe przedziały wynikowe są dodawane do listy przedziałów do sprawdzenia, ponieważ nie łamią obecnie analizowanego ograniczenia. 
 
-Dla przykładu załóżmy, że dla grafu $G$, który próbujemy rozszerzyć o wierzchołek $v$ na rysunku poniżej przekształcamy przedział $P =[\{5\},\{1,2,3,4,5\}]$ przy pomocy kliki $S = \{1,2,3\}$.
+Dla przykładu załóżmy, że dla grafu $G$ (rysunek \ref{SKlika}), który próbujemy rozszerzyć o wierzchołek $v$ na rysunku poniżej przekształcamy przedział $P =[\{5\},\{1,2,3,4,5\}]$ przy pomocy kliki $S = \{1,2,3\}$.
 \begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -718,7 +719,6 @@ Dla przykładu załóżmy, że dla grafu $G$, który próbujemy rozszerzyć o wi
  \node[main] (5) at (3*60:1.5) {$5$};
  \node[main] (4) at (4*60:2) {$4$};
  \node[main][red] (3) at (5*60:2) {$3$};
- \node[main] (v) at (6*180:5) {$v$};
 
 \draw[ultra thick][red] (1) -- (2);
 \draw[ultra thick][red] (2) -- (3);
@@ -729,12 +729,12 @@ Dla przykładu załóżmy, że dla grafu $G$, który próbujemy rozszerzyć o wi
 
 
     \end{tikzpicture}
-    \caption{Graf G wraz z zaznaczoną strukturą $S$ oraz wierzchołkiem $v$}
+    \caption{Graf $G$ wraz z zaznaczoną strukturą $S$}
     \label{SKlika}
  \end{figure}
  
 
- Zaaplikowanie własności 1 dla przedziału $P$ i pierwszego wierzchołka ze struktury czyli $\{1\}$ daje nam  \ref{SKlika}
+ Zaaplikowanie własności 1 dla przedziału $P$ i pierwszego wierzchołka ze struktury czyli $\{1\}$ daje nam  
 $$[\{5\},\{1,2,3,4,5\}] = [\{1,5\},\{1,2,3,4,5\}] \cup [\{5\},\{2,3,4,5\}]$$ 
 Warto zauważyć, że drugi z wynikowych przedziałów nie łamie już ograniczenia narzuconego przez strukturę $P$, a więc można dodać go do listy przedziałów i kontynuować podział jedynie na pierwszym z przedziałów wynikowych. Analogiczna sytuacja zachodzi na każdym etapie podziału, ze względu na naturę ograniczenia wypływającego z kliki, gdzie usunięcie jednego z wierzchołków kliki powoduje akceptacje połączenia do reszty z nich. 
 
@@ -742,10 +742,10 @@ Kontynuujemy podział pozostałego przedziału dla kolejnego wierzchołka ze zbi
 $$[\{1,5\},\{1,2,3,4,5\}] = [\{1,2,5\},\{1,2,3,4,5\}] \cup [\{1,5\},\{1,3,4,5\}]$$ 
 Po raz kolejny można zaakceptować drugi z przedziałów i kontynuować podział pierwszego przez kolejny i ostatni wierzchołek $\{3\}$: 
 $$[\{1,2,5\},\{1,2,3,4,5\}] = [\{1,2,3,5\},\{1,2,3,4,5\}] \cup [\{1,2,5\},\{1,2,4,5\}]$$
-Po podziale przez ostatni z wierzchołków można, jak po każdym kroku zaakceptować drugi z wynikowych przedziałów. Pierwszy z nich natomiast zawiera w stożku ograniczającym dolnym strukturę. Dzięki temu można go odrzucić ze względu na to, że wszystkie stożki takiego przedziału powodują niedozwolone rozszerzenie grafu $\mathcal{F}$.
+Po podziale przez ostatni z wierzchołków można, jak po każdym kroku, zaakceptować drugi z wynikowych przedziałów. Pierwszy z nich natomiast zawiera strukture w stożku ograniczającym od dołu. Można go odrzucić ze względu na to, że wszystkie stożki takiego przedziału opisują niedozwolone rozszerzenia grafu $\mathcal{F}$.
 
 Podział przedziału dla zbioru niezależnego przeprowadzany jest w bardzo podobny sposób. Na każdym etapie podziału akceptowany jest pierwszy przedział wynikowy zamiast drugiego. W ramach przykładu podziału dla zbioru niezależnego załóżmy, że 
-$P = [\emptyset,\{1,2\}]$ oraz $S = \{1,2,3,4\}$ i $S$ jest zbiorem niezależnym. Mamy również inny graf $G$.
+$P = [\emptyset,\{1,2\}]$ oraz $S = \{1,2,3,4\}$ i $S$ jest zbiorem niezależnym. Mamy również inny graf $G$, rysunek \ref{roszerzenieN}.
 \begin{figure}[H]
   \centering
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
@@ -754,19 +754,19 @@ $P = [\emptyset,\{1,2\}]$ oraz $S = \{1,2,3,4\}$ i $S$ jest zbiorem niezależnym
  \node[main] (5) at (3*60:1.5) {$5$};
  \node[main][red] (4) at (4*60:2) {$4$};
  \node[main][red] (3) at (5*60:2) {$3$};
- \node[main] (v) at (6*180:5) {$v$};
 
 \draw[ultra thick][black] (2) -- (5);
 \draw[ultra thick][black] (1) -- (5);
 \draw[ultra thick][black] (5) -- (3);
 
     \end{tikzpicture}
-    \caption{Graf $G$ wraz z zaznaczonymi wierzchołkami należącymi do struktury $S$ oraz wierzchołkiem $v$}
+    \caption{Graf $G$ wraz z zaznaczonymi wierzchołkami należącymi do struktury $S$}
+    \label{roszerzenieN}
  \end{figure}
  
 
-W takim wypadku zbiór wierzchołków, wzdłuż którego dokonujemy podziału nie obejmuje wszystkich wierzchołków należących do $S$. Jest tak dlatego, że część z nich należy już do $T_P$ i nie ma potrzeby ani możliwości dzielić przedziału przy ich pomocy. Dla pomniejszego zbioru wierzchołków {1,2} pierwszym etapem podziału będzie 
+W takim wypadku zbiór wierzchołków, wzdłuż którego dokonujemy podziału, nie obejmuje wszystkich wierzchołków należących do $S$. Jest tak dlatego, że część z nich należy już do $T_P$ i nie ma potrzeby ani możliwości dzielić przedziału przy ich pomocy. Dla pomniejszego zbioru wierzchołków $\{1,2\}$ pierwszym etapem podziału będzie 
 $$[{\emptyset},\{1,2\}]= [\{1\},\{1,2\}] \cup [{\emptyset},\{2\}]$$ Akceptujemy pierwszy przedział i przechodzimy do kolejnego kroku
 $$ [{\emptyset},\{2\}]= [\{2\},\{2\}] \cup [{\emptyset},{\emptyset}]$$ Po przejściu wszystkich wierzchołków i zaakceptowaniu pierwszego przedziału można odrzucić drugi, ponieważ wszystkie stożki przez niego objęte łamią ograniczenie narzucone przez $S$.
 
-Warto zauważyć, że w przypadku podziału przedziałów w taki sposób mamy gwarancje, że jeżeli przedział $P$ spełnia ograniczenie, to wszystkie jego podprzedziały również je spełniają. Ze względu na to, po zaaplikowaniu wszystkich ograniczeń, pozostałe przedziały posiadają poprawne rozszerzenia grafu F o wierzchołek tak, że nie jest zaburzona jego ramseyowskość. 
+Warto zauważyć, że w przypadku podziału przedziałów w taki sposób mamy gwarancje, że jeżeli przedział $P$ spełnia ograniczenie, to wszystkie jego podprzedziały również je spełniają. Ze względu na to, po zaaplikowaniu wszystkich ograniczeń, pozostałe przedziały posiadają poprawne rozszerzenia grafu $\mathcal{F}$ o wierzchołek tak, że nie jest zaburzona jego ramseyowskość. 

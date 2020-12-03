@@ -3,11 +3,11 @@
 %                                   szablonPG.cls                                %
 %                                                                                %
 % 	 Szablon pracy dyplomowej zgodny z wymaganiami edytorskimi przedstawionymi   %
-%				 w Zarz¹dzeniu Rektora PG nr 22/2018 z 20 czerwca 2018 r.		 %
+%				 w Zarzï¿½dzeniu Rektora PG nr 22/2018 z 20 czerwca 2018 r.		 %
 %                                                                                %
 %  							(c) 2019 Jakub Maksymiuk                             %							
-%		 							 Pawe³ Sp³awski							     %
-%									 Pawe³ Zarembski							 %
+%		 							 Paweï¿½ Spï¿½awski							     %
+%									 Paweï¿½ Zarembski							 %
 %								   	 Kamil Andrzejewski							 %
 %                                                                                %
 %                                         										 %
@@ -26,19 +26,19 @@
 \ProcessOptions \relax
 
 %--------------------------------------------------------------------
-% Pobranie ustawieñ podstawowej klasy dokumentu - klasa report
+% Pobranie ustawieï¿½ podstawowej klasy dokumentu - klasa report
 %--------------------------------------------------------------------
 
 \LoadClass[
   a4paper,                      % format A4
   10pt,                         % rozmiar czcionki
   oneside,                      % druk jednostronny
-  notitlepage,                  % brak strony tytu³owej
+  notitlepage,                  % brak strony tytuï¿½owej
   openright,                    % orientacja otwierania dokumentu
 ]{report}
 
 %--------------------------------------------------------------------
-% Ustawienie domyœlnego jêzyka i kodowania
+% Ustawienie domyï¿½lnego jï¿½zyka i kodowania
 %--------------------------------------------------------------------
 
 \RequirePackage{polski}
@@ -59,7 +59,7 @@
 \linespread{1.3} % 1.3 odpowiada interlinii 1.5, 1.6 dla interlinii 2
 
 %--------------------------------------------------------------------
-% Ustawienie marginesów
+% Ustawienie marginesï¿½w
 %--------------------------------------------------------------------
 
 \RequirePackage[%
@@ -69,7 +69,7 @@
 ]{geometry}
 
 %--------------------------------------------------------------------
-% Ustawienia akapitów
+% Ustawienia akapitï¿½w
 %--------------------------------------------------------------------
 
 \RequirePackage{indentfirst}
@@ -93,11 +93,11 @@
 \pagestyle{plain}
 
 %--------------------------------------------------------------------
-% Ustawienia nag³ówków
+% Ustawienia nagï¿½ï¿½wkï¿½w
 %--------------------------------------------------------------------
 \RequirePackage[explicit, clearempty]{titlesec}
 
-% konfiguracja dla tytu³u rozdzia³u
+% konfiguracja dla tytuï¿½u rozdziaï¿½u
 \titleformat{\chapter}[hang]                    
 {\bfseries\fontsize{12pt}{24pt}\selectfont}
 {\thechapter.\quad}
@@ -105,7 +105,7 @@
 {\MakeUppercase{#1}}
 \titlespacing*{\chapter}{0pt}{0pt}{6pt}
 
-% konfiguracja dla tytu³u podrozdzia³u
+% konfiguracja dla tytuï¿½u podrozdziaï¿½u
 \titleformat{\section}                          
 {\fontsize{11pt}{22pt}\selectfont\bfseries\itshape}
 {\thesection.\quad}
@@ -113,7 +113,7 @@
 {#1}
 \titlespacing{\section}{0pt}{6pt}{6pt}
 
-% konfiruacja dla pod-podrozdzia³ów
+% konfiruacja dla pod-podrozdziaï¿½ï¿½w
 \titleformat{\subsection}                      
 {\normalfont\itshape}
 {\thesubsection.\quad}
@@ -122,12 +122,12 @@
 \titlespacing{\subsection}{0pt}{6pt}{6pt}
 
 %--------------------------------------------------------------------
-% Spis treœci - konfiguracja 
+% Spis treï¿½ci - konfiguracja 
 %--------------------------------------------------------------------
 
 \RequirePackage{titletoc}
 
-% ustawienia dla rozdzia³ów w spisie treœci
+% ustawienia dla rozdziaï¿½ï¿½w w spisie treï¿½ci
 \titlecontents{chapter}
     [0em] % no indentation
     {}
@@ -135,7 +135,7 @@
     {\hspace*{-1em}}                         
     {\dotfill\contentspage}
     
-% ustawienia dla podrozdzia³ów w spisie treœci
+% ustawienia dla podrozdziaï¿½ï¿½w w spisie treï¿½ci
 \titlecontents{section}
     [2em] % ie, 1.5em (chapter) + 0.5em
     {}
@@ -143,7 +143,7 @@
     {\hspace*{-2.3em}}                          
     {\dotfill\contentspage}
 
-% ustawienia dla pod-podrozdzia³ów w spisie treœci
+% ustawienia dla pod-podrozdziaï¿½ï¿½w w spisie treï¿½ci
 \titlecontents{subsection}
     [5em] % ie, 2em (section) + 3em
     {}
@@ -180,7 +180,7 @@
 \RequirePackage{amsthm}
 
 
-%%%%%%%% œrodowiska twierdzeñ %%%%%%%%
+%%%%%%%% ï¿½rodowiska twierdzeï¿½ %%%%%%%%
 \newtheoremstyle{SPPG_th1}% hname
 {10pt plus5pt minus2pt}% hSpace above
 {10pt plus3pt}% hSpace below
@@ -197,24 +197,24 @@
 \newtheorem{lemat}[definicja]{Lemat}
 \newtheorem{fakt}[definicja]{Fakt}
 \newtheorem{wniosek}[definicja]{Wniosek}
-\newtheorem{przyklad}[definicja]{Przyk³ad}
+\newtheorem{przyklad}[definicja]{Przykï¿½ad}
 
 %--------------------------------------------------------------------
-% Konfiguracja obrazków oraz tabel
+% Konfiguracja obrazkï¿½w oraz tabel
 %--------------------------------------------------------------------
 \RequirePackage{subfig}
 \RequirePackage[unicode=true]{hyperref}
 \RequirePackage{setspace}
 \RequirePackage[skip=2pt]{caption}
 \RequirePackage{pdfpages}
-\RequirePackage{multicol} % do sk³adu w dwóch kolumnach
+\RequirePackage{multicol} % do skï¿½adu w dwï¿½ch kolumnach
 \RequirePackage{color}
 \RequirePackage{wrapfig}
 \RequirePackage{graphicx} 
 \usepackage{etoolbox}	
 
 
-% Modyfikacja podpisu rysunków i tabel  (zmiana na Rys. X niepogrubione)
+% Modyfikacja podpisu rysunkï¿½w i tabel  (zmiana na Rys. X niepogrubione)
 % Separator po identyfikatorze rysunku
 \renewcommand{\figurename}{Rys.}
 \DeclareCaptionLabelSeparator{dot}{. }
@@ -225,7 +225,7 @@
 % Zmniejszenie czcionki oraz interlinii w podpisach
 \captionsetup{font={small,stretch=1.0}}
 
-\setlength{\intextsep}{3mm}		 % odleg³oœci separacji tekstu od rysunków/tabel
+\setlength{\intextsep}{3mm}		 % odlegï¿½oï¿½ci separacji tekstu od rysunkï¿½w/tabel
 \setlength{\textfloatsep}{3mm}
 
 
@@ -233,19 +233,19 @@
 % Dodatkowe ustawienia
 %--------------------------------------------------------------------
  
-\renewcommand\bibname{Wykaz literatury} % Zamiana na tytu³ "Wykaz literatury"
+\renewcommand\bibname{Wykaz literatury} % Zamiana na tytuï¿½ "Wykaz literatury"
 
-% Zmiana na tytu³ "Wykaz rysunków"
-\renewcommand{\listfigurename}{Wykaz rysunków}
+% Zmiana na tytuï¿½ "Wykaz rysunkï¿½w"
+\renewcommand{\listfigurename}{Wykaz rysunkï¿½w}
 
-% Zmiana na tytu³ "Wykaz tabel"
+% Zmiana na tytuï¿½ "Wykaz tabel"
 \renewcommand{\listtablename}{Wykaz tabel}
 
-% Brak "wdów" i "sierot"
+% Brak "wdï¿½w" i "sierot"
 \widowpenalty10000
 \clubpenalty10000
 
-% Nazwy rozdzia³ów w Spisie treœci WIELKIMI LITERAMI
+% Nazwy rozdziaï¿½ï¿½w w Spisie treï¿½ci WIELKIMI LITERAMI
 \makeatletter
 \renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
                     \thispagestyle{plain}%

@@ -2,15 +2,18 @@
 Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty and Traces\cite{nauty}, która umożliwia łatwe obliczeniowo wykrywanie orbit, co znacznie przyspiesza proces generowania grafów. 
 Autorem biblioteki jest profesor McKay. 
 
-Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób reprezentacji grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji (m, n) odpowiada  krawędzi pomiędzy wierzchołkami m oraz n.
-\begin{figure}[h]
+Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób reprezentacji grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji (m, n) odpowiada  krawędzi pomiędzy wierzchołkami m oraz n (rysunek \ref{exmatrix}).
+\begin{figure}[H]
+  \centering
+  \hfill
 $\begin{Bmatrix}
 	0 & 1 & 0 & 0 & 1 \\
 	1 & 0 & 0 & 0 & 1 \\
 	0 & 0 & 0 & 0 & 1 \\
 	0 & 0 & 0 & 0 & 0 \\
 	1 & 1 & 1 & 0 & 0 \\
-	\end{Bmatrix}$
+  \end{Bmatrix}$
+  \hfill
 \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}, baseline=-8.0ex] 
     \node[main] (1) {$1$};
     \node[main] (2) [below right of=1] {$5$};
@@ -24,8 +27,10 @@ $\begin{Bmatrix}
     \draw (2) -- (5);
     \draw (1) -- (3);
   \end{tikzpicture}
-
-	\caption{Graf wraz z odpowiadającą mu macierzą sąsiedztwa. W tej macierzy 0 odpowiada brakowi krawędzi, a 1 odpowiada jej istnieniu.}
+  \hfill
+  \hfill
+  \caption{Graf wraz z odpowiadającą mu macierzą sąsiedztwa. W tej macierzy 0 odpowiada brakowi krawędzi, a 1 odpowiada jej istnieniu.}
+  \label{exmatrix}
 \end{figure}
 
 Warto zauważyć nadmiarowość macierzy, gdzie każdej krawędzi w grafie odpowiadają dwie wartości. Ta nadmiarowość okazjonalnie pozwala na przyspieszenie obliczeń w zmodyfikowanej wersji macierzy sąsiedztwa używanej w naszym kodzie.
