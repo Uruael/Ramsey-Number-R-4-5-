@@ -6,6 +6,7 @@
 #include <string.h>
 #include "rules.c"
 
+int count = 0;
 
 typedef unsigned int Locset;
 
@@ -20,6 +21,7 @@ Locset nextCone(Interval I, Locset cone)
     {
         if( (cone&I.bottom == cone) && (cone|I.top == I.top) )
             return cone;
+        else return 999;
     }
 }
 
@@ -28,7 +30,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 {
     Interval interval = intervals[depth];
     Locset cone = interval.bottom;
-    while(cone != interval.top)
+    while(cone <= interval.top)
     {
         F.G[depth] = G.G[depth] | (cone<<G.deg);
 
@@ -39,11 +41,13 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
         }
 
 
-        if(depth+1 == G.deg)
+        if(depth == G.deg)
         {
+            F.deg = G.deg + H.deg;
+            count++;
             //zapis do pliku
             FILE *f = fopen("graph.txt", "wb");
-            fwrite(F.G, sizeof(Locset), sizeof(F.G), 32);
+            fwrite(F.G, sizeof(Locset), WORDSIZE * F.deg, f);
             fclose(f);
         }
         else
@@ -52,7 +56,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
         }
         cone = nextCone(interval, cone);
     }
-    if(depth+1 == G.deg)
+    if(depth == G.deg)
     {
         return;
     }
@@ -73,7 +77,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
              //zasada A
             if(G.G[n] & (1<<(31-i)))
             {
-                result = a(i, n, intervals, G);
+                result = a(i, n, chosenIntervals, G);
                 if(result == RULE_FAIL)
                     return;
                 flag |= result;
@@ -81,7 +85,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
             else
             {
                 //zasada B
-                result = b(i, n, intervals, G);
+                result = b(i, n, chosenIntervals, G);
                 if(result == RULE_FAIL)
                     return;
                 flag |= result;
@@ -89,7 +93,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
                     if(!(G.G[n] & (1<<(31-j)) & G.G[i]))
                     {
                         //zasada C
-                        result = c(i, j, n, intervals, G);
+                        result = c(i, j, n, chosenIntervals, G);
                         if(result == RULE_FAIL)
                             return;
                         flag |= result;
@@ -99,7 +103,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
                             //zasada D
                             if(!(G.G[n] & G.G[i] & G.G[j] & (1<<(31-k))))
                             {
-                                result = d(i, j, k, n, intervals, G);
+                                result = d(i, j, k, n, chosenIntervals, G);
                                 if(result == RULE_FAIL)
                                     return;
                                 flag |= result;
