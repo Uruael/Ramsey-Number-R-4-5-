@@ -90,6 +90,7 @@ int CzyKlikaWBottom(Graph G, Locset check)
 IntervalList PodzialPrzedzialu(Graph G, Interval P)
 {
     //Debug helper
+	/*
     int cnt = IntervalDivisionCounter;
     IntervalDivisionCounter++;
     //printf("\nStart %d \t Bottom: %d,\t Top: %d ", cnt, P.bottom, P.top);
@@ -99,10 +100,10 @@ IntervalList PodzialPrzedzialu(Graph G, Interval P)
 
             WriteLocsetAsBits(P.top);
             printf(" ");
-
+	*/
 	if (CzyKlikaWBottom(G, P.bottom) != -1)
 	{
-	    printf("Bottom Bad");
+	    //printf("Bottom Bad");
 		IntervalList emptyList;
 		emptyList.first = NULL;
 
@@ -120,17 +121,17 @@ IntervalList PodzialPrzedzialu(Graph G, Interval P)
 			ret.first->i.bottom = P.bottom;
 			ret.first->i.top = P.top;
 			ret.first->next = NULL;
-			printf("OK");
+			//printf("OK");
 			return ret;
 		}
 
-		printf("Split in two");
+		//printf("Split in two");
 		ADDELEMENT1(&P.bottom, wierzcholekDoWyrzucenia); //
 		IntervalList p1 = PodzialPrzedzialu(G, P);
 		DELELEMENT1(&P.bottom, wierzcholekDoWyrzucenia);//
 		DELELEMENT1(&P.top, wierzcholekDoWyrzucenia);//
 		IntervalList p2 = PodzialPrzedzialu(G, P);
-		printf("\n Finished %d", cnt);
+		//printf("\n Finished %d", cnt);
 		p1 = PolaczListy(p1, p2);
 
 		return p1;
