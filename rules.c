@@ -17,7 +17,7 @@ int a(Locset u, Locset v, Interval* intervals, Graph G)
     else if ( U.top == V.top ^ ( h1(U.bottom & V.bottom, G.G) & V.bottom ))
         return NOT_CHANGED;
 
-    intervals[u].top = U.top ^ ( h1(U.bottom & V.bottom, G.G) & V.bottom );
+    intervals[u].top = V.top ^ ( h1(U.bottom & V.bottom, G.G) & V.bottom );
     if (a(u, v, intervals, G) == RULE_FAIL)
     {
         return RULE_FAIL;
@@ -30,7 +30,7 @@ int b(Locset u, Locset v, Interval*intervals, Graph G)
 {
     Interval U = intervals[u];
     Interval V = intervals[v];
-    if (h3((U.top | V.top), G.deg, G.G) ^ (U.top | V.top))
+    if (h3((U.top | V.top), G.deg, G.G) | (U.top | V.top))
         return RULE_FAIL;
     else if ( U.bottom == U.bottom | ( h3(U.top & V.top, G.deg, G.G) ^ V.top ))
         return NOT_CHANGED;
@@ -50,12 +50,12 @@ int c(Locset u, Locset v, Locset w, Interval* intervals, Graph G)
     Interval U = intervals[u];
     Interval V = intervals[v];
     Interval W = intervals[w];
-    if (h2(U.top | V.top | W.top, G.deg, G.G) ^ (U.top | V.top | W.top))
+    if (h2(U.top | V.top | W.top, G.deg, G.G) | (U.top | V.top | W.top))
         return RULE_FAIL;
-    else if ( U.bottom == U.bottom | ( h2(U.top & V.top, G.deg, G.G) ^ (V.top | W.top)))
+    else if ( U.bottom == U.bottom | ( h2(U.top & V.top, G.deg, G.G) | (V.top | W.top)))
         return NOT_CHANGED;
 
-     intervals[u].bottom = U.bottom | ( h2(U.top & V.top, G.deg, G.G) ^ (V.top | W.top));
+     intervals[u].bottom = U.bottom | ( h2(U.top & V.top, G.deg, G.G) | (V.top | W.top));
 
     if (c(u, v, w, intervals, G) == RULE_FAIL)
     {
@@ -72,10 +72,10 @@ int d(Locset u, Locset v, Locset w, Locset z, Interval* intervals, Graph G)
     Interval Z = intervals[z];
     if ( ~(U.top | V.top | W.top | Z.top) == 0 )
         return RULE_FAIL;
-    else if (U.bottom == (U.bottom | ~(V.top | W.top | Z.top)))
+    else if (U.bottom == (U.bottom ^ ~(V.top | W.top | Z.top)))
         return NOT_CHANGED;
 
-    intervals[u].bottom = (U.bottom | ~(V.top | W.top | Z.top));
+    intervals[u].bottom = (U.bottom ^ ~(V.top | W.top | Z.top));
 
     if(d(u, v, w, z, intervals, G) == 0)
     {

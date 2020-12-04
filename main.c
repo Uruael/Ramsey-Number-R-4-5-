@@ -169,6 +169,10 @@ int main(int argc, char *argv[])
     H.G[0] = 1 << 30;
     H.G[1] = 1 << 31;
 
+
+    FILE *f = fopen("graph.txt", "w");
+    fclose(f);
+
     struct IntervalList intervals = ZnajdzPrzedzialy(H);
     Interval* chosenIntervals = malloc(sizeof(Interval)*G.deg);
     int index = 0;

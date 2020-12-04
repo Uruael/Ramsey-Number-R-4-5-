@@ -6,80 +6,32 @@
 #include <string.h>
 #include "rules.c"
 
+
 int count = 0;
 
 typedef unsigned int Locset;
 
 Graph putEdgeAt(Graph G, int row, int column)
 {
-    G.G[row] = G.G [row] | (1 << (32 - column));
+    G.G[row] = G.G [row] | (1 << (31 - column));
 }
 
-Locset nextCone(Interval I, Locset cone)
+int ApplyAD(Graph G, Interval*chosenIntervals, int n)
 {
-    for(; cone < I.top; ++cone)
-    {
-        if( (cone&I.bottom == cone) && (cone|I.top == I.top) )
-            return cone;
-        else return 999;
-    }
-}
-
-
-void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
-{
-    Interval interval = intervals[depth];
-    Locset cone = interval.bottom;
-    while(cone <= interval.top)
-    {
-        F.G[depth] = G.G[depth] | (cone<<G.deg);
-
-        for(int i = 0; i < H.deg; i++)
-        {
-            if(cone & (1<<(32-i)))
-                F.G[G.deg+i] = F.G[G.deg+i] | (1 << (32-depth));
-        }
-
-
-        if(depth == G.deg)
-        {
-            F.deg = G.deg + H.deg;
-            count++;
-            //zapis do pliku
-            FILE *f = fopen("graph.txt", "wb");
-            fwrite(F.G, sizeof(Locset), WORDSIZE * F.deg, f);
-            fclose(f);
-        }
-        else
-        {
-            constructGraphs(G, H, F, intervals, depth+1);
-        }
-        cone = nextCone(interval, cone);
-    }
-    if(depth == G.deg)
-    {
-        return;
-    }
-}
-
-void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
-{
-    chosenIntervals[n] = getInterval(intervals, intervalNumber);
-    //apply rules A-D here
     for(int i = 0; i < n; i++)
     {
-        IntervalList intervalsCopy = intervals;
         int flag = 0;
         int result;
 
         while(flag != NOT_CHANGED)
         {
+            flag = 0;
              //zasada A
             if(G.G[n] & (1<<(31-i)))
             {
                 result = a(i, n, chosenIntervals, G);
                 if(result == RULE_FAIL)
-                    return;
+                    return RULE_FAIL;
                 flag |= result;
             }
             else
@@ -87,7 +39,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
                 //zasada B
                 result = b(i, n, chosenIntervals, G);
                 if(result == RULE_FAIL)
-                    return;
+                    return RULE_FAIL;;
                 flag |= result;
                 for(int j = i+1; j < n; j++)
                     if(!(G.G[n] & (1<<(31-j)) & G.G[i]))
@@ -95,7 +47,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
                         //zasada C
                         result = c(i, j, n, chosenIntervals, G);
                         if(result == RULE_FAIL)
-                            return;
+                            return RULE_FAIL;
                         flag |= result;
 
                         for(int k = j+1; k < n; k++)
@@ -105,7 +57,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
                             {
                                 result = d(i, j, k, n, chosenIntervals, G);
                                 if(result == RULE_FAIL)
-                                    return;
+                                    return RULE_FAIL;
                                 flag |= result;
                             }
                         }
@@ -114,6 +66,73 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
             }
 
         }
+        return CHANGED;
+
+}
+
+void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
+{
+    Interval interval = intervals[depth];
+    TwoIntervals twoIntervals;
+
+    while(interval.bottom != interval.top)
+    {
+        twoIntervals = PodzielPrzedzial(interval);
+        interval = twoIntervals.first;
+        intervals[depth] = twoIntervals.first;
+        Interval*newIntervals = (Interval*)malloc(sizeof(intervals));
+        for(int i = 0; i < G.deg; i++)
+        {
+            newIntervals[i] = intervals[i];
+        }
+
+        newIntervals[depth] = twoIntervals.second;
+
+
+        constructGraphs(G, H, F, newIntervals, depth);
+    }
+
+    if(ApplyAD(G,intervals, depth) == RULE_FAIL)
+    {
+        return;
+    }
+
+
+    F.G[depth] = G.G[depth] | (interval.bottom<<G.deg);
+
+    for(int i = 0; i < H.deg; i++)
+    {
+        if(interval.bottom & (1<<(31-i)))
+            F.G[G.deg+i] = F.G[G.deg+i] | (1 << (31-depth));
+    }
+
+
+    if(depth+1 < G.deg)
+    {
+        constructGraphs(G, H, F, intervals, depth+1);
+    }
+
+    else
+        {
+            F.deg = G.deg + H.deg;
+            count++;
+            FILE *f = fopen("graph.txt", "a+");
+            fwrite(F.G, sizeof(Locset), F.deg, f);
+            fclose(f);
+        }
+
+    if(depth+1 == G.deg)
+    {
+        return;
+    }
+}
+
+void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
+{
+    chosenIntervals[n] = getInterval(intervals, intervalNumber);
+    //apply rules A-D here
+    if(ApplyAD(G, chosenIntervals, n) == RULE_FAIL)
+        return;
 
 
     if(G.deg == n+1)

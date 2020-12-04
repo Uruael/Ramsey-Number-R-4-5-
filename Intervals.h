@@ -38,6 +38,15 @@ typedef struct IntervalList
 	IntervalElement *first;
 } IntervalList;
 
+typedef struct TwoIntervals
+{
+    Interval first;
+    Interval second;
+} TwoIntervals;
+
+TwoIntervals PodzielPrzedzial(Interval toobig);
+
+TwoIntervals RodzielPrzedzial(Interval toobig, int vertex);
 
 struct Interval getInterval(struct IntervalList intervals, int n);
 
