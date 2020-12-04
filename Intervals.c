@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "nauty.h"
+#include "Intervals.h"
 typedef unsigned int Locset;
 
 int IntervalDivisionCounter = 0;
@@ -12,35 +13,6 @@ const Locset LocbitInterval[] = {
     0x00010000, 0x00020000, 0x00040000, 0x00080000, 0x00100000, 0x00200000, 0x00400000, 0x00800000,
     0x01000000, 0x02000000, 0x04000000, 0x08000000, 0x10000000, 0x20000000, 0x40000000, 0x80000000};
 
-typedef struct Graph
-{
-	Locset *G;
-	int deg;
-} Graph;
-
-typedef struct Graphs
-{
-    Graph *graphs;
-    int length;
-} Graphs;
-
-typedef struct Interval
-{
-	Locset bottom;
-	Locset top;
-} Interval;
-
-typedef struct IntervalElement
-{
-	Interval i;
-	struct IntervalElement *next;
-}IntervalElement;
-
-typedef struct IntervalList
-{
-	IntervalElement *first;
-} IntervalList;
-
 Interval getInterval(IntervalList intervals, int n)
 {
     IntervalElement*result = intervals.first;
@@ -49,6 +21,16 @@ Interval getInterval(IntervalList intervals, int n)
         result = result->next;
     }
     return result->i;
+}
+
+Interval* getIntervalRef(IntervalList intervals, int n)
+{
+    IntervalElement*result = intervals.first;
+    for(int i = 0; i < n; i++)
+    {
+        result = result->next;
+    }
+    return &(result->i);
 }
 
 int ZnajdzWierzcholekDoWyrzucenia(Graph G, Locset check, Locset mask)
@@ -170,7 +152,7 @@ void testIntervals()
 {
     Graph g;
     g.deg = 6;
-    g.G = malloc(sizeof(Locset)  * 6);
+    //g.G = malloc(sizeof(Locset)  * 6);
     g.G[0] = 54;
     g.G[1] = 9;
     g.G[2] = 9;

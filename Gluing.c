@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include "nauty.h"
-#include "Intervals.h"
 #include "Gluing.h"
 #include <string.h>
+#include "rules.c"
+
 
 typedef unsigned int Locset;
 
@@ -17,7 +18,7 @@ Locset nextCone(Interval I, Locset cone)
 {
     for(; cone < I.top; ++cone)
     {
-        if( (cone&I.bottom == I.bottom) && (i|I.top == I.top) )
+        if( (cone&I.bottom == cone) && (cone|I.top == I.top) )
             return cone;
     }
 }
@@ -27,7 +28,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 {
     Interval interval = intervals[depth];
     Locset cone = interval.bottom;
-    while(cone != top)
+    while(cone != interval.top)
     {
         F.G[depth] = G.G[depth] | (cone<<G.deg);
 
@@ -45,8 +46,11 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
             fwrite(F.G, sizeof(Locset), sizeof(F.G), 32);
             fclose(f);
         }
-        else constructGraphs(G, H, F, intervals, depth+1)
-        cone = nextCone(interval, cone)
+        else
+        {
+            constructGraphs(G, H, F, intervals, depth+1);
+        }
+        cone = nextCone(interval, cone);
     }
     if(depth+1 == G.deg)
     {
@@ -54,7 +58,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
     }
 }
 
-void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenIntervals, int n, int intervalNumber)
+void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
 {
     chosenIntervals[n] = getInterval(intervals, intervalNumber);
     //apply rules A-D here
@@ -67,36 +71,36 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
         while(flag != NOT_CHANGED)
         {
              //zasada A
-            if(G.G[n] & (1<<(32-i))
+            if(G.G[n] & (1<<(31-i)))
             {
-                result = a(i, n, intervals, G.G, 0);
-                if(result == FAIL)
+                result = a(i, n, intervals, G);
+                if(result == RULE_FAIL)
                     return;
                 flag |= result;
             }
             else
             {
                 //zasada B
-                result = b(i, n, intervals, G.G, 0);
-                if(result == FAIL)
+                result = b(i, n, intervals, G);
+                if(result == RULE_FAIL)
                     return;
                 flag |= result;
                 for(int j = i+1; j < n; j++)
-                    if(G.G[n] & (1<<(32-j)) & G.G[i])
+                    if(!(G.G[n] & (1<<(31-j)) & G.G[i]))
                     {
                         //zasada C
-                        result = c(i, j, n, intervals, G.G, 0);
-                        if(result == FAIL)
+                        result = c(i, j, n, intervals, G);
+                        if(result == RULE_FAIL)
                             return;
                         flag |= result;
 
                         for(int k = j+1; k < n; k++)
                         {
                             //zasada D
-                            if((G.G[n] & G.G[i] & G.G[j] & (1<<(32-k))
+                            if(!(G.G[n] & G.G[i] & G.G[j] & (1<<(31-k))))
                             {
-                                result = d(i, j, k, n, intervals, G.G, 0);
-                                if(result == FAIL)
+                                result = d(i, j, k, n, intervals, G);
+                                if(result == RULE_FAIL)
                                     return;
                                 flag |= result;
                             }
@@ -106,19 +110,20 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
             }
 
         }
-    }
+
 
     if(G.deg == n+1)
     {
 
         Graph F;
-        F.G = G;
+        for(int i = 0; i<24; i++)
+            F.G[i] = G.G[i];
         F.deg = 24;
         for(int i = G.deg; i < F.deg; i++)
         {
             F.G[i] = ( H.G[i-G.deg]<<G.deg );
         }
-        constructGraphs(G, H, F,chosenIntervals, 0)
+        constructGraphs(G, H, F,chosenIntervals, 0);
         return;
     }
     else
@@ -132,7 +137,7 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
     }
 }
 
-void Glue(Graphs G, Graphs H)
+void Glue(struct Graphs G, struct Graphs H)
 {
 
     for(int i = 0; i < H.length; i++)

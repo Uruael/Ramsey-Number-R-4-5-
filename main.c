@@ -4,7 +4,8 @@
 #include "hrules.h"
 #include "nauty.h"
 #include "rules.h"
-#include "Gluing.h"
+#include "Intervals.h"
+#include "Gluing.c"
 
 
 typedef unsigned int Locset;
@@ -158,8 +159,7 @@ int gen(int n)
 
 int main(int argc, char *argv[])
 {
-
-    Graph G;
+    struct Graph G;
     G.deg = 2;
     G.G[0] = 1 << 30;
     G.G[1] = 1 << 31;
@@ -174,49 +174,10 @@ int main(int argc, char *argv[])
     int index = 0;
     IntervalElement * next = intervals.first;
     while (next != NULL){
+        printf("%d", next->i.bottom);
         permuteIntervals(G, H, intervals, chosenIntervals, 0, index++);
         next = next->next;
     }
-
-    /*fgraph[0] = fopen("g3.bin", "rb");
-    fgraph[1] = fopen("g4.bin", "rb");
-    fgraph[2] = fopen("g5.bin", "rb");
-    int numberofgraph[17] = {1,2,4,9,24,84,362,2079,14701,103706,546356,1449166,1184231,130816,640,2,1};
-
-    for(int i=0; i<3;i++){
-        gs[i].length = numberofgraph[i+2];
-        gs[i].graphs = malloc(sizeof(Graph)*gs[i].length);
-
-
-        for(int j=0;j<gs[i].length;j++){
-            gs[i].graphs[j].G=malloc(sizeof(Locset)*WORDSIZE);
-            fread (gs[i].graphs[j].G,sizeof(setword)*WORDSIZE,1,fgraph[i]);
-        }
-
-
-    }
-
-
-    for(int z=0;z<WORDSIZE;z++){
-        unsigned i;
-            for (i = 1 << 31; i > 0; i = i / 2)
-                (gs[2].graphs[1].G[z] & i) ? printf("1") : printf("0");
-            printf("\n");
-
-            fclose(fgraph[0]);
-            fclose(fgraph[1]);
-            fclose(fgraph[2]);
-
-            for(int i=0; i<3;i++){
-                for(int j=0;j<gs[i].length;j++){
-                    free(gs[i].graphs[j].G);
-                }
-                free(gs[i].graphs);
-        }
-    }
-    free(level_cones[0]);
-    free(level_orbits[0]);*/
-
 
     return 0;
 }

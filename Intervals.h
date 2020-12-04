@@ -8,17 +8,40 @@
 #include "nauty.h"
 typedef unsigned int Locset;
 
-typedef struct Graph;
+typedef struct Graph
+{
+	Locset G[32];
+	int deg;
+} Graph;
 
-typedef struct Graphs;
+typedef struct Graphs
+{
+    Graph *graphs;
+    int length;
+} Graphs;
 
-typedef struct Interval;
 
-typedef struct IntervalElement;
+typedef struct Interval
+{
+	Locset bottom;
+	Locset top;
+} Interval;
 
-typedef struct IntervalList;
+typedef struct IntervalElement
+{
+	Interval i;
+	struct IntervalElement *next;
+}IntervalElement;
+
+typedef struct IntervalList
+{
+	IntervalElement *first;
+} IntervalList;
+
 
 struct Interval getInterval(struct IntervalList intervals, int n);
+
+Interval* getIntervalRef(IntervalList intervals, int n);
 
 int ZnajdzWierzcholekDoWyrzucenia(struct Graph G, Locset check, Locset mask);
 
