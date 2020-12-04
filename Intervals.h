@@ -40,6 +40,16 @@ typedef struct IntervalList
 	IntervalElement *first;
 } IntervalList;
 
+typedef struct TwoIntervals
+{
+    Interval first;
+    Interval second;
+} TwoIntervals;
+
+TwoIntervals PodzielPrzedzial(Interval toobig);
+
+TwoIntervals RodzielPrzedzial(Interval toobig, int vertex);
+
 struct Interval getInterval( IntervalList intervals, int n);
 
 int ZnajdzWierzcholekDoWyrzucenia( Graph G, Locset check, Locset mask);

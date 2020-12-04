@@ -90,7 +90,7 @@ int CzyKlikaWBottom(Graph G, Locset check)
 IntervalList PodzialPrzedzialu(Graph G, Interval P)
 {
     //Debug helper
-	/*
+        /*
     int cnt = IntervalDivisionCounter;
     IntervalDivisionCounter++;
     //printf("\nStart %d \t Bottom: %d,\t Top: %d ", cnt, P.bottom, P.top);
@@ -99,8 +99,8 @@ IntervalList PodzialPrzedzialu(Graph G, Interval P)
             printf(", Top:");
 
             WriteLocsetAsBits(P.top);
-            printf(" ");
-	*/
+            printf(" ");*/
+
 	if (CzyKlikaWBottom(G, P.bottom) != -1)
 	{
 	    //printf("Bottom Bad");
@@ -171,7 +171,7 @@ void testIntervals()
     g.G[4] = IntToLocset(33);
     g.G[5] = IntToLocset(17);//More than one correct solution!!
     */
-        Graph g;
+    Graph g;
     g.deg = 6;
     g.G = malloc(sizeof(Locset)  * 6);
     g.G[0] = IntToLocset(50);
@@ -213,4 +213,18 @@ void testIntervals()
     }
 }
 
+TwoIntervals RozdzielPrzedzial(Interval todivide, int vertex){
+    TwoIntervals ret;
+    ret.first.bottom = todivide.bottom | LocbitInterval[31 - vertex];
+    ret.first.top = todivide.top;
+    ret.second.bottom = todivide.bottom;
+    ret.second.top = todivide.top ^ LocbitInterval[31 - vertex];
+    return ret;
+}
 
+TwoIntervals PodzielPrzedzial(Interval toobig){
+    Locset diffrence = toobig.bottom ^ toobig.top;
+    int vertex;
+    TAKEBIT(vertex, diffrence);
+    return RozdzielPrzedzial(toobig, vertex);
+}
