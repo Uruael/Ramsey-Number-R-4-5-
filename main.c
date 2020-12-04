@@ -4,6 +4,8 @@
 #include "hrules.h"
 #include "nauty.h"
 #include "rules.h"
+#include "Gluing.h"
+
 
 typedef unsigned int Locset;
 
@@ -156,87 +158,65 @@ int gen(int n)
 
 int main(int argc, char *argv[])
 {
-    if (argc < 1)
-    {
-        fprintf(stderr, "Za malo zmiennych\n");
-        return 1;
+
+    Graph G;
+    G.deg = 2;
+    G.G[0] = 1 << 30;
+    G.G[1] = 1 << 31;
+
+    Graph H;
+    H.deg = 2;
+    H.G[0] = 1 << 30;
+    H.G[1] = 1 << 31;
+
+    struct IntervalList intervals = ZnajdzPrzedzialy(H);
+    Interval* chosenIntervals = malloc(sizeof(Interval)*G.deg);
+    int index = 0;
+    IntervalElement * next = intervals.first;
+    while (next != NULL){
+        permuteIntervals(G, H, intervals, chosenIntervals, 0, index++);
+        next = next->next;
     }
-    max_n = atoi(argv[1]);
-    level_cones[0] = malloc((1 << max_n) * sizeof(setword));
-    level_orbits[0] = malloc((1 << max_n) * sizeof(int));
-    if (level_cones[0] == NULL || level_orbits[0] == NULL)
-    {
-        printf("za malo pamieci");
-        return 1;
+
+    /*fgraph[0] = fopen("g3.bin", "rb");
+    fgraph[1] = fopen("g4.bin", "rb");
+    fgraph[2] = fopen("g5.bin", "rb");
+    int numberofgraph[17] = {1,2,4,9,24,84,362,2079,14701,103706,546356,1449166,1184231,130816,640,2,1};
+
+    for(int i=0; i<3;i++){
+        gs[i].length = numberofgraph[i+2];
+        gs[i].graphs = malloc(sizeof(Graph)*gs[i].length);
+
+
+        for(int j=0;j<gs[i].length;j++){
+            gs[i].graphs[j].G=malloc(sizeof(Locset)*WORDSIZE);
+            fread (gs[i].graphs[j].G,sizeof(setword)*WORDSIZE,1,fgraph[i]);
+        }
+
+
     }
-    level_cones[1] = level_cones[0];
-    level_cones[1][0] = 0;
-    level_cones[1][1] = 1;
-    level_orbits[1] = level_orbits[0];
-    level_orbits[1][0] = 0;
-    level_orbits[1][1] = 1;
-    level_len[1] = 2;
 
-    g[0] = 54;
-    g[1] = 9;
-    g[2] = 9;
-    g[3] = 6;
-    g[4] = 33;
-    g[5] = 17;
 
-    if (h1(3, g) == 63)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h1(3, g));
-    if (h1(12, g) == 15)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h1(12, g));
-    if (h1(18, g) == 41)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h1(18, g));
+    for(int z=0;z<WORDSIZE;z++){
+        unsigned i;
+            for (i = 1 << 31; i > 0; i = i / 2)
+                (gs[2].graphs[1].G[z] & i) ? printf("1") : printf("0");
+            printf("\n");
 
-    if (h2(3, 6, g) == 63)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h2(3, 6, g));
-    if (h2(12, 6, g) == 62)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h2(12, 6, g));
-    if (h2(18, 6, g) == 63)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h2(18, 6, g));
-    if (h2(60, 6, g) == 60)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h2(60, 6, g));
+            fclose(fgraph[0]);
+            fclose(fgraph[1]);
+            fclose(fgraph[2]);
 
-    if (h3(3, 6, g) == 2)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(3, 6, g));
-    if (h3(12, 6, g) == 4)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(12, 6, g));
-    if (h3(18, 6, g) == 2)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(18, 6, g));
-    if (h3(25, 6, g) == 54)
-        printf("OK\n");
-    else
-        printf("Fail %d\n", h3(25, 6, g));
-
-    testIntervals();
-
-    gen(1);
-
+            for(int i=0; i<3;i++){
+                for(int j=0;j<gs[i].length;j++){
+                    free(gs[i].graphs[j].G);
+                }
+                free(gs[i].graphs);
+        }
+    }
     free(level_cones[0]);
-    free(level_orbits[0]);
-    printf("%d\n", cnt_graph);
+    free(level_orbits[0]);*/
+
+
     return 0;
 }

@@ -1,10 +1,11 @@
-#ifndef GLUING_H_
-#define GLUING_H_
+#ifndef GLUING_H_INCLUDED
+#define GLUING_H_INCLUDED
 #include "nauty.h"
 #include "Intervals.h"
 
 typedef unsigned int Locset;
 
-int Glue(Graphs G, Graphs H);
+void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenIntervals, int n, int intervalNumber);
+int Glue(struct Graphs G, struct Graphs H);
 
-#endif // GLUING_H_
+#endif // GLUING_H_INCLUDED

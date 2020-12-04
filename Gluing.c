@@ -3,16 +3,17 @@
 #include <math.h>
 #include "nauty.h"
 #include "Intervals.h"
+#include "Gluing.h"
 #include <string.h>
 
 typedef unsigned int Locset;
 
 Graph putEdgeAt(Graph G, int row, int column)
 {
-    G.G[row] = G.G [row] | (1 << column);
+    G.G[row] = G.G [row] | (1 << (32 - column));
 }
 
-Locset nextCone(Interval I, Locset cone)x
+Locset nextCone(Interval I, Locset cone)
 {
     for(; cone < I.top; ++cone)
     {
@@ -32,14 +33,17 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 
         for(int i = 0; i < H.deg; i++)
         {
-            if(cone & (1<<i))
-                F.G[G.deg+i] = F.G[G.deg+i] | (1 << depth);
+            if(cone & (1<<(32-i)))
+                F.G[G.deg+i] = F.G[G.deg+i] | (1 << (32-depth));
         }
 
 
         if(depth+1 == G.deg)
         {
             //zapis do pliku
+            FILE *f = fopen("graph.txt", "wb");
+            fwrite(F.G, sizeof(Locset), sizeof(F.G), 32);
+            fclose(f);
         }
         else constructGraphs(G, H, F, intervals, depth+1)
         cone = nextCone(interval, cone)
@@ -63,7 +67,7 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
         while(flag != NOT_CHANGED)
         {
              //zasada A
-            if(G.G[n] & (1<<i))
+            if(G.G[n] & (1<<(32-i))
             {
                 result = a(i, n, intervals, G.G, 0);
                 if(result == FAIL)
@@ -78,7 +82,7 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
                     return;
                 flag |= result;
                 for(int j = i+1; j < n; j++)
-                    if(G.G[n] & (1<<j) & G.G[i])
+                    if(G.G[n] & (1<<(32-j)) & G.G[i])
                     {
                         //zasada C
                         result = c(i, j, n, intervals, G.G, 0);
@@ -89,7 +93,7 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
                         for(int k = j+1; k < n; k++)
                         {
                             //zasada D
-                            if((G.G[n] & G.G[i] & G.G[j] & (1<<k))
+                            if((G.G[n] & G.G[i] & G.G[j] & (1<<(32-k))
                             {
                                 result = d(i, j, k, n, intervals, G.G, 0);
                                 if(result == FAIL)
@@ -137,10 +141,11 @@ void Glue(Graphs G, Graphs H)
 
         for(int j = 0; j < G.length; j++)
         {
+            Interval* chosenIntervals = malloc(sizeof(Interval)*G.graphs[j].deg);
             int index = 0;
             IntervalElement * next = intervals.first;
              while (next != NULL){
-                permuteIntervals(G, H, intervals, chosenIntervals, 0, index++);
+                permuteIntervals(G.graphs[j], H.graphs[i], intervals, chosenIntervals, 0, index++);
                 next = next->next;
             }
         }
