@@ -66,4 +66,5 @@ struct IntervalList ZnajdzPrzedzialy( Graph G);
 
 void testIntervals();
 
+void AppendToEnd(IntervalElement *i, IntervalList *l);
 #endif // INTERVALS_H_INCLUDED
