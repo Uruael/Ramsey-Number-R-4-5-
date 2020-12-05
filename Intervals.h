@@ -8,30 +8,63 @@
 #include "nauty.h"
 typedef unsigned int Locset;
 
-typedef struct Graph;
 
-typedef struct Graphs;
+typedef struct Graph
+{
+	Locset *G;
+	int deg;
+} Graph;
 
-typedef struct Interval;
+typedef struct Graphs
+{
+	Graph *graphs;
+	int length;
+}Graphs;
 
-typedef struct IntervalElement;
 
-typedef struct IntervalList;
 
-struct Interval getInterval(struct IntervalList intervals, int n);
+typedef struct Interval
+{
+	Locset bottom;
+	Locset top;
+} Interval;
 
-int ZnajdzWierzcholekDoWyrzucenia(struct Graph G, Locset check, Locset mask);
+typedef struct IntervalElement
+{
+	Interval i;
+	struct IntervalElement *next;
+}IntervalElement;
 
-struct IntervalList PolaczListy(struct IntervalList p1, struct IntervalList p2);
+typedef struct IntervalList
+{
+	IntervalElement *first;
+} IntervalList;
 
-int CzyKlikaWBottom(struct Graph G, Locset check);
+typedef struct TwoIntervals
+{
+    Interval first;
+    Interval second;
+} TwoIntervals;
 
-struct IntervalList PodzialPrzedzialu(struct Graph G, struct Interval P);
+TwoIntervals PodzielPrzedzial(Interval toobig);
 
-Locset PobierzTop(struct Graph G);
+TwoIntervals RodzielPrzedzial(Interval toobig, int vertex);
 
-struct IntervalList ZnajdzPrzedzialy(struct Graph G);
+struct Interval getInterval( IntervalList intervals, int n);
+
+int ZnajdzWierzcholekDoWyrzucenia( Graph G, Locset check, Locset mask);
+
+struct IntervalList PolaczListy( IntervalList p1,  IntervalList p2);
+
+int CzyKlikaWBottom( Graph G, Locset check);
+
+struct IntervalList PodzialPrzedzialu( Graph G,  Interval P);
+
+Locset PobierzTop( Graph G);
+
+struct IntervalList ZnajdzPrzedzialy( Graph G);
 
 void testIntervals();
 
+void AppendToEnd(IntervalElement *i, IntervalList *l);
 #endif // INTERVALS_H_INCLUDED
