@@ -5,7 +5,7 @@
 #include "nauty.h"
 #include "rules.h"
 #include "Intervals.h"
-#include "Gluing.h"
+#include "Gluing.c"
 
 
 typedef unsigned int Locset;
@@ -159,11 +159,11 @@ int gen(int n)
 
 int main(int argc, char *argv[])
 {
-    FILE *graphs1 = fopen("g358.bin", "r");
-    FILE *graphs2 = fopen("g4416.bin", "r");
+    FILE *graphs1 = fopen("g3510.bin", "r");
+    FILE *graphs2 = fopen("g4414.bin", "r");
 
     Graphs G;
-    G.length=179;
+    G.length=313;
     G.graphs = malloc(sizeof(Graph)*G.length);
 
     for(int j=0;j<G.length;j++){
@@ -173,12 +173,12 @@ int main(int argc, char *argv[])
         }
 
     Graphs H;
-    H.length=2;
-    printf("%d\n",G.length);
+    H.length=1;
+   // printf("%d\n",G.length);
     H.graphs = malloc(sizeof(Graph)*G.length);
-    printf("%d\n",G.length);
+    //printf("%d\n",G.length);
 
-    for(int j=0;j<H.length;j++){
+    for(int j=0;j<1;j++){
             //H.graphs[j].G = (Locset*)malloc(sizeof(Locset)*WORDSIZE);
             fread (H.graphs[j].G,sizeof(setword)*WORDSIZE,1,graphs2);
             H.graphs[j].deg=16;
@@ -189,21 +189,21 @@ int main(int argc, char *argv[])
     FILE *f = fopen("graph.bin", "w");
     fclose(f);
 
-    int tempwynik=0;
+    /*int tempwynik=0;
 
-    for(int i=0;i<2;i++){
+    for(int i=0;i<1;i++){
         IntervalList intervals = TworzI(H.graphs[i]);
         IntervalElement * next = intervals.first;
         while (next != NULL){
                 tempwynik++;
-                if(stozkiWPrzedziale(next->i) > 128)
+                if(stozkiWPrzedziale(next->i))
                     printf("%d\n",stozkiWPrzedziale(next->i));
                 next = next->next;
             }
     }
-    printf("All: %d\n",tempwynik);
+    printf("All: %d\n",tempwynik);*/
 
- //   Glue(G, H);
+    Glue(G, H);
 
 /*
     Graph X, Y;

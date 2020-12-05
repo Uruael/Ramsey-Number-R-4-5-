@@ -4,7 +4,7 @@
 #include "nauty.h"
 #include "Gluing.h"
 #include <string.h>
-#include "rules.h"
+#include "rules.c"
 
 
 int count = 0;
@@ -134,7 +134,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
 {
 
-    printf("Intervals: %d Number: %d\n",n,intervalNumber);
+    //printf("Intervals: %d Number: %d\n",n,intervalNumber);
     chosenIntervals[n] = getInterval(intervals, intervalNumber);
     //apply rules A-D here
     if(ApplyAD(G, H, chosenIntervals, n) == RULE_FAIL)
