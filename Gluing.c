@@ -70,13 +70,44 @@ int ApplyAD(Graph G, Graph H, Interval*chosenIntervals, int n)
 
 }
 
+
+/*void constructGraphs2(Graph G, Graph H, Graph F, Interval*intervals)
+{
+    for(int i = 0; i < G.deg; i++)
+    {
+
+        Interval interval = intervals[i];
+
+        if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)
+        {
+
+            return;
+        }
+
+        F.G[depth] = G.G[depth] | (interval.bottom>>G.deg);
+        for(int i = 0; i < H.deg; i++)
+        {
+            if(interval.bottom & (1<<(31-i)))
+            F.G[G.deg+i] = F.G[G.deg+i] | (1 << (31-depth));
+        }
+
+    }
+    F.deg = G.deg + H.deg;
+    count++;
+    FILE *f = fopen("graph.bin", "a+");
+    fwrite(F.G, sizeof(Locset), F.deg, f);
+    fclose(f);
+    return;
+}*/
+
+
 void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 {
     Interval interval = intervals[depth];
     TwoIntervals twoIntervals;
 
     int a=0;
-
+    printf("%d\n", a);
     while(interval.bottom != interval.top)
     {
         a++;
@@ -92,11 +123,8 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 
         newIntervals[depth] = twoIntervals.second;
 
-        if(ApplyAD(G, H, newIntervals, depth) != RULE_FAIL)
-        {
-            constructGraphs(G, H, F, newIntervals, depth);
-        }
 
+        constructGraphs(G, H, F, newIntervals, depth);
     }
 
     if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)

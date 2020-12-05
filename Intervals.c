@@ -121,7 +121,28 @@ IntervalList TworzI(Graph F){
 }
 
 
+IntervalListUndirected Undirect(IntervalList lista)
+{
+    IntervalListUndirected ret;
 
+    IntervalElementBackwards*e1 = malloc(sizeof(IntervalElementBackwards));
+    IntervalElementBackwards*previous = NULL;
+    IntervalElement*next = lista.first;
+    IntervalElementBackwards*e = e1;
+    while (next != NULL){
+
+                e->i = next->i;
+                e->previous = previous;
+                if(previous!=NULL)
+                    previous->next = e;
+
+                previous = e;
+                next = next->next;
+                e = malloc(sizeof(IntervalElementBackwards));
+            }
+    ret.first = e1;
+    return ret;
+}
 
 
 Interval getInterval(IntervalList intervals, int n)

@@ -29,11 +29,25 @@ typedef struct Interval
 	Locset top;
 } Interval;
 
+
 typedef struct IntervalElement
 {
 	Interval i;
 	struct IntervalElement *next;
 }IntervalElement;
+
+typedef struct IntervalElementBackwards
+{
+	Interval i;
+	struct IntervalElementBackwards *next;
+	struct IntervalElementBackwards *previous;
+}IntervalElementBackwards;
+
+typedef struct IntervalListUndirected
+{
+	IntervalElement *first;
+} IntervalListUndirected;
+
 
 typedef struct IntervalList
 {
@@ -45,6 +59,8 @@ typedef struct TwoIntervals
     Interval first;
     Interval second;
 } TwoIntervals;
+
+IntervalListUndirected Undirect(IntervalList lista);
 
 TwoIntervals PodzielPrzedzial(Interval toobig);
 

@@ -157,6 +157,60 @@ int gen(int n)
     }
 }
 
+Interval Polacz(IntervalListUndirected lista, IntervalElementBackwards*i, IntervalElementBackwards*j){
+    Interval ret;
+    ret.bottom = i->i.bottom;
+    ret.top = j->i.top;
+
+    IntervalElementBackwards*e = malloc(sizeof(IntervalElement));
+    e->i = ret;
+
+    i->previous->next = e;
+    i->next->previous = e;
+
+    e->previous = i->previous;
+    e->next = i->previous;
+
+    j->previous->next = j->next;
+    j->next->previous = j-> previous;
+
+    return ret;
+}
+
+
+int CzyMoznaPolaczyc(Interval i, Interval j){
+
+    const Locset LocbitInterval[] = {
+    0x80000000, 0x40000000, 0x20000000, 0x10000000, 0x08000000, 0x04000000, 0x02000000, 0x01000000,
+    0x00800000, 0x00400000, 0x00200000, 0x00100000, 0x00080000, 0x00040000, 0x00020000, 0x00010000,
+    0x00008000, 0x00004000, 0x00002000, 0x00001000, 0x00000800, 0x00000400, 0x00000200, 0x00000100,
+    0x00000080, 0x00000040, 0x00000020, 0x00000010, 0x00000008, 0x00000004, 0x00000002, 0x00000001};
+
+    if (stozkiWPrzedziale(i) == stozkiWPrzedziale(j)){
+
+        Locset d1 = j.bottom & ~i.bottom;
+        Locset d2 = j.top & ~i.top;
+        //Locset d3 = j.top & ~j.bottom;
+        if (d1 == d2){
+            int counter = 0;
+            int diffrentBit;
+            while(d1){
+                TAKEBIT(diffrentBit, d1);
+                counter++;
+            }
+            if (counter == 1){
+                Locset test1 = j.bottom & ~LocbitInterval[diffrentBit];
+                Locset test2 = i.bottom;
+                if ((j.bottom & ~LocbitInterval[diffrentBit]) == i.bottom){
+                    if ((i.top | LocbitInterval[diffrentBit]) == j.top){
+                        return 1;
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
 int main(int argc, char *argv[])
 {
     FILE *graphs1 = fopen("g3510.bin", "r");
@@ -189,10 +243,40 @@ int main(int argc, char *argv[])
     FILE *f = fopen("graph.bin", "w");
     fclose(f);
 
-    /*int tempwynik=0;
+
+
+    int tempwynik=0;
+
+
+
 
     for(int i=0;i<1;i++){
         IntervalList intervals = TworzI(H.graphs[i]);
+        IntervalListUndirected intervalsU = Undirect(intervals);
+
+        IntervalElementBackwards * a = intervalsU.first;
+        int counter = 0;
+        while (a != NULL)
+        {
+
+
+               IntervalElement * b = intervalsU.first->next;
+                while( b!= NULL)
+                {
+
+
+                    if(CzyMoznaPolaczyc(b->i, a->i))
+                    {
+                        Polacz(intervalsU,b,a);
+                        a=a->next;
+                    }
+                    b = b->next;
+                }
+                a = a->next;
+            }
+            printf("%d\n",counter);
+
+
         IntervalElement * next = intervals.first;
         while (next != NULL){
                 tempwynik++;
@@ -201,9 +285,9 @@ int main(int argc, char *argv[])
                 next = next->next;
             }
     }
-    printf("All: %d\n",tempwynik);*/
+    //printf("All: %d\n",tempwynik);
 
-    Glue(G, H);
+    //Glue(G, H);
 
 /*
     Graph X, Y;
