@@ -74,16 +74,19 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 {
     Interval interval = intervals[depth];
     TwoIntervals twoIntervals;
-
+    printf("\n");
+    int a = 0;
     while(interval.bottom != interval.top)
     {
+        a++;
+        printf("%d", a);
         twoIntervals = PodzielPrzedzial(interval);
         interval = twoIntervals.first;
-        intervals[depth] = twoIntervals.first;
-        Interval*newIntervals = (Interval*)malloc(sizeof(intervals));
+        /*intervals[depth] = twoIntervals.first;
+        Interval*newIntervals = (Interval*)malloc(sizeof(Interval)*G.deg);
         for(int i = 0; i < G.deg; i++)
-        {
-            newIntervals[i] = intervals[i];
+            {
+                newIntervals[i] = intervals[i];
         }
 
         newIntervals[depth] = twoIntervals.second;
@@ -91,8 +94,10 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
         if(ApplyAD(G, H, newIntervals, depth) != RULE_FAIL)
         {
             constructGraphs(G, H, F, newIntervals, depth);
-        }
+        }*/
     }
+
+
 
     if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)
     {
@@ -100,7 +105,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
     }
 
 
-    F.G[depth] = G.G[depth] | (interval.bottom<<G.deg);
+    F.G[depth] = G.G[depth] | (interval.bottom>>G.deg);
 
     for(int i = 0; i < H.deg; i++)
     {
@@ -121,12 +126,9 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
             FILE *f = fopen("graph.bin", "a+");
             fwrite(F.G, sizeof(Locset), F.deg, f);
             fclose(f);
+            return;
         }
 
-    if(depth+1 == G.deg)
-    {
-        return;
-    }
 }
 
 void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
@@ -141,12 +143,12 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
     {
 
         Graph F;
-        for(int i = 0; i<24; i++)
+        for(int i = 0; i<G.deg; i++)
             F.G[i] = G.G[i];
         F.deg = 24;
         for(int i = G.deg; i < F.deg; i++)
         {
-            F.G[i] = ( H.G[i-G.deg]<<G.deg );
+            F.G[i] = ( H.G[i-G.deg]>>G.deg );
         }
         constructGraphs(G, H, F,chosenIntervals, 0);
         return;
