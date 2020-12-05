@@ -81,7 +81,7 @@ W celu zobrazowania problemu przeprowadźmy dalsze rozszerzenie dwuwierzchołkow
    		\label{rozszerzenietrzywierzcholki}
 \end{figure}
 
-Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $G'_n$ zawiera trzy zbiory grafów izomorficznych. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów na rysunku \ref{rozszerzeniedwuwierzcholkowe}, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do $G'_n$ dodamy również rozszerzenia drugiego grafu z \ref{rozszerzenietrzywierzcholki} przybędzie tylko jeden unikatowy graf.
+Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $\mathcal{G'_n}$ zawiera trzy zbiory grafów izomorficznych. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów na rysunku \ref{rozszerzeniedwuwierzcholkowe}, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do $\mathcal{G'_n}$ dodamy również rozszerzenia drugiego grafu z \ref{rozszerzenietrzywierzcholki} przybędzie tylko jeden unikatowy graf.
 
  Ze względu na naturę problemu poruszanego w tej pracy, zbiór grafów izomorficznych nie wnosi więcej informacji, niż jeden jej przedstawiciel. Dzieje się tak głównie ze względu na fakt, że izomorfizm nie zmienia największego stopnia kliki, ani zbioru niezależnego w grafie. Wyeliminowanie nadmiarowych grafów izomorficznych ze zbioru wynikowego wydaje się więc wysoko pożądane w celu zwiększenia wydajności generacji zarówno pod względem czasowym jak i pamięciowym. Żeby zobrazować wagę takiej optymalizacji wystarczy podać kilka pierwszych wartości dla ilości grafów wygenerowanych naiwną metodą rozszerzania w porównaniu do ilości grafów nieizomorficznych.
  \begin{table}[H]
@@ -114,7 +114,7 @@ Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne,
 \section{Generowanie grafów nieizomorficznych}
 Użytecznym jest fakt, że na dowolnym etapie generacji zbiór grafów izomorficznych w zbiorze do rozszerzenia można bezproblemowo zredukować do tylko jednego z jego przedstawicieli. Jest tak ze względu na poniższe twierdzenie.
 \begin{theorem}
-Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $G'_n$ oraz $H'_m$, to dla dowolnego elementu zbioru $G'_n$ istnieje izomorfizm do elementu zbioru $H'_m$
+Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $\mathcal{G'_n}$ oraz $\mathcal{H'_m}$, to dla dowolnego elementu zbioru $\mathcal{G'_n}$ istnieje izomorfizm do elementu zbioru $\mathcal{H'_m}$
 \end{theorem}
 
 
