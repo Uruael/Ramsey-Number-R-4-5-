@@ -11,7 +11,7 @@ typedef unsigned int Locset;
 
 typedef struct Graph
 {
-	Locset *G;
+	Locset G[32];
 	int deg;
 } Graph;
 

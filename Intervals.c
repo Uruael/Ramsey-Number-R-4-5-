@@ -287,7 +287,7 @@ void testIntervals()
 
     Graph g;
     g.deg = 4;
-    g.G = malloc(sizeof(Locset)  * 4);
+    //g.G = malloc(sizeof(Locset)  * 4);
     g.G[0] = IntToLocset(14);
     g.G[1] = IntToLocset(13);
     g.G[2] = IntToLocset(3);
