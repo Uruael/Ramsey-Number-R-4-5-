@@ -3,6 +3,7 @@
 #include <math.h>
 #include "hrules.h"
 
+
 int h1(Locset vertex, setword *g2)
 {
     Locset result = 0;

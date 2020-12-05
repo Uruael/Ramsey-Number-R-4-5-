@@ -187,17 +187,30 @@ int main(int argc, char *argv[])
     FILE *f = fopen("graph.txt", "w");
     fclose(f);
 
-    Glue(G, H);
+    //Glue(G, H);
 
-    /*struct IntervalList intervals = ZnajdzPrzedzialy(H.graphs[0]);
+
+    Graph X, Y;
+
+    X.deg = 4;
+    X.G[0] = 0;
+    X.G[1] = 0;
+    X.G[2] = 0;
+    X.G[3] = 0;
+
+    Y.deg = 2;
+    Y.G[0] = (1 << 30);
+    Y.G[1] = (1 << 31);
+
+    struct IntervalList intervals = ZnajdzPrzedzialy(Y);
     Interval* chosenIntervals = malloc(sizeof(Interval)*7);
     int index = 0;
     IntervalElement * next = intervals.first;
     while (next != NULL){
         printf("%d", next->i.bottom);
-        permuteIntervals(G.graphs[0], H.graphs[0], intervals, chosenIntervals, 0, index++);
+        permuteIntervals(X, Y, intervals, chosenIntervals, 0, index++);
         next = next->next;
     }
-*/
+
     return 0;
 }

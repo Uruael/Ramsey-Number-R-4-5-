@@ -16,7 +16,7 @@ Graph putEdgeAt(Graph G, int row, int column)
     G.G[row] = G.G [row] | (1 << (31 - column));
 }
 
-int ApplyAD(Graph G, Interval*chosenIntervals, int n)
+int ApplyAD(Graph G, Graph H, Interval*chosenIntervals, int n)
 {
     for(int i = 0; i < n; i++)
     {
@@ -29,7 +29,7 @@ int ApplyAD(Graph G, Interval*chosenIntervals, int n)
              //zasada A
             if(G.G[n] & (1<<(31-i)))
             {
-                result = a(i, n, chosenIntervals, G);
+                result = a(i, n, chosenIntervals, H);
                 if(result == RULE_FAIL)
                     return RULE_FAIL;
                 flag |= result;
@@ -37,7 +37,7 @@ int ApplyAD(Graph G, Interval*chosenIntervals, int n)
             else
             {
                 //zasada B
-                result = b(i, n, chosenIntervals, G);
+                result = b(i, n, chosenIntervals, H);
                 if(result == RULE_FAIL)
                     return RULE_FAIL;;
                 flag |= result;
@@ -45,7 +45,7 @@ int ApplyAD(Graph G, Interval*chosenIntervals, int n)
                     if(!(G.G[n] & (1<<(31-j)) & G.G[i]))
                     {
                         //zasada C
-                        result = c(i, j, n, chosenIntervals, G);
+                        result = c(i, j, n, chosenIntervals, H);
                         if(result == RULE_FAIL)
                             return RULE_FAIL;
                         flag |= result;
@@ -55,7 +55,7 @@ int ApplyAD(Graph G, Interval*chosenIntervals, int n)
                             //zasada D
                             if(!(G.G[n] & G.G[i] & G.G[j] & (1<<(31-k))))
                             {
-                                result = d(i, j, k, n, chosenIntervals, G);
+                                result = d(i, j, k, n, chosenIntervals, H);
                                 if(result == RULE_FAIL)
                                     return RULE_FAIL;
                                 flag |= result;
@@ -92,7 +92,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
         constructGraphs(G, H, F, newIntervals, depth);
     }
 
-    if(ApplyAD(G,intervals, depth) == RULE_FAIL)
+    if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)
     {
         return;
     }
@@ -131,7 +131,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
 {
     chosenIntervals[n] = getInterval(intervals, intervalNumber);
     //apply rules A-D here
-    if(ApplyAD(G, chosenIntervals, n) == RULE_FAIL)
+    if(ApplyAD(G, H, chosenIntervals, n) == RULE_FAIL)
         return;
 
 
@@ -169,7 +169,7 @@ void Glue(struct Graphs G, struct Graphs H)
 
         for(int j = 0; j < G.length; j++)
         {
-            printf("a");
+            //printf("a");
             Interval* chosenIntervals = malloc(sizeof(Interval)*7);
             int index = 0;
             IntervalElement * next = intervals.first;
