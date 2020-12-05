@@ -4,22 +4,22 @@
 \contentsline {chapter}{\numberline {2}\MakeUppercase {Podstawy teoretyczne}}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Teoria grafów}{3}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Izomorfizm}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Formy kanoniczne grafów}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.3}Formy kanoniczne grafów}{5}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Kolorowanie grafu}{6}{section.2.4}%
-\contentsline {chapter}{\numberline {3}\MakeUppercase {Twierdzenie Ramseya}}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Historia liczby i twierdzenia Ramseya}{9}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Twierdzenie Van der Waerden's}{10}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Paul Erd\"os i teoria Ramseya}{10}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Wartości liczb Ramseya}{10}{section.3.2}%
-\contentsline {chapter}{\numberline {4}\MakeUppercase {Generowanie grafów}}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Rozszerzanie grafu}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Generowanie grafów nieizomorficznych}{16}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Generowanie grafów Ramesyowskich}{17}{section.4.3}%
-\contentsline {chapter}{\numberline {5}\MakeUppercase {Sklejanie grafów}}{19}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Dekompozycja problemu}{19}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Grafy potrzebne do sklejania}{20}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Algorytm sklejania}{20}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Zawężanie przedziałów - zasady A-D}{21}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Rozszerzenie grafu R(4,5,24) do R(4,5,25)}{26}{section.5.5}%
-\contentsline {chapter}{\numberline {6}\MakeUppercase {Implementacja i eksperymenty}}{30}{chapter.6}%
+\contentsline {chapter}{\numberline {3}\MakeUppercase {Twierdzenie Ramseya}}{8}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Historia liczby i twierdzenia Ramseya}{8}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Twierdzenie Van der Waerden's}{9}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Paul Erd\"os i teoria Ramseya}{9}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Wartości liczb Ramseya}{9}{section.3.2}%
+\contentsline {chapter}{\numberline {4}\MakeUppercase {Generowanie grafów}}{14}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Rozszerzanie grafu}{14}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Generowanie grafów nieizomorficznych}{15}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Generowanie grafów Ramesyowskich}{16}{section.4.3}%
+\contentsline {chapter}{\numberline {5}\MakeUppercase {Sklejanie grafów}}{18}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Dekompozycja problemu}{18}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Grafy potrzebne do sklejania}{19}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Algorytm sklejania}{19}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Zawężanie przedziałów - zasady A-D}{20}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Rozszerzenie grafu R(4,5,24) do R(4,5,25)}{25}{section.5.5}%
+\contentsline {chapter}{\numberline {6}\MakeUppercase {Implementacja i eksperymenty}}{29}{chapter.6}%
 \contentsfinish 
