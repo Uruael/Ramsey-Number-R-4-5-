@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Option parameters="5" />
 				<Compiler>
+					<Add option="-Wall" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -38,6 +39,18 @@
 		<Linker>
 			<Add option="-m32" />
 		</Linker>
+		<Unit filename="Intervals.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Intervals.h" />
+		<Unit filename="VertexExtension.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="VertexExtension.h" />
+		<Unit filename="hrules.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="hrules.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

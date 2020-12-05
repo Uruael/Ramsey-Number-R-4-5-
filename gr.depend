@@ -1,99 +1,121 @@
 # depslib dependency file v1.0
-1601635685 source:f:\pg\inzyn\t1\gr\main.c
-	<stdio.h>
-	<stdlib.h>
-	<math.h>
-	"nauty.h"
-
-1392288810 f:\pg\inzyn\t1\gr\nauty.h
-	"defs.h"
-	"system.h"
-	"bs.h"
-	<stdio.h>
-	<sys/types.h>
-	<unistd.h>
-	<stddef.h>
-	<stdlib.h>
-	<string.h>
-	<strings.h>
-	<malloc.h>
-
-1392450466 source:f:\pg\inzyn\t1\gr\naugraph.c
-	"nauty.h"
-
-1392288814 source:f:\pg\inzyn\t1\gr\naurng.c
-	"naurng.h"
-
-1392288810 f:\pg\inzyn\t1\gr\naurng.h
-	"nauty.h"
-
-1392288814 source:f:\pg\inzyn\t1\gr\nautil.c
-	"nauty.h"
-	"io.e"
-	"sorttemplates.c"
-
-1392288814 f:\pg\inzyn\t1\gr\sorttemplates.c
-
-1392288814 source:f:\pg\inzyn\t1\gr\nauty.c
-	"nauty.h"
-	"schreier.h"
-	"cleanup.e"
-
-1392288810 f:\pg\inzyn\t1\gr\schreier.h
-	"nauty.h"
-	"naurng.h"
-
-1392288814 source:f:\pg\inzyn\t1\gr\schreier.c
-	"schreier.h"
-
-1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\naugraph.c
-	"nauty.h"
-
-1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\nauty.h
-	"defs.h"
-	"system.h"
-	"bs.h"
-	<stdio.h>
-	<sys/types.h>
-	<unistd.h>
-	<stddef.h>
-	<stdlib.h>
-	<string.h>
-	<strings.h>
-	<malloc.h>
-
-1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\naurng.c
-	"naurng.h"
-
-1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\naurng.h
-	"nauty.h"
-
-1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\nautil.c
-	"nauty.h"
-	"io.e"
-	"sorttemplates.c"
-
-1602006020 c:\users\matik\documents\github\ramsey-number-r-4-5-\sorttemplates.c
-
-1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\nauty.c
-	"nauty.h"
-	"schreier.h"
-	"cleanup.e"
-
-1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\schreier.h
-	"nauty.h"
-	"naurng.h"
-
-1602005381 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\schreier.c
-	"schreier.h"
-
-1602005824 source:c:\users\matik\documents\github\ramsey-number-r-4-5-\main.c
+1607181777 source:f:\pg\inzyn\t1\gr\main.c
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
 	"hrules.h"
 	"nauty.h"
+	"rules.h"
+	"Intervals.h"
+	"Gluing.h"
 
-1602005381 c:\users\matik\documents\github\ramsey-number-r-4-5-\hrules.h
+1392285210 f:\pg\inzyn\t1\gr\nauty.h
+	"defs.h"
+	"system.h"
+	"bs.h"
+	<stdio.h>
+	<sys/types.h>
+	<unistd.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<strings.h>
+	<malloc.h>
+
+1392446866 source:f:\pg\inzyn\t1\gr\naugraph.c
 	"nauty.h"
+
+1392285214 source:f:\pg\inzyn\t1\gr\naurng.c
+	"naurng.h"
+
+1392285210 f:\pg\inzyn\t1\gr\naurng.h
+	"nauty.h"
+
+1392285214 source:f:\pg\inzyn\t1\gr\nautil.c
+	"nauty.h"
+	"io.e"
+	"sorttemplates.c"
+
+1606763778 f:\pg\inzyn\t1\gr\sorttemplates.c
+
+1392285214 source:f:\pg\inzyn\t1\gr\nauty.c
+	"nauty.h"
+	"schreier.h"
+	"cleanup.e"
+
+1392285210 f:\pg\inzyn\t1\gr\schreier.h
+	"nauty.h"
+	"naurng.h"
+
+1392285214 source:f:\pg\inzyn\t1\gr\schreier.c
+	"schreier.h"
+
+1607172393 source:f:\pg\inzyn\t1\gr\hrules.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"hrules.h"
+
+1607172393 f:\pg\inzyn\t1\gr\hrules.h
+	"nauty.h"
+
+1607181129 source:f:\pg\inzyn\t1\gr\intervals.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"nauty.h"
+	"Intervals.h"
+	"VertexExtension.h"
+
+1607181105 f:\pg\inzyn\t1\gr\intervals.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"nauty.h"
+
+1607178405 source:f:\pg\inzyn\t1\gr\gluing.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"nauty.h"
+	"Gluing.h"
+	<string.h>
+	"rules.h"
+
+1607172393 f:\pg\inzyn\t1\gr\gluing.h
+	"nauty.h"
+	"Intervals.h"
+
+1607172393 f:\pg\inzyn\t1\gr\rules.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"hrules.h"
+	"Intervals.h"
+
+1607172863 f:\pg\inzyn\t1\gr\rules.h
+	"nauty.h"
+	"Intervals.h"
+
+1607172839 f:\pg\inzyn\t1\gr\gluing.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"nauty.h"
+	"Gluing.h"
+	<string.h>
+	"rules.h"
+
+1607177363 source:f:\pg\inzyn\t1\gr\rules.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"hrules.h"
+	"Intervals.h"
+
+1607180623 f:\pg\inzyn\t1\gr\vertexextension.h
+	"Intervals.h"
+
+1607180579 source:f:\pg\inzyn\t1\gr\vertexextension.c
+	"VertexExtension.h"
 

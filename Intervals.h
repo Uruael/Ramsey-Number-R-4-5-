@@ -8,17 +8,19 @@
 #include "nauty.h"
 typedef unsigned int Locset;
 
+
 typedef struct Graph
 {
-	Locset G[32];
+	Locset *G;
 	int deg;
 } Graph;
 
 typedef struct Graphs
 {
-    Graph *graphs;
-    int length;
-} Graphs;
+	Graph *graphs;
+	int length;
+}Graphs;
+
 
 
 typedef struct Interval
@@ -48,22 +50,27 @@ TwoIntervals PodzielPrzedzial(Interval toobig);
 
 TwoIntervals RodzielPrzedzial(Interval toobig, int vertex);
 
-struct Interval getInterval(struct IntervalList intervals, int n);
+struct Interval getInterval( IntervalList intervals, int n);
 
-Interval* getIntervalRef(IntervalList intervals, int n);
+int ZnajdzWierzcholekDoWyrzucenia( Graph G, Locset check, Locset mask);
 
-int ZnajdzWierzcholekDoWyrzucenia(struct Graph G, Locset check, Locset mask);
+struct IntervalList PolaczListy( IntervalList p1,  IntervalList p2);
 
-struct IntervalList PolaczListy(struct IntervalList p1, struct IntervalList p2);
+int CzyKlikaWBottom( Graph G, Locset check);
 
-int CzyKlikaWBottom(struct Graph G, Locset check);
+struct IntervalList PodzialPrzedzialu( Graph G,  Interval P);
 
-struct IntervalList PodzialPrzedzialu(struct Graph G, struct Interval P);
+Locset PobierzTop( Graph G);
 
-Locset PobierzTop(struct Graph G);
-
-struct IntervalList ZnajdzPrzedzialy(struct Graph G);
+struct IntervalList ZnajdzPrzedzialy( Graph G);
 
 void testIntervals();
+
+void AppendToEnd(IntervalElement *i, IntervalList *l);
+
+struct DisallowedStructs GetK3List(Graph F);
+IntervalList TworzI(Graph F);
+
+int stozkiWPrzedziale(Interval i);
 
 #endif // INTERVALS_H_INCLUDED

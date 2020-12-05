@@ -72,10 +72,10 @@ int d(Locset u, Locset v, Locset w, Locset z, Interval* intervals, Graph G)
     Interval Z = intervals[z];
     if ( ~(U.top | V.top | W.top | Z.top) == 0 )
         return RULE_FAIL;
-    else if (U.bottom == (U.bottom | ((~0) < (32 - G.deg) & ~(V.top | W.top | Z.top))))
+    else if (U.bottom == (U.bottom | ((~0) << (32 - G.deg) & ~(V.top | W.top | Z.top))))
         return NOT_CHANGED;
 
-    intervals[u].bottom = (U.bottom | ((~0) < (32 - G.deg) & ~(V.top | W.top | Z.top)));
+    intervals[u].bottom = (U.bottom | ((~0) << (32 - G.deg) & ~(V.top | W.top | Z.top)));
 
     if(d(u, v, w, z, intervals, G) == 0)
     {

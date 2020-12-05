@@ -5,7 +5,7 @@
 #include "nauty.h"
 #include "rules.h"
 #include "Intervals.h"
-#include "Gluing.c"
+#include "Gluing.h"
 
 
 typedef unsigned int Locset;
@@ -174,7 +174,9 @@ int main(int argc, char *argv[])
 
     Graphs H;
     H.length=2;
+    printf("%d\n",G.length);
     H.graphs = malloc(sizeof(Graph)*G.length);
+    printf("%d\n",G.length);
 
     for(int j=0;j<H.length;j++){
             //H.graphs[j].G = (Locset*)malloc(sizeof(Locset)*WORDSIZE);
@@ -187,9 +189,23 @@ int main(int argc, char *argv[])
     FILE *f = fopen("graph.bin", "w");
     fclose(f);
 
-    //Glue(G, H);
+    int tempwynik=0;
 
+    for(int i=0;i<2;i++){
+        IntervalList intervals = TworzI(H.graphs[i]);
+        IntervalElement * next = intervals.first;
+        while (next != NULL){
+                tempwynik++;
+                if(stozkiWPrzedziale(next->i) > 128)
+                    printf("%d\n",stozkiWPrzedziale(next->i));
+                next = next->next;
+            }
+    }
+    printf("All: %d\n",tempwynik);
 
+ //   Glue(G, H);
+
+/*
     Graph X, Y;
 
     X.deg = 4;
@@ -202,6 +218,7 @@ int main(int argc, char *argv[])
     Y.G[0] = (1 << 30);
     Y.G[1] = (1 << 31);
 
+
     struct IntervalList intervals = ZnajdzPrzedzialy(Y);
     Interval* chosenIntervals = malloc(sizeof(Interval)*7);
     int index = 0;
@@ -211,6 +228,7 @@ int main(int argc, char *argv[])
         permuteIntervals(X, Y, intervals, chosenIntervals, 0, index++);
         next = next->next;
     }
+*/
 
     return 0;
 }

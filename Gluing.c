@@ -4,7 +4,7 @@
 #include "nauty.h"
 #include "Gluing.h"
 #include <string.h>
-#include "rules.c"
+#include "rules.h"
 
 
 int count = 0;
@@ -75,15 +75,19 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
     Interval interval = intervals[depth];
     TwoIntervals twoIntervals;
 
+    int a=0;
+
     while(interval.bottom != interval.top)
     {
+        a++;
+        printf("%d\n", a);
         twoIntervals = PodzielPrzedzial(interval);
         interval = twoIntervals.first;
         intervals[depth] = twoIntervals.first;
-        Interval*newIntervals = (Interval*)malloc(sizeof(intervals));
+        Interval*newIntervals = (Interval*)malloc(sizeof(Interval)*G.deg);
         for(int i = 0; i < G.deg; i++)
-        {
-            newIntervals[i] = intervals[i];
+            {
+                newIntervals[i] = intervals[i];
         }
 
         newIntervals[depth] = twoIntervals.second;
@@ -92,6 +96,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
         {
             constructGraphs(G, H, F, newIntervals, depth);
         }
+
     }
 
     if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)
@@ -100,7 +105,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
     }
 
 
-    F.G[depth] = G.G[depth] | (interval.bottom<<G.deg);
+    F.G[depth] = G.G[depth] | (interval.bottom>>G.deg);
 
     for(int i = 0; i < H.deg; i++)
     {
@@ -121,16 +126,15 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
             FILE *f = fopen("graph.bin", "a+");
             fwrite(F.G, sizeof(Locset), F.deg, f);
             fclose(f);
+            return;
         }
 
-    if(depth+1 == G.deg)
-    {
-        return;
-    }
 }
 
 void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
 {
+
+    printf("Intervals: %d Number: %d\n",n,intervalNumber);
     chosenIntervals[n] = getInterval(intervals, intervalNumber);
     //apply rules A-D here
     if(ApplyAD(G, H, chosenIntervals, n) == RULE_FAIL)
@@ -141,12 +145,12 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
     {
 
         Graph F;
-        for(int i = 0; i<24; i++)
+        for(int i = 0; i<G.deg; i++)
             F.G[i] = G.G[i];
         F.deg = 24;
         for(int i = G.deg; i < F.deg; i++)
         {
-            F.G[i] = ( H.G[i-G.deg]<<G.deg );
+            F.G[i] = ( H.G[i-G.deg]>>G.deg );
         }
         constructGraphs(G, H, F,chosenIntervals, 0);
         return;
@@ -171,8 +175,8 @@ void Glue(struct Graphs G, struct Graphs H)
 
         for(int j = 0; j < G.length; j++)
         {
-            //printf("a");
-            Interval* chosenIntervals = malloc(sizeof(Interval)*7);
+            printf("Test: %d i %d\n",i,j);
+            Interval* chosenIntervals = malloc(sizeof(Interval)*G.graphs[0].deg);
             int index = 0;
             IntervalElement * next = intervals.first;
              while (next != NULL){
