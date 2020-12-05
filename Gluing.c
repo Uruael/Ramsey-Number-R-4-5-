@@ -169,7 +169,8 @@ void Glue(struct Graphs G, struct Graphs H)
 
         for(int j = 0; j < G.length; j++)
         {
-            Interval* chosenIntervals = malloc(sizeof(Interval)*G.graphs[j].deg);
+            printf("a");
+            Interval* chosenIntervals = malloc(sizeof(Interval)*7);
             int index = 0;
             IntervalElement * next = intervals.first;
              while (next != NULL){

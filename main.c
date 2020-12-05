@@ -159,29 +159,45 @@ int gen(int n)
 
 int main(int argc, char *argv[])
 {
-    struct Graph G;
-    G.deg = 2;
-    G.G[0] = 1 << 30;
-    G.G[1] = 1 << 31;
+    FILE *graphs1 = fopen("g358.bin", "r");
+    FILE *graphs2 = fopen("g4416.bin", "r");
 
-    Graph H;
-    H.deg = 2;
-    H.G[0] = 1 << 30;
-    H.G[1] = 1 << 31;
+    Graphs G;
+    G.length=179;
+    G.graphs = malloc(sizeof(Graph)*G.length);
+
+    for(int j=0;j<G.length;j++){
+            //G.graphs[j].G = malloc(sizeof(Locset)*WORDSIZE);
+            fread (G.graphs[j].G,sizeof(setword)*WORDSIZE,1,graphs1);
+            G.graphs[j].deg=8;
+        }
+
+    Graphs H;
+    H.length=2;
+    H.graphs = malloc(sizeof(Graph)*G.length);
+
+    for(int j=0;j<H.length;j++){
+            //H.graphs[j].G = (Locset*)malloc(sizeof(Locset)*WORDSIZE);
+            fread (H.graphs[j].G,sizeof(setword)*WORDSIZE,1,graphs2);
+            H.graphs[j].deg=16;
+        }
+
 
 
     FILE *f = fopen("graph.txt", "w");
     fclose(f);
 
-    struct IntervalList intervals = ZnajdzPrzedzialy(H);
-    Interval* chosenIntervals = malloc(sizeof(Interval)*G.deg);
+    Glue(G, H);
+
+    /*struct IntervalList intervals = ZnajdzPrzedzialy(H.graphs[0]);
+    Interval* chosenIntervals = malloc(sizeof(Interval)*7);
     int index = 0;
     IntervalElement * next = intervals.first;
     while (next != NULL){
         printf("%d", next->i.bottom);
-        permuteIntervals(G, H, intervals, chosenIntervals, 0, index++);
+        permuteIntervals(G.graphs[0], H.graphs[0], intervals, chosenIntervals, 0, index++);
         next = next->next;
     }
-
+*/
     return 0;
 }
