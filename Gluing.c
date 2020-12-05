@@ -133,6 +133,11 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 
 void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
 {
+<<<<<<< Updated upstream
+=======
+
+    //printf("Intervals: %d Number: %d\n",n,intervalNumber);
+>>>>>>> Stashed changes
     chosenIntervals[n] = getInterval(intervals, intervalNumber);
     //apply rules A-D here
     if(ApplyAD(G, H, chosenIntervals, n) == RULE_FAIL)

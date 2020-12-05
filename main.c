@@ -186,10 +186,31 @@ int main(int argc, char *argv[])
 
     FILE *f = fopen("graph.bin", "w");
     fclose(f);
+<<<<<<< Updated upstream
 
     //Glue(G, H);
 
 
+=======
+/*
+    int tempwynik=0;
+
+    for(int i=0;i<2;i++){
+        IntervalList intervals = TworzI(H.graphs[i]);
+        IntervalElement * next = intervals.first;
+        while (next != NULL){
+                tempwynik++;
+                if(stozkiWPrzedziale(next->i) > 128)
+                    printf("%d\n",stozkiWPrzedziale(next->i));
+                next = next->next;
+            }
+    }
+    printf("All: %d\n",tempwynik);*/
+
+    Glue(G, H);
+
+/*
+>>>>>>> Stashed changes
     Graph X, Y;
 
     X.deg = 4;
