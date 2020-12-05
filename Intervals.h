@@ -45,7 +45,7 @@ typedef struct IntervalElementBackwards
 
 typedef struct IntervalListUndirected
 {
-	IntervalElement *first;
+	IntervalElementBackwards *first;
 } IntervalListUndirected;
 
 
@@ -61,6 +61,8 @@ typedef struct TwoIntervals
 } TwoIntervals;
 
 IntervalListUndirected Undirect(IntervalList lista);
+
+IntervalList Direct(IntervalListUndirected lista);
 
 TwoIntervals PodzielPrzedzial(Interval toobig);
 
@@ -88,5 +90,9 @@ struct DisallowedStructs GetK3List(Graph F);
 IntervalList TworzI(Graph F);
 
 int stozkiWPrzedziale(Interval i);
+
+Interval Polacz(IntervalListUndirected lista, IntervalElementBackwards*i, IntervalElementBackwards*j);
+
+int CzyMoznaPolaczyc(Interval i, Interval j);
 
 #endif // INTERVALS_H_INCLUDED

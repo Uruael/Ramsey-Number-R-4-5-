@@ -194,12 +194,44 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
     }
 }
 
+int LaczIntervals(IntervalList*intervals)
+{
+    IntervalListUndirected intervalsU = Undirect(*intervals);
+        IntervalElementBackwards * a = intervalsU.first;
+        int counter = 0;
+        while (a != NULL)
+        {
+
+
+               IntervalElement * b = intervalsU.first->next;
+                while( b!= NULL)
+                {
+
+
+                    if(CzyMoznaPolaczyc(b->i, a->i))
+                    {
+                        counter++;
+                        Polacz(intervalsU,b,a);
+                        a=a->next;
+                    }
+                    b = b->next;
+                }
+                a = a->next;
+            }
+
+        *intervals = Direct(intervalsU);
+        return counter;
+}
+
 void Glue(struct Graphs G, struct Graphs H)
 {
 
     for(int i = 0; i < H.length; i++)
     {
-        IntervalList intervals = ZnajdzPrzedzialy(H.graphs[i]);
+        IntervalList intervals = TworzI(H.graphs[i]);
+
+        while(LaczIntervals(&intervals))
+            {}
 
         for(int j = 0; j < G.length; j++)
         {
