@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
 
 
 
-    FILE *f = fopen("graph.txt", "w");
+    FILE *f = fopen("graph.bin", "w");
     fclose(f);
 
     //Glue(G, H);

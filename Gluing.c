@@ -88,8 +88,10 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 
         newIntervals[depth] = twoIntervals.second;
 
-
-        constructGraphs(G, H, F, newIntervals, depth);
+        if(ApplyAD(G, H, newIntervals, depth) != RULE_FAIL)
+        {
+            constructGraphs(G, H, F, newIntervals, depth);
+        }
     }
 
     if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)
@@ -116,7 +118,7 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
         {
             F.deg = G.deg + H.deg;
             count++;
-            FILE *f = fopen("graph.txt", "a+");
+            FILE *f = fopen("graph.bin", "a+");
             fwrite(F.G, sizeof(Locset), F.deg, f);
             fclose(f);
         }
