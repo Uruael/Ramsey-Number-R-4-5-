@@ -96,6 +96,9 @@ Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału g
 
 Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału można skorzystać z algorytmu rekurencyjnego dzielącego interwały wzdłuż wierzchołków należących do kliki 3 oraz stożka $B$, dzięki czemu uzyskujemy zbiór przedziałów dla grafu $H$ zawierający jedynie stożki prawdopodobne. Z tego zbioru korzystamy w następnym etapie algorytmu.
 Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu $G$.
+
+Główna część sklejania polega na próbie połączenia grafów $G$ oraz $H$ przy użyciu każdej permutacji przedziałów stożków prawdopodobnych. Do każdego z wierzchołków grafu $G$ jest przypisywany jeden przedział. Przedział ten zbiera wszystkie obecnie rozważane połączenia pomiędzy $H$ oraz tym wierzchołkiem $G$, do którego jest przypisany. Każda możliwa permutacja n przedziałów (gdzie n jest rzędem grafu $G$) jest następnie zawężana przy pomocy zasad A-D opisanych w następnym podrozdziale, co pozwala wyeliminować niepoprawne połączenia. 
+
   
 
 \section{Zawężanie przedziałów - zasady A-D}
@@ -113,6 +116,7 @@ $$H_i: P(x) \to P(x)$$
   \item   $H_2(X) = \{ w \in V(H) | vw \notin E(X) \textrm{ dla jakiegoś } v \notin X\}$
   
   \item   $H_3(X) = \{ w \in V(H) | { u, v, w } \textrm{ jest zbiorem niezależnym dla jakichś } v, u \notin X\}$ 
+  \label{przedzialZaleznosc}
 \end{itemize}
 
 
@@ -651,7 +655,7 @@ $B_u$ zostanie dodany tylko wierzchołek 3.
 
 Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzucenie zestawu przedziałów, zawężenie przedziału lub brak zmian. Reguły są więc aplikowane do momentu, w którym ponowne zaaplikowanie dowolnej reguły dla dowolnych wierzchołków grafu $G$ i odpowiadających im przedziałom nie powoduje już dalszych zmian. Wynikowy zbiór przedziałów daje sposób lub sposoby połączenia grafów $G$ oraz $H$ w graf 24 wierzchołkowy spełniający wymagania pod względem ramseyowskości. Nie wszystkie sposoby połączenia pozostałe przy zatrzymaniu reguł muszą być jednak poprawne. Istnieje możliwość, że wynikowe przedziały posiadają również połączenia niepoprawne. Z tego powodu, po zakończeniu stosowania reguł należy rozbijać wynikowe przedziały, i ponownie stosować reguły, aż wynikiem ich stosowania będzie tylko jeden poprawny graf.
 
-Przez rozbicie zestawu przedziałów mamy na myśli operację, gdzie przedział jest zamieniany na dwa przedziały przy użyciu własności przedziału numer 1. Należy rozbijać tylko te przedziały, dla których $B \neq T$, ponieważ takie przedziały obejmują więcej niż jeden stożek prawdopodobny, a więc i więcej niż jeden sposób połączenia $G$ i $H$.
+Przez rozdzielenie zestawu przedziałów mamy na myśli operację, gdzie jeden z przedziałów jest zamieniany na dwa przedziały przy użyciu pierwszej własności przedziałów ze strony \pageref{przedzialZaleznosc}. W wyniku takiej operacji uzyskujemy dwa nowe zbiory przedziałów, różniące się jednym, właśnie podzielonym przedziałem. Należy przedzielać tylko te przedziały, dla których $B \neq T$, ponieważ takie przedziały obejmują więcej niż jeden stożek prawdopodobny, a więc i więcej niż jeden sposób połączenia $G$ i $H$. Nie ma możliwości rozbijać przedziałów dla których $B = T$ ponieważ nie można wyizolować wierzchołka różniącego je. Jeżeli zbiór przedziałów nie jest rozdzielalny, oznacza to, że obejmuje on tylko jeden graf, który jest poprawnym grafem należącym do R(4,5,24). Stworzenie tego grafu jest stosunkowo proste, i polega na połączeniu zbiorów wierzchołków i krawędzie grafów $G$ oraz $H$, a następnie dodanie krawędzi opisanych stożkami przypisanymi do wierzchołków.
 
 \section{Rozszerzenie grafu R(4,5,24) do R(4,5,25)}
 
