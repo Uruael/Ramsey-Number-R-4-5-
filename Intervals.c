@@ -337,7 +337,7 @@ Interval Polacz(IntervalListUndirected lista, IntervalElementBackwards*i, Interv
 
     e->previous = i->previous;
     e->next = i->next;
-
+    if(j->previous != NULL)
     j->previous->next = j->next;
     j->next->previous = j-> previous;
 
