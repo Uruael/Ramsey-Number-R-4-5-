@@ -27,9 +27,13 @@ int ApplyAD(Graph G, Graph H, Interval*chosenIntervals, int n)
         {
             flag = 0;
              //zasada A
-            if(G.G[n] & (1<<(31-i)))
+            if(G.G[n] & (1<<i))
             {
                 result = a(i, n, chosenIntervals, H);
+                if(result == RULE_FAIL)
+                    return;
+                flag |= result;
+                result = a(n, i, chosenIntervals, H);
                 if(result == RULE_FAIL)
                     return RULE_FAIL;
                 flag |= result;
@@ -39,23 +43,54 @@ int ApplyAD(Graph G, Graph H, Interval*chosenIntervals, int n)
                 //zasada B
                 result = b(i, n, chosenIntervals, H);
                 if(result == RULE_FAIL)
-                    return RULE_FAIL;;
+                    return;
                 flag |= result;
+                result = b(n, i, chosenIntervals, H);
+                if(result == RULE_FAIL)
+                    return RULE_FAIL;
+
+                flag |= result;
+
                 for(int j = i+1; j < n; j++)
-                    if(!(G.G[n] & (1<<(31-j)) & G.G[i]))
+                    if(!(G.G[n] & (1<<(31-j))) & !(G.G[i] & (1<<(31-j))))
                     {
                         //zasada C
                         result = c(i, j, n, chosenIntervals, H);
                         if(result == RULE_FAIL)
+                            return;
+                        flag |= result;
+                        result = c(j, i, n, chosenIntervals, H);
+                        if(result == RULE_FAIL)
                             return RULE_FAIL;
                         flag |= result;
+                        result = c(n, i, j, chosenIntervals, H);
+                        if(result == RULE_FAIL)
+                            return RULE_FAIL;
+
+                        flag |= result;
+
 
                         for(int k = j+1; k < n; k++)
                         {
                             //zasada D
-                            if(!(G.G[n] & G.G[i] & G.G[j] & (1<<(31-k))))
+                            if(!(G.G[n] & (1<<(31-k))) & !(G.G[i] & (1<<(31-k))) & !(G.G[j] & (1<<(31-k))))
                             {
-                                result = d(i, j, k, n, chosenIntervals, H);
+                                 result = d(i, j, k, n, chosenIntervals, H);
+                                if(result == RULE_FAIL)
+                                    return;
+                                flag |= result;
+
+                                result = d(j, i, k, n, chosenIntervals, H);
+                                if(result == RULE_FAIL)
+                                    return RULE_FAIL;
+                                flag |= result;
+
+                                result = d(k, j, i, n, chosenIntervals, H);
+                                if(result == RULE_FAIL)
+                                    return RULE_FAIL;
+                                flag |= result;
+
+                                result = d(n, j, k, i, chosenIntervals, H);
                                 if(result == RULE_FAIL)
                                     return RULE_FAIL;
                                 flag |= result;
@@ -67,38 +102,7 @@ int ApplyAD(Graph G, Graph H, Interval*chosenIntervals, int n)
 
         }
         return CHANGED;
-
 }
-
-
-/*void constructGraphs2(Graph G, Graph H, Graph F, Interval*intervals)
-{
-    for(int i = 0; i < G.deg; i++)
-    {
-
-        Interval interval = intervals[i];
-
-        if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)
-        {
-
-            return;
-        }
-
-        F.G[depth] = G.G[depth] | (interval.bottom>>G.deg);
-        for(int i = 0; i < H.deg; i++)
-        {
-            if(interval.bottom & (1<<(31-i)))
-            F.G[G.deg+i] = F.G[G.deg+i] | (1 << (31-depth));
-        }
-
-    }
-    F.deg = G.deg + H.deg;
-    count++;
-    FILE *f = fopen("graph.bin", "a+");
-    fwrite(F.G, sizeof(Locset), F.deg, f);
-    fclose(f);
-    return;
-}*/
 
 
 void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
@@ -161,10 +165,9 @@ void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
 
 void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
 {
-
-    //printf("Intervals: %d Number: %d\n",n,intervalNumber);
+    //if(n<2| n>10)
+        printf("Intervals: %d Number: %d\n",n,intervalNumber);
     chosenIntervals[n] = getInterval(intervals, intervalNumber);
-    //apply rules A-D here
     if(ApplyAD(G, H, chosenIntervals, n) == RULE_FAIL)
         return;
 
@@ -175,7 +178,7 @@ void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList interv
         Graph F;
         for(int i = 0; i<G.deg; i++)
             F.G[i] = G.G[i];
-        F.deg = 24;
+        F.deg = G.deg + H.deg;
         for(int i = G.deg; i < F.deg; i++)
         {
             F.G[i] = ( H.G[i-G.deg]>>G.deg );

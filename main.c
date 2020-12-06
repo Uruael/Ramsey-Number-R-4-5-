@@ -160,7 +160,7 @@ int gen(int n)
 
 int main(int argc, char *argv[])
 {
-    FILE *graphs1 = fopen("g3510.bin", "r");
+    /*FILE *graphs1 = fopen("g3510.bin", "r");
     FILE *graphs2 = fopen("g4414.bin", "r");
 
     Graphs G;
@@ -185,58 +185,14 @@ int main(int argc, char *argv[])
             H.graphs[j].deg=16;
         }
 
-
+*/
 
     FILE *f = fopen("graph.bin", "w");
     fclose(f);
 
-/*
-
-    int tempwynik=0;
+    //Glue(G, H);
 
 
-
-
-    for(int i=0;i<1;i++){
-        IntervalList intervals = TworzI(H.graphs[i]);
-        IntervalListUndirected intervalsU = Undirect(intervals);
-
-        IntervalElementBackwards * a = intervalsU.first;
-        int counter = 0;
-        while (a != NULL)
-        {
-
-
-               IntervalElement * b = intervalsU.first->next;
-                while( b!= NULL)
-                {
-
-
-                    if(CzyMoznaPolaczyc(b->i, a->i))
-                    {
-                        Polacz(intervalsU,b,a);
-                        a=a->next;
-                    }
-                    b = b->next;
-                }
-                a = a->next;
-            }
-            printf("%d\n",counter);
-
-        intervals = Direct(intervalsU);
-        IntervalElement * next = intervals.first;
-        while (next != NULL){
-                tempwynik++;
-                if(stozkiWPrzedziale(next->i))
-                    printf("%d\n",stozkiWPrzedziale(next->i));
-                next = next->next;
-            }
-    }
-    printf("All: %d\n",tempwynik);*/
-
-    Glue(G, H);
-
-/*
     Graph X, Y;
 
     X.deg = 4;
@@ -250,16 +206,17 @@ int main(int argc, char *argv[])
     Y.G[1] = (1 << 31);
 
 
-    struct IntervalList intervals = ZnajdzPrzedzialy(Y);
-    Interval* chosenIntervals = malloc(sizeof(Interval)*7);
+    struct IntervalList intervals = TworzI(Y);
+    /*while(LaczIntervals(&intervals))
+            {}*/
+    Interval* chosenIntervals = malloc(sizeof(Interval)*X.deg);
     int index = 0;
     IntervalElement * next = intervals.first;
     while (next != NULL){
-        printf("%d", next->i.bottom);
         permuteIntervals(X, Y, intervals, chosenIntervals, 0, index++);
         next = next->next;
     }
-*/
+
 
     return 0;
 }
