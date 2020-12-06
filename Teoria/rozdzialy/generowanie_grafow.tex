@@ -397,5 +397,50 @@ Omówione ograniczenia prowadzą do powstania algorytmu generacji grafów w nast
   \end{algorithmic}
 \end{algorithm}
 
-Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie bardziej skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność. 
+Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie bardziej skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność algorytmu pod kątem czasu obliczeń. Aby zobrazować różncę między dwoma algorytmami przygowoawliśmy następującą tabelę dla generacji grafów R(4,4,n).
+
+\begin{table}[H]
+ \begin{center}
+ \begin{tabular}{|c c c|} 
+ \hline
+ n & Liczba grafów $R(4,4,n)$ & Czas generowania grafów (sec)  \\ 
+ \hline\hline
+ 1 & 1 & 0.028 \\ 
+ \hline
+ 2 & 2 & 0.030\\
+ \hline
+ 3 & 4 & 0.031\\
+ \hline
+ 4 & 9 & 0.037\\
+ \hline
+ 5 & 24 & 0.035\\
+ \hline
+ 6 & 84 & 0.045\\
+ \hline
+ 7 & 362 & 0.113\\
+ \hline
+ 8 & 2079 & 0.546\\
+ \hline
+ 9 & 14701 & 3.560\\
+ \hline
+ 10 & 103706 & 5.173\\
+ \hline
+ 11 & 546356 & 21.631\\
+ \hline
+ 12 & 1449166 & ?\\
+ \hline
+ 13 & 1184231 & ?\\
+ \hline
+ 14 & 130816 & ?\\
+ \hline
+ 15 & 640 & ?\\
+ \hline
+ 16 & 2 & ?\\
+ \hline
+ 17 & 1 & ?\\
+ \hline
+\end{tabular}
+\end{center}
+ \caption{}
+ \end{table}
 
