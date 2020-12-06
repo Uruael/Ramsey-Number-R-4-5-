@@ -70,21 +70,11 @@ TwoIntervals RodzielPrzedzial(Interval toobig, int vertex);
 
 struct Interval getInterval( IntervalList intervals, int n);
 
-int ZnajdzWierzcholekDoWyrzucenia( Graph G, Locset check, Locset mask);
-
 struct IntervalList PolaczListy( IntervalList p1,  IntervalList p2);
-
-int CzyKlikaWBottom( Graph G, Locset check);
-
-struct IntervalList PodzialPrzedzialu( Graph G,  Interval P);
 
 Locset PobierzTop( Graph G);
 
-struct IntervalList ZnajdzPrzedzialy( Graph G);
-
-void testIntervals();
-
-void AppendToEnd(IntervalElement *i, IntervalList *l);
+void AppendToFront(IntervalElement *i, IntervalList *l);
 
 struct DisallowedStructs GetK3List(Graph F);
 IntervalList TworzI(Graph F);

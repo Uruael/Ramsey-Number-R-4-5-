@@ -1,6 +1,6 @@
 #include "VertexExtension.h"
 
-const Locset LocbitIsWeird[] = {
+const Locset LocbitVE[] = {
 	0x80000000, 0x40000000, 0x20000000, 0x10000000, 0x08000000, 0x04000000, 0x02000000, 0x01000000,
 	0x00800000, 0x00400000, 0x00200000, 0x00100000, 0x00080000, 0x00040000, 0x00020000, 0x00010000,
 	0x00008000, 0x00004000, 0x00002000, 0x00001000, 0x00000800, 0x00000400, 0x00000200, 0x00000100,
@@ -10,14 +10,14 @@ const Locset LocbitIsWeird[] = {
 
 IntervalList VertexExtension(Graph F){
 	DisallowedStructs disallowed;
-	disallowed = GetDisallowedGroups(F);
+	disallowed = GetDisallowedGroups(F); //Pobierz liste zbiorów niedozwolonych
 
 	IntervalList ListCurrent;
 	IntervalList ListNext;
 	IntervalElement *e = malloc(sizeof(IntervalElement));
 	Interval i;
 	i.bottom = 0;
-	i.top = PobierzTop(F);
+	i.top = PobierzTop(F); 
 	e->next = NULL;
 	e->i = i;
 	ListCurrent.first = e;
@@ -29,12 +29,12 @@ IntervalList VertexExtension(Graph F){
 			IntervalElement* currentI = ListCurrent.first;
 
 			while (currentI != NULL){
-				if (!isAllInLocset(currentI->i.top, disallowed.n[i])) {
-                    AppendToEnd(currentI, &ListNext);
+				if (!isAllInLocset(currentI->i.top, disallowed.n[i])) { //Przedzial OK
+                    AppendToFront(currentI, &ListNext);
 				}
-				else if (isAllInLocset(currentI->i.bottom, disallowed.n[i])){
+				else if (isAllInLocset(currentI->i.bottom, disallowed.n[i])){ //Przedzial do usuniecia
 				}
-				else{
+				else{//Przedzial do podzialu
 					CutToThree (currentI->i, disallowed.n[i], &ListNext);
 				}
                 IntervalElement* freedis = currentI;
@@ -49,17 +49,17 @@ IntervalList VertexExtension(Graph F){
 			IntervalElement* currentI = ListCurrent.first;
 
 			while (currentI != NULL){
-				if (!isNoneinLocset(currentI->i.bottom, disallowed.n[i])) {
-                    AppendToEnd(currentI, &ListNext);
+				if (!isNoneinLocset(currentI->i.bottom, disallowed.n[i])) {//Przedzial OK
+                    AppendToFront(currentI, &ListNext);
 				}
-				else if (isNoneinLocset(currentI->i.top, disallowed.n[i])){
+				else if (isNoneinLocset(currentI->i.top, disallowed.n[i])){//Przedzial do usuniecia
 				}
-				else{
+				else{//Przedzial do podzialu
 					CutToFour(currentI->i, disallowed.n[i], &ListNext);
 				}
-				IntervalElement* freedis = currentI;
+				IntervalElement* freeThis = currentI;
                     currentI = currentI->next;
-                    free(freedis);
+                    free(freeThis);
 			}
 		}
 
@@ -94,28 +94,28 @@ DisallowedStructs GetDisallowedGroups(Graph F) {
 		Locset row = F.G[i];
 
 		for (int j = i + 1; j < F.deg; j++) {
-            if (F.G[i] & LocbitIsWeird[j]){
+            if (F.G[i] & LocbitVE[j]){ // k2
                 Locset rowmask = ALLMASK(j+1);
                 rowmask = all_n & ~rowmask;
                 Locset k3cases = row & F.G[j] & rowmask;
-                while (k3cases) {
+                while (k3cases) {//k3
                     int index;
                     TAKEBIT(index, k3cases);
                     AddDisallowed(&ret, clique, i, j, index, 0);
                     //printf("Found! Vert. %d,%d,%d\n",i,j,index);
                 }
             }
-            else{
+            else{ //n2
                 Locset row3mask = ALLMASK(j+1);
                 row3mask = all_n & ~row3mask;
                 Locset n3cases = ~row & ~F.G[j] & row3mask;
-                while (n3cases) {
+                while (n3cases) {//n3
                     int index3;
                     TAKEBIT(index3, n3cases);
                     Locset row4mask = ALLMASK(index3+1);
                     row4mask = all_n & ~row4mask;
                     Locset n4cases = ~row & ~F.G[j] & ~F.G[index3] & row4mask;
-                    while (n4cases) {
+                    while (n4cases) {//n4
                         int index4;
                         TAKEBIT(index4, n4cases);
                         //printf("Found! Vert. %d,%d,%d,%d\n",i,j,index3,index4);
@@ -138,14 +138,13 @@ void AddDisallowed(DisallowedStructs *ret, enum DisallowedStructType type, int v
 	a->vert3 = v3;
 	a->vert4 = v4;
 
-
 	ret->number++;
 }
 
 int isAllInLocset(Locset l, DisallowedStruct set) {
-	Locset i1 = LocbitIsWeird[set.vert1];
-	Locset i2 = LocbitIsWeird[set.vert2];
-	Locset i3 = LocbitIsWeird[set.vert3];
+	Locset i1 = LocbitVE[set.vert1];
+	Locset i2 = LocbitVE[set.vert2];
+	Locset i3 = LocbitVE[set.vert3];
 	Locset compare = i1 | i2 | i3;
 
 	if ((l & compare) == compare) {
@@ -155,10 +154,10 @@ int isAllInLocset(Locset l, DisallowedStruct set) {
 }
 
 int isNoneinLocset(Locset l, DisallowedStruct set) {
-	Locset i1 = LocbitIsWeird[set.vert1];
-	Locset i2 = LocbitIsWeird[set.vert2];
-	Locset i3 = LocbitIsWeird[set.vert3];
-	Locset i4 = LocbitIsWeird[set.vert4];
+	Locset i1 = LocbitVE[set.vert1];
+	Locset i2 = LocbitVE[set.vert2];
+	Locset i3 = LocbitVE[set.vert3];
+	Locset i4 = LocbitVE[set.vert4];
 	Locset compare = i1 | i2 | i3 | i4;
 
 	if (((~l) & compare) == compare) {
@@ -168,9 +167,9 @@ int isNoneinLocset(Locset l, DisallowedStruct set) {
 }
 
 void CutToThree(Interval currentI, DisallowedStruct dir, IntervalList *target) {
-	Locset i1 = LocbitIsWeird[dir.vert1];
-	Locset i2 = LocbitIsWeird[dir.vert2];
-	Locset i3 = LocbitIsWeird[dir.vert3];
+	Locset i1 = LocbitVE[dir.vert1];
+	Locset i2 = LocbitVE[dir.vert2];
+	Locset i3 = LocbitVE[dir.vert3];
 	Locset compare = i1 |i2 | i3;
 	Locset addtoBottom = 0;
     IntervalElement *temp;
@@ -181,19 +180,19 @@ void CutToThree(Interval currentI, DisallowedStruct dir, IntervalList *target) {
 		TAKEBIT(index, compare);
 		temp = malloc(sizeof(IntervalElement));
 		temp->i.bottom = currentI.bottom | addtoBottom;
-		temp->i.top = currentI.top & ~LocbitIsWeird[index];
+		temp->i.top = currentI.top & ~LocbitVE[index];
 		temp->next = NULL;
 
-		addtoBottom |= LocbitIsWeird[index];
-        AppendToEnd(temp, target);
+		addtoBottom |= LocbitVE[index];
+        AppendToFront(temp, target);
 	}
 }
 
 void CutToFour(Interval currentI, DisallowedStruct dir, IntervalList *target) {
-	Locset i1 = LocbitIsWeird[dir.vert1];
-	Locset i2 = LocbitIsWeird[dir.vert2];
-	Locset i3 = LocbitIsWeird[dir.vert3];
-	Locset i4 = LocbitIsWeird[dir.vert4];
+	Locset i1 = LocbitVE[dir.vert1];
+	Locset i2 = LocbitVE[dir.vert2];
+	Locset i3 = LocbitVE[dir.vert3];
+	Locset i4 = LocbitVE[dir.vert4];
 	Locset compare = i1 | i2 | i3 | i4;
 	Locset removeFromTop = 0;
 
@@ -205,16 +204,16 @@ void CutToFour(Interval currentI, DisallowedStruct dir, IntervalList *target) {
 		TAKEBIT(index, compare);
 
 		temp = malloc(sizeof(IntervalElement));
-		temp->i.bottom = currentI.bottom | LocbitIsWeird[index];
+		temp->i.bottom = currentI.bottom | LocbitVE[index];
 		temp->i.top = currentI.top & ~removeFromTop;
 		temp->next = NULL;
 
-		removeFromTop |= LocbitIsWeird[index];
-		AppendToEnd(temp, target);
+		removeFromTop |= LocbitVE[index];
+		AppendToFront(temp, target);
 
 	}
 }
-
+/*
 void VertexExtensionTest(){
     Graph f;
     f.G = malloc(12 * sizeof(Locset));
@@ -310,7 +309,7 @@ void VertexExtensionTest(){
     VertexExtension(t5);
 
 }
-
+*/
 void WriteLocsetAsBits(Locset input){
     unsigned int temp = 0;
     for(int i =0; i<31; i++){
@@ -326,18 +325,10 @@ void WriteLocsetAsBits(Locset input){
     printf("%d", temp%2);
 }
 
-
-/*void WriteLocsetAsBits(Locset input){
-    for(int i =0; i<32; i++){
-        printf("%d", input%2);
-        input = input/2;
-    }
-}*/
-
 Locset MaskNBits(int n){
     Locset ret = 0;
     for (int i =0; i< n; i++){
-        ret |= LocbitIsWeird[i];
+        ret |= LocbitVE[i];
     }
 }
 

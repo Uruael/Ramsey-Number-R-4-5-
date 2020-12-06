@@ -6,8 +6,6 @@
 #include "VertexExtension.h"
 typedef unsigned int Locset;
 
-int IntervalDivisionCounter = 0;
-
 const Locset LocbitInterval[] = {
 	0x80000000, 0x40000000, 0x20000000, 0x10000000, 0x08000000, 0x04000000, 0x02000000, 0x01000000,
 	0x00800000, 0x00400000, 0x00200000, 0x00100000, 0x00080000, 0x00040000, 0x00020000, 0x00010000,
@@ -63,7 +61,17 @@ DisallowedStructs GetK3List(Graph F) {
 	//printf("Disallowed: %d\n",ret.number);
 	return ret;
 }
-
+Locset PobierzTop(Graph G)
+{
+	int i = 0;
+	int ret = 0;
+	while (i < G.deg)
+	{
+		ret = ret | LocbitInterval[i];
+		i++;
+	}
+	return ret;
+}
 
 IntervalList TworzI(Graph F){
 	DisallowedStructs disallowed;
@@ -87,7 +95,7 @@ IntervalList TworzI(Graph F){
 
 			while (currentI != NULL){
 				if (!isAllInLocset(currentI->i.top, disallowed.n[i])) {
-                    AppendToEnd(currentI, &ListNext);
+                    AppendToFront(currentI, &ListNext);
 				}
 				else if (isAllInLocset(currentI->i.bottom, disallowed.n[i])){
 				}
@@ -103,20 +111,7 @@ IntervalList TworzI(Graph F){
         ListCurrent.first = ListNext.first;
         ListNext.first = NULL;
 	}
-    /*
-    printf("Disallowed: %d\n",disallowed.number);
-    IntervalElement *test = ListCurrent.first;
-    while (test != NULL){
-        printf("Extension\n");
-        printf("Bottom: \t");
-        WriteLocsetAsBits(test->i.bottom);
-        printf("\nTop:    \t");
-        WriteLocsetAsBits(test->i.top);
 
-        printf("\n");
-        test = test->next;
-    }
-     */
 	return ListCurrent;
 }
 
@@ -176,26 +171,6 @@ Interval getInterval(IntervalList intervals, int n)
     return result->i;
 }
 
-int ZnajdzWierzcholekDoWyrzucenia(Graph G, Locset check, Locset mask)
-{
-	Locset masked = check & (check ^ mask);
-
-	while (masked) {
-		int position;
-		TAKEBIT(position, masked);
-        Locset wx = G.G[position] & check;
-		while(wx){
-            int v;
-            TAKEBIT(v, wx);
-            if (G.G[v] & wx){
-
-                return position;
-            }
-		}
-	}
-	return -1;
-}
-
 IntervalList PolaczListy(IntervalList p1, IntervalList p2) {
 
 	if (p1.first == NULL) return p2;
@@ -211,95 +186,6 @@ IntervalList PolaczListy(IntervalList p1, IntervalList p2) {
 	return p1;
 }
 
-int CzyKlikaWBottom(Graph G, Locset check)
-{
-    Locset checkInitial = check;
-	while (check) {
-		int position;
-		TAKEBIT(position, check);
-        Locset wx = G.G[position] & (checkInitial );
-		while(wx){
-            int v;
-            TAKEBIT(v, wx);
-            if (G.G[v] & wx & checkInitial){
-                return position;
-            }
-		}
-	}
-	return -1;
-}
-
-IntervalList PodzialPrzedzialu(Graph G, Interval P)
-{
-    //Debug helper
-       /*
-    int cnt = IntervalDivisionCounter;
-    IntervalDivisionCounter++;
-    //printf("\nStart %d \t Bottom: %d,\t Top: %d ", cnt, P.bottom, P.top);
-    printf("\nStart %d, Bottom:", cnt );
-			WriteLocsetAsBits(P.bottom);
-            printf(", Top:");
-
-            WriteLocsetAsBits(P.top);
-            printf(" ");
-        */
-
-	if (CzyKlikaWBottom(G, P.bottom) != -1)
-	{
-	    //printf("Bottom Bad");
-		IntervalList emptyList;
-		emptyList.first = NULL;
-
-		return emptyList;
-	}
-
-	else
-	{
-
-		int wierzcholekDoWyrzucenia = ZnajdzWierzcholekDoWyrzucenia(G, P.top, P.bottom);
-		IntervalList ret;
-		if (wierzcholekDoWyrzucenia == -1)
-		{
-			ret.first = malloc(sizeof(IntervalElement));
-			ret.first->i.bottom = P.bottom;
-			ret.first->i.top = P.top;
-			ret.first->next = NULL;
-			//printf("OK");
-			return ret;
-		}
-
-		//printf("Split in two");
-		ADDELEMENT1(&P.bottom, wierzcholekDoWyrzucenia); //
-		IntervalList p1 = PodzialPrzedzialu(G, P);
-		DELELEMENT1(&P.bottom, wierzcholekDoWyrzucenia);//
-		DELELEMENT1(&P.top, wierzcholekDoWyrzucenia);//
-		IntervalList p2 = PodzialPrzedzialu(G, P);
-		//printf("\n Finished %d", cnt);
-		p1 = PolaczListy(p1, p2);
-
-		return p1;
-	}
-}
-
-Locset PobierzTop(Graph G)
-{
-	int i = 0;
-	int ret = 0;
-	while (i < G.deg)
-	{
-		ret = ret | LocbitInterval[i];
-		i++;
-	}
-	return ret;
-}
-
-IntervalList ZnajdzPrzedzialy(Graph G)
-{
-	Locset wszystko = PobierzTop(G);
-	Interval P = { 0, wszystko };
-	IntervalList l = PodzialPrzedzialu(G, P);
-	return l;
-}
 
 void testIntervals()
 {
@@ -340,26 +226,12 @@ void testIntervals()
         printf("\n");
 
     }
-    IntervalList  i;
-    i = ZnajdzPrzedzialy(g);
 
     IntervalList  j;
     j = TworzI(g);
 
 	    //Wypisanie przedziałów
-    IntervalElement * next = i.first;
-    while (next != NULL){
-
-        printf("\nInterval\n");
-        WriteLocsetAsBits(next->i.bottom);
-        printf("\n");
-        WriteLocsetAsBits(next->i.top);
-        printf("\n");
-
-        next = next->next;
-    }
-    printf("\naa\n\n");
-    next = j.first;
+    IntervalElement * next = j.first;
     while (next != NULL){
 
         printf("\nInterval\n");
@@ -389,7 +261,7 @@ TwoIntervals PodzielPrzedzial(Interval toobig){
     return RozdzielPrzedzial(toobig, vertex);
 }
 
-void AppendToEnd(IntervalElement *i, IntervalList *l){
+void AppendToFront(IntervalElement *i, IntervalList *l){
     IntervalElement *toadd = malloc(sizeof(IntervalElement));
     toadd->i.bottom = i->i.bottom;
     toadd->i.top = i->i.top;
@@ -397,7 +269,7 @@ void AppendToEnd(IntervalElement *i, IntervalList *l){
     l->first = toadd;
     return;
 }
-
+/*
 IntervalList testDivIntervals(Interval starter)
 {
     if (starter.bottom != starter.top){
@@ -451,7 +323,7 @@ void testPodzielPrzedzial()
         e = e->next;
     }
 }
-
+*/
 Interval Polacz(IntervalListUndirected lista, IntervalElementBackwards*i, IntervalElementBackwards*j){
     Interval ret;
     ret.bottom = i->i.bottom;
@@ -471,7 +343,6 @@ Interval Polacz(IntervalListUndirected lista, IntervalElementBackwards*i, Interv
 
     return ret;
 }
-
 
 int CzyMoznaPolaczyc(Interval i, Interval j){
 
@@ -494,8 +365,6 @@ int CzyMoznaPolaczyc(Interval i, Interval j){
                 counter++;
             }
             if (counter == 1){
-                Locset test1 = j.bottom & ~LocbitInterval[diffrentBit];
-                Locset test2 = i.bottom;
                 if ((j.bottom & ~LocbitInterval[diffrentBit]) == i.bottom){
                     if ((i.top | LocbitInterval[diffrentBit]) == j.top){
                         return 1;
