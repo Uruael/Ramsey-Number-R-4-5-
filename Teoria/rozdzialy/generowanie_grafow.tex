@@ -397,50 +397,45 @@ Omówione ograniczenia prowadzą do powstania algorytmu generacji grafów w nast
   \end{algorithmic}
 \end{algorithm}
 
-Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie bardziej skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność algorytmu pod kątem czasu obliczeń. Aby zobrazować różncę między dwoma algorytmami przygowoawliśmy następującą tabelę dla generacji grafów R(4,4,n).
+Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie bardziej skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność algorytmu pod kątem czasu obliczeń. Aby zobrazować różnicę między dwoma algorytmami przygotowaliśmy tabelę \ref{czasgen} dla generacji grafów R(4,4,n).
 
 \begin{table}[H]
  \begin{center}
- \begin{tabular}{|c c c|} 
+ \begin{tabular}{|c c c c|} 
  \hline
- n & Liczba grafów $R(4,4,n)$ & Czas generowania grafów (sec)  \\ 
+ n & Liczba grafów $R(4,4,n)$ & Optymalnego algorytm (sec) & Nieoptymalny algorytm (sec) \\ 
  \hline\hline
- 1 & 1 & 0.028 \\ 
+ 1 & 1 & <1 & <1\\ 
  \hline
- 2 & 2 & 0.030\\
+ 2 & 2 & <1 & <1\\
  \hline
- 3 & 4 & 0.031\\
+ 3 & 4 & <1 & <1\\
  \hline
- 4 & 9 & 0.037\\
+ 4 & 9 & <1 & <1\\
  \hline
- 5 & 24 & 0.035\\
+ 5 & 24 & <1 & <1\\
  \hline
- 6 & 84 & 0.045\\
+ 6 & 84 & <1 & <1\\
  \hline
- 7 & 362 & 0.113\\
+ 7 & 362 & <1 & <1\\
  \hline
- 8 & 2079 & 0.546\\
+ 8 & 2079 & <1 & <1\\
  \hline
- 9 & 14701 & 3.560\\
+ 9 & 14701 & 4 & 4\\
  \hline
- 10 & 103706 & 5.173\\
+ 10 & 103706 & 5 & 10\\
  \hline
- 11 & 546356 & 21.631\\
+ 11 & 546356 & 22 & 128\\
  \hline
- 12 & 1449166 & ?\\
+ 12 & 1449166 & 154 & 1450\\
  \hline
- 13 & 1184231 & ?\\
+ ... & ... & ... & ...\\
  \hline
- 14 & 130816 & ?\\
- \hline
- 15 & 640 & ?\\
- \hline
- 16 & 2 & ?\\
- \hline
- 17 & 1 & ?\\
+  17 & 1 & 1779 & ?\\
  \hline
 \end{tabular}
 \end{center}
- \caption{}
+ \caption{Czas generacji grafów dla różnej kolejności wywołania wykluczIzomorfizmy i wykluczNieramseyowskie. Optymalny algorytm wywołuje te metody w kolejności wykluczIzomorfizmy i wykluczNieramseyowskie, a nieoptymalny odwrotnie}
+ \label{czasgen}
  \end{table}
 

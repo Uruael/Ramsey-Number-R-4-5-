@@ -1,19 +1,19 @@
 \chapter{Implementacja i eksperymenty}
 Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty and Traces\cite{nauty}, która umożliwia łatwe obliczeniowo wykrywanie orbit, co znacznie przyspiesza proces generowania grafów. 
-Autorem biblioteki jest profesor McKay. 
+Autorem biblioteki nauty jest Brendan D. McKay, natomiast twórcą Traces jest Adolfo Piperno.
 
-Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób reprezentacji grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji (m, n) odpowiada  krawędzi pomiędzy wierzchołkami m oraz n (rysunek \ref{exmatrix}).
+Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób reprezentacji grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji $(m, n)$ odpowiada  krawędzi pomiędzy wierzchołkami $m$ oraz $n$ (rysunek \ref{exmatrix}).
 \begin{figure}[H]
   \centering
   \hfill
   \subfloat[]{
-$\begin{Bmatrix}
+$\begin{bmatrix}
 	0 & 1 & 0 & 0 & 1 \\
 	1 & 0 & 0 & 0 & 1 \\
 	0 & 0 & 0 & 0 & 1 \\
 	0 & 0 & 0 & 0 & 0 \\
 	1 & 1 & 1 & 0 & 0 \\
-  \end{Bmatrix}$
+  \end{bmatrix}$
   }
   \hfill
   \subfloat[]{
@@ -38,4 +38,4 @@ $\begin{Bmatrix}
 \end{figure}
 
 Warto zauważyć nadmiarowość macierzy, gdzie każdej krawędzi w grafie odpowiadają dwie wartości. Ta nadmiarowość okazjonalnie pozwala na przyspieszenie obliczeń w zmodyfikowanej wersji macierzy sąsiedztwa używanej w naszym kodzie.
-Modyfikacja metody macierzy sąsiedztwa polega na odejściu od zapisywania każdej liczby w macierzy jako osobnej wartości. Jako że zajmujemy się jedynie grafami prostymi i niekolorowanymi, to wartości w poszczególnych komórkach mogą wynosić jedynie 0 lub 1. W związku z tym wiersz macierzy można zapisać nie jako n wartości, a jako jedną wartość o odpowiedniej liczbie bitów. Ze względu na to, że największym grafem występującym w naszej pracy jest potencjalny graf 25 wierzchołkowy, 32 bitowa wartość jest wystarczająca żeby pomieścić wiersz macierzy reprezentujący wierzchołek dowolnego grafu który może zostać wygenerowany przez nasz program. 
+Modyfikacja metody macierzy sąsiedztwa polega na odejściu od zapisywania każdej liczby w macierzy jako liczby całkowitej. Jako że zajmujemy się jedynie grafami prostymi i niekolorowanymi, to wartości w poszczególnych komórkach mogą wynosić jedynie 0 lub 1. W związku z tym wiersz macierzy można zapisać nie jako $n$ wartości, a jako jedną liczbę całkowitą o odpowiedniej liczbie bitów. Ze względu na to, że największym grafem występującym w naszej pracy jest potencjalny graf 25 wierzchołkowy, 32 bitowa wartość jest wystarczająca żeby pomieścić wiersz macierzy reprezentujący wierzchołek dowolnego grafu który może zostać wygenerowany przez nasz program. 
