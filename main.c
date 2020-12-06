@@ -156,6 +156,7 @@ int gen(int n)
 
 int main(int argc, char *argv[])
 {
+<<<<<<< Updated upstream
     if (argc < 1)
     {
         fprintf(stderr, "Za malo zmiennych\n");
@@ -238,5 +239,146 @@ int main(int argc, char *argv[])
     free(level_cones[0]);
     free(level_orbits[0]);
     printf("%d\n", cnt_graph);
+=======
+    FILE *graphs1 = fopen("g357.bin", "r");
+    FILE *graphs2 = fopen("g4417.bin", "r");
+
+    Graphs G;
+    G.length=71;
+    G.graphs = malloc(sizeof(Graph)*G.length);
+
+    for(int j=0;j<G.length;j++){
+            fread (G.graphs[j].G,sizeof(setword)*WORDSIZE,1,graphs1);
+            G.graphs[j].deg=7;
+        }
+
+    Graphs H;
+    H.length=1;
+    H.graphs = malloc(sizeof(Graph)*G.length);
+
+    for(int j=0;j<1;j++){
+            fread (H.graphs[j].G,sizeof(setword)*WORDSIZE,1,graphs2);
+            H.graphs[j].deg=17;
+        }
+
+
+
+    FILE *f = fopen("graph.bin", "w");
+    fclose(f);
+
+/*
+
+    int tempwynik=0;
+
+
+
+
+    for(int i=0;i<1;i++){
+        IntervalList intervals = TworzI(H.graphs[i]);
+        IntervalListUndirected intervalsU = Undirect(intervals);
+
+        IntervalElementBackwards * a = intervalsU.first;
+        int counter = 0;
+        while (a != NULL)
+        {
+
+
+               IntervalElement * b = intervalsU.first->next;
+                while( b!= NULL)
+                {
+
+
+                    if(CzyMoznaPolaczyc(b->i, a->i))
+                    {
+                        Polacz(intervalsU,b,a);
+                        a=a->next;
+                    }
+                    b = b->next;
+                }
+                a = a->next;
+            }
+            printf("%d\n",counter);
+
+        intervals = Direct(intervalsU);
+        IntervalElement * next = intervals.first;
+        while (next != NULL){
+                tempwynik++;
+                if(stozkiWPrzedziale(next->i))
+                    printf("%d\n",stozkiWPrzedziale(next->i));
+                next = next->next;
+            }
+    }
+    printf("All: %d\n",tempwynik);*/
+
+    //Glue(G, H);
+
+
+    Graph X, Y;
+/*
+    X.deg = 17;
+    X.G[0] = 107 <<15;
+    X.G[1] = 404 <<15;
+    X.G[2] = 1678 <<15;
+    X.G[3] = 6175 <<15;
+    X.G[4] = 10358 <<15;
+    X.G[5] = 12617 <<15;
+    X.G[6] = 17107 <<15;
+    X.G[7] = 17724 <<15;
+    X.G[8] = 35338 <<15;
+    X.G[9] = 50225 <<15;
+    X.G[10] = 72749 <<15;
+    X.G[11] = 70352 <<15;
+    X.G[12] = 46760 <<15;
+    X.G[13] = 93010 <<15;
+    X.G[14] = 62017 <<15;
+    X.G[15] = 95496 <<15;
+    X.G[16] = 76996 <<15;
+
+    Y.deg = 7;
+    Y.G[0] = (50 << 25);
+    Y.G[1] = (74 << 25);
+    Y.G[2] = (66 << 25);
+    Y.G[3] = (38 << 25);
+    Y.G[4] = (10 << 25);
+    Y.G[5] = (124 << 25);
+    Y.G[6] = (50 << 25);*/
+
+    X.deg = 4;
+    X.G[0] = 0;
+    X.G[1] = 0;
+    X.G[2] = 0;
+    X.G[3] = 0;
+    Y.deg = 2;
+    Y.G[0] = (1 << 30);
+    Y.G[1] = (1 << 31);
+/*
+    X.deg = 5;
+    X.G[0] = 0;
+    X.G[1] = 0;
+    X.G[2] = 0;
+    X.G[3] = 0;
+    X.G[4] = 30 << (27);
+    Y.deg = 4;
+    Y.G[0] = (7 << 28);
+    Y.G[1] = (10 << 31);
+    Y.G[2] = (12 << 30);
+    Y.G[3] = (8 << 31);
+*/
+
+
+    struct IntervalList intervals = ZnajdzPrzedzialy(Y);
+
+
+    Interval* chosenIntervals = malloc(sizeof(Interval)*X.deg);
+    int index = 0;
+    IntervalElement * next = intervals.first;
+    while (next != NULL){
+        //printf("%d", next->i.bottom);
+        permuteIntervals(X, Y, intervals, chosenIntervals, 0, index++);
+        next = next->next;
+    }
+
+
+>>>>>>> Stashed changes
     return 0;
 }

@@ -7,10 +7,14 @@
 
 typedef unsigned int Locset;
 
+<<<<<<< Updated upstream
 Graph putEdgeAt(Graph G, int row, int column)
 {
     G.G[row] = G.G [row] | (1 << column);
 }
+=======
+
+>>>>>>> Stashed changes
 
 Locset nextCone(Interval I, Locset cone)x
 {
@@ -69,31 +73,78 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
                 if(result == FAIL)
                     return;
                 flag |= result;
+                result = a(n, i, chosenIntervals, H);
+                if(result == RULE_FAIL)
+                    return RULE_FAIL;
+                flag |= result;
             }
             else
             {
                 //zasada B
+<<<<<<< Updated upstream
                 result = b(i, n, intervals, G.G, 0);
                 if(result == FAIL)
                     return;
                 flag |= result;
                 for(int j = i+1; j < n; j++)
                     if(G.G[n] & (1<<j) & G.G[i])
+=======
+                result = b(i, n, chosenIntervals, H);
+                if(result == RULE_FAIL)
+                    return RULE_FAIL;
+
+                flag |= result;
+                result = b(n, i, chosenIntervals, H);
+                if(result == RULE_FAIL)
+                    return RULE_FAIL;
+
+                flag |= result;
+                for(int j = i+1; j < n; j++)
+                    if(!(G.G[n] & (1<<(31-j))) & !(G.G[i] & (1<<(31-j))))
+>>>>>>> Stashed changes
                     {
                         //zasada C
                         result = c(i, j, n, intervals, G.G, 0);
                         if(result == FAIL)
                             return;
                         flag |= result;
+                        result = c(j, i, n, chosenIntervals, H);
+                        if(result == RULE_FAIL)
+                            return RULE_FAIL;
+                        flag |= result;
+                        result = c(n, i, j, chosenIntervals, H);
+                        if(result == RULE_FAIL)
+                            return RULE_FAIL;
+
+                        flag |= result;
 
                         for(int k = j+1; k < n; k++)
                         {
                             //zasada D
+<<<<<<< Updated upstream
                             if((G.G[n] & G.G[i] & G.G[j] & (1<<k))
+=======
+                            if(!(G.G[n] & (1<<(31-k))) & !(G.G[i] & (1<<(31-k))) & !(G.G[j] & (1<<(31-k))))
+>>>>>>> Stashed changes
                             {
                                 result = d(i, j, k, n, intervals, G.G, 0);
                                 if(result == FAIL)
                                     return;
+                                flag |= result;
+
+                                result = d(j, i, k, n, chosenIntervals, H);
+                                if(result == RULE_FAIL)
+                                    return RULE_FAIL;
+                                flag |= result;
+
+                                result = d(k, j, i, n, chosenIntervals, H);
+                                if(result == RULE_FAIL)
+                                    return RULE_FAIL;
+                                flag |= result;
+
+                                result = d(n, j, k, i, chosenIntervals, H);
+                                if(result == RULE_FAIL)
+                                    return RULE_FAIL;
                                 flag |= result;
                             }
                         }
@@ -103,10 +154,92 @@ void permuteIntervals(Graph G, Graph H, IntervalList intervals, Interval*chosenI
 
         }
     }
+<<<<<<< Updated upstream
+=======
+    F.deg = G.deg + H.deg;
+    count++;
+    FILE *f = fopen("graph.bin", "a+");
+    fwrite(F.G, sizeof(Locset), F.deg, f);
+    fclose(f);
+    return;
+}*/
+
+
+void constructGraphs(Graph G, Graph H, Graph F, Interval*intervals, int depth)
+{
+    Interval interval = intervals[depth];
+    TwoIntervals twoIntervals;
+
+    int a=0;
+    //printf("%d\n", a);
+    while(interval.bottom != interval.top)
+    {
+        a++;
+        //printf("%d\n", a);
+        twoIntervals = PodzielPrzedzial(interval);
+        interval = twoIntervals.first;
+        intervals[depth] = twoIntervals.first;
+        Interval*newIntervals = (Interval*)malloc(sizeof(Interval)*G.deg);
+        for(int i = 0; i < G.deg; i++)
+            {
+                newIntervals[i] = intervals[i];
+        }
+
+        newIntervals[depth] = twoIntervals.second;
+
+
+        constructGraphs(G, H, F, newIntervals, depth);
+    }
+
+    if(ApplyAD(G, H,intervals, depth) == RULE_FAIL)
+    {
+        return;
+    }
+
+
+    F.G[depth] = G.G[depth] | (interval.bottom>>G.deg);
+
+    for(int i = 0; i < H.deg; i++)
+    {
+        if(interval.bottom & (1<<(31-i)))
+            F.G[G.deg+i] = F.G[G.deg+i] | (1 << (31-depth));
+    }
+
+
+    if(depth+1 < G.deg)
+    {
+        constructGraphs(G, H, F, intervals, depth+1);
+    }
+
+    else
+        {
+            F.deg = G.deg + H.deg;
+            count++;
+            FILE *f = fopen("graph.bin", "a+");
+            fwrite(F.G, sizeof(Locset), F.deg, f);
+            fclose(f);
+            return;
+        }
+
+}
+
+void permuteIntervals(struct Graph G, struct Graph H, struct IntervalList intervals, struct Interval*chosenIntervals, int n, int intervalNumber)
+{
+    if(n<2 | n>10)
+        printf("Vertex: %d Interval: %d\n",n,intervalNumber);
+    chosenIntervals[n] = getInterval(intervals, intervalNumber);
+    //apply rules A-D here
+    if(ApplyAD(G, H, chosenIntervals, n) == RULE_FAIL)
+    {
+        return;
+    }
+
+
+>>>>>>> Stashed changes
 
     if(G.deg == n+1)
     {
-
+        printf("Idsdsd");
         Graph F;
         F.G = G;
         F.deg = 24;
