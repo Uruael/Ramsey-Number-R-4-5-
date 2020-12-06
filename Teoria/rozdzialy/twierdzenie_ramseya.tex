@@ -1,5 +1,5 @@
 \chapter{Twierdzenie Ramseya}
-Twierdzenie Ramseya mówi o konieczności pojawienia się pewnych układów w pozornym chaosie\cite{dickson} , co oznacza że każda większa struktura będzie zawierała jakąś podstrukturę. Zagadnienie można łatwo przedstawić posługując się teorią grafów, dla uproszczenia zostanie użyte kolorowanie dwoma kolorami.
+Twierdzenie Ramseya mówi o konieczności pojawienia się pewnych układów w pozornym chaosie\cite{dickson}, co oznacza że każda większa struktura będzie zawierała jakąś podstrukturę. Zagadnienie można łatwo przedstawić posługując się teorią grafów, dla uproszczenia zostanie użyte kolorowanie dwoma kolorami.
 
 \begin{theorem}
 Niech $r \in \mathbb{N}$. Istnieje takie $n \in \mathbb{N}$  gdzie dla każdego 2-kolorowego $\mathit{K}_{n}$ grafu znajdzie się jednokolorowy podgraf $\mathit{K}_{r}$ w $\mathit{K}_{n}$.  \cite{theory} 
@@ -59,7 +59,7 @@ Twierdzenie opublikowane przez Van der Waerdena w 1927 roku, przed powstaniem Tw
 Dla dowolnych liczb naturalnych $r$ oraz $k$ istnieje taka liczba naturalna $n$ która określa zbiór \{1, 2, 3, ..., $n$\} który jest pokolorowany na $r$ różnych kolorów, z $k$ liczbami naturalnymi w ciągu arytmetycznym, które są tego samego koloru.\cite{theory} 
 \end{theorem}
 
-Dla przykładu, $W(2,3) = 9$. Zbiór o ośmiu elementach można podzielić na następujące podzbiory aby w żadnym z podzbiorów nie wystąpił szereg arytmetyczny o trzech elementach, \{1,2,3,4,5,6,7,8\} $\to$ \{1,2,5,6\},\{3,4,7,8\}. W przypadku zbioru o dziewięciu elementach taki podział nie jest możliwy. Dodając 9 do dowolnego podzbioru utworzony zostanie ciąg arytmetyczny o trzech elementach np. \{1,5,9\} lub \{7,8,9\}. Podobna sytuacja zajdzie dla podziału \{1,4,5,8\},\{2,3,6,7\}
+Dla przykładu, $W(2,3) = 9$. Zbiór o ośmiu elementach można podzielić na następujące podzbiory aby w żadnym z podzbiorów nie wystąpił szereg arytmetyczny o trzech elementach, \{1,2,3,4,5,6,7,8\} $\to$ \{1,2,5,6\},\{3,4,7,8\}. W przypadku zbioru o dziewięciu elementach taki podział nie jest możliwy. Dodając 9 do dowolnego podzbioru utworzony zostanie ciąg arytmetyczny o trzech elementach np. \{1,5,9\} lub \{7,8,9\}. Podobna sytuacja zajdzie dla podziału \{1,4,5,8\},\{2,3,6,7\}.
 
 \subsection{Paul Erd\"os i teoria Ramseya}
 
@@ -70,19 +70,20 @@ Dla przykładu, $W(2,3) = 9$. Zbiór o ośmiu elementach można podzielić na na
 Happy Ending problem, czyli problem zaprezentowany przez Paula Erd\"osa oraz Georga Szekeresa w 1933 roku brzmi następująco. 
 
 \begin{theorem}
-Dla dowolnej liczby całkowitej N, istnieje taka liczba punktów w przestrzeni, w pozycji ogólnej, zawiera podzbiór składający się z N punktów który tworzy wielokąt wypukły.
+Dla dowolnej liczby całkowitej N, istnieje taka liczba punktów w przestrzeni, w pozycji ogólnej, która zawiera podzbiór składający się z N punktów, który tworzy wielokąt wypukły.
  \cite{erdoshappy} 
 \end{theorem}
 
-Prace nad Happy Ending problem sprawiły że Paul Erd\"os natrafił na publikacje Ramseya z 1928 roku. Spowodowało to że Erd\"os rozpoczął prace nad liczbami Ramseya, co przyczyniło się do rozwoju tej teorii.
+Prace nad Happy Ending problem sprawiły, że Paul Erd\"os natrafił na publikacje Ramseya z 1928 roku. Spowodowało to że Erd\"os rozpoczął prace nad liczbami Ramseya, co przyczyniło się do rozwoju tej teorii.
 
 
 \hfill  \par
-Party problem lub inaczej Theorem on Friends and Strangers, jest to problem dzięki któremu można przedstawić przykład zastosowania liczby Ramseya. Brzmi on następująco: jaka jest najmniejsza liczba osób jaką trzeba zaprosić na przyjęcie tak aby trójka z nich były wspólnymi znajomymi lub trójka z nich była dla siebie nieznajomymi\cite{partyproblem}? Aby odpowiedzieć na to pytanie można zasięgnąć do teorii Ramseya, gdzie znajdziemy, że odpowiedź na postawione pytanie stanowi liczba Ramseya $R(3,3)=6$, która jest opisana w dalszej części pracy. Powyższe pytanie można przedstawić w bardziej formalny sposób: 
+Party problem lub inaczej Theorem on Friends and Strangers, jest to problem dzięki któremu można przedstawić przykład zastosowania liczby Ramseya. Brzmi on następująco: jaka jest najmniejsza liczba osób jaką trzeba zaprosić na przyjęcie tak aby trójka z nich były wspólnymi znajomymi lub trójka z nich była dla siebie nieznajomymi\cite{partyproblem}? Aby odpowiedzieć na to pytanie można skorzystać z teorii Ramseya, gdzie znajdziemy, że odpowiedź na postawione pytanie stanowi liczba Ramseya $R(3,3)=6$, która jest opisana w dalszej części pracy. Powyższe pytanie można przedstawić w bardziej formalny sposób: 
 \begin{itemize}
 \item Znajdź najmniejszą liczbę gości, którzy muszą zostać zaproszeni tak aby przynajmniej $m$ znało się wzajemnie a $n$ była dla siebie obca \cite{partyformal}
-\item Znajdź najmniejszą liczbę wierzchołków dla których graf będzie zawierać klikę stopnia $n$ o kolorze czerwonym lub klikę stopnia $m$ o kolorze niebieskim. Rozwiązaniem dla tego problemu są liczby Ramseya. 
+\item Znajdź najmniejszą liczbę wierzchołków dla których graf będzie zawierać klikę stopnia $n$ lub zbiór niezależny stopnia $m$.
 \end{itemize}
+Rozwiązaniem dla tego problemu są liczby Ramseya. 
 
 \section{Wartości liczb Ramseya}
 
@@ -107,6 +108,7 @@ Party problem lub inaczej Theorem on Friends and Strangers, jest to problem dzi�
 	
 \begin{figure}[H]
   \centering
+  \subfloat[]{
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
  \node[main] (1) at (0:2) {$1$};
  \node[main] (2) at (90:2) {$2$};
@@ -122,7 +124,9 @@ Party problem lub inaczej Theorem on Friends and Strangers, jest to problem dzi�
 \draw[ultra thick][red] (3) -- (4);
 
     \end{tikzpicture}
+    }
         \hspace{15mm}
+        \subfloat[]{
        \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
  \node[main] (1) at (0:2) {$1$};
  \node[main] (2) at (90:2) {$2$};
@@ -137,6 +141,7 @@ Party problem lub inaczej Theorem on Friends and Strangers, jest to problem dzi�
 \draw[ultra thick][blue] (2) -- (4);
 \draw[ultra thick][blue] (3) -- (4);
     \end{tikzpicture}
+    }
     \caption{Przykłady grafów niespełniających $R(2,4,4)$}
     \label{grafk2}
  \end{figure}
@@ -201,6 +206,7 @@ Aby udowodnić że $R(3,3) = 6$ przeanalizujmy kolorowanie grafu pełnego o 6 wi
 
  \begin{figure}[H]
   \centering
+  \subfloat[]{
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
  \node[main] (3) at (0:2) {$3$};
  \node[main] (2) at (60:2) {$2$};
@@ -219,7 +225,9 @@ Aby udowodnić że $R(3,3) = 6$ przeanalizujmy kolorowanie grafu pełnego o 6 wi
 \draw[ultra thick][blue, dashed] (3) -- (2);
 \draw[ultra thick][blue, dashed] (1) -- (3);
     \end{tikzpicture}
+    }
  \hspace{15mm}
+ \subfloat[]{
       \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
  \node[main] (3) at (0:2) {$3$};
  \node[main] (2) at (60:2) {$2$};
@@ -238,6 +246,7 @@ Aby udowodnić że $R(3,3) = 6$ przeanalizujmy kolorowanie grafu pełnego o 6 wi
 \draw[ultra thick][red, dashed] (3) -- (2);
 \draw[ultra thick][red, dashed] (1) -- (3);
     \end{tikzpicture}
+    }
     \caption{Pokolorowania implikujące powstanie czerwonej lub niebieskiej $K_3$}
     \label{graf62}
  \end{figure}

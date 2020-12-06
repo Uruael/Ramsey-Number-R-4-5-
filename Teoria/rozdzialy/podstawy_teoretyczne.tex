@@ -2,18 +2,14 @@
 Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teorii grafów, bez których zrozumienia, nie jest możliwe wyznaczanie liczb Ramseya.
 
   \section{Teoria grafów}
-  \begin{definition}[Graf nieskierowany]
-    Graf nieskierowany to para $G=(V, E)$, gdzie $V$ to zbiór elementów nazywanych wierzchołkami, a $E$ to zbiór par wierzchołków, którego elementy są nazywane krawędziami.
-  \end{definition}
-
   \begin{definition}[Graf prosty]
-    Graf prosty, to graf $G=(V,E)$, gdzie zbiór E nie zawiera duplikatów, ani par ($v,v$), dla $v\in V$.
+    Graf prosty G składa się z niepustego, skończonego zbioru wierzchołków $V(G)$, oraz skończonego zbioru krawędzi $E(G)$, który zawiera dwuelementowe podzbiory $\{u,v\} \in V(G)$. Dodatkowo, można powiedzieć, że dla każdego $\{u,v\} \in E(V) \Rightarrow u \neq v$ oraz $E(V)$ nie zawiera duplikatów. \cite{graphtheory}
   \end{definition}
 
   Dla potrzeb naszej pracy, będziemy zakładać, że gdy mówimy o grafie, mamy na myśli graf nieskierowany i prosty.
   
   \begin{definition}[Rząd grafu]
-    Liczbę elementów zbioru $V$ w grafie $G=(V, E)$ nazywamy rzędem grafu. 
+   Rząd grafu to liczba elementów zbioru $V$ w grafie $G=(V, E)$.
   \end{definition}
 
   Rząd grafu to liczba jego wierzchołków. 
@@ -30,7 +26,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
      Na potrzeby naszej pracy mówiąc o podgrafie mamy na myśli podgraf indukowany.
 
   \begin{definition}[Sąsiedztwo]
-    W grafie $G=(V, E)$ wierzchołki $u, v \in V$ sąsiadują wtedy i tylko wtedy gdy $(u, v) \in E$.    
+    W grafie $G=(V, E)$ wierzchołki $u, v \in V$ sąsiadują wtedy i tylko wtedy gdy $\{u, v\} \in E$.    
   \end{definition}
   W grafach nieskierowanych sąsiedztwo jest relacją symetryczną. Jest nieprzechodnia - z sąsiedztwa $u$ i $v$ oraz $v$ i $w$ nie wynika sąsiedztwo $u$ i $w$ (Patrz rysunek \ref{sasie}).
 
@@ -53,6 +49,14 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
     \caption{Graf, w którym wierzchołek 1 sąsiaduje z 2 i 5; 2 z 1 i 5; 3 z 4 i 5; 4 z 3 i 5; 5 z 1, 2, 3 i 4 }
     \label{sasie}
   \end{figure}
+  
+     \begin{definition}[Stopień wierzchołka]
+	Stopniem wierzchołka $v$ nazywamy ilość wierzchołków sąsiadujących z nim.
+   \end{definition}
+   
+    \begin{definition}[Stopień grafu]
+ Stopniem grafu nazywamy maksymalny stopień jego wierzchołków. 
+   \end{definition}
 
    \begin{definition}[Klika]
     Klika $K$ w grafie $G=(V,E)$ jest takim podzbiorem wierzchołków $V(G)$, że dla każdej pary wierzchołków $u, v \in K$ zachodzi $$(u, v) \in E(G)$$ 
@@ -91,12 +95,12 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
     \REQUIRE $G(V, E) $
     \FORALL{$v \in V$}
       \FORALL{$u \in V$}
-        \IF{$v \neq u \land v \in sąsiedzi(u) \land sąsiedzi(v) \cap sąsiedzi(u) \neq \emptyset$}
-          \STATE \RETURN jest $K3$
+        \IF{$v \neq u \land v \in$ sąsiedzi($u$) $\land$ sąsiedzi($v$) $\cap$ sąsiedzi($u$) $\neq \emptyset$}
+          \STATE \RETURN jest $K_3$
         \ENDIF
       \ENDFOR
     \ENDFOR
-    \STATE \RETURN nie ma K3
+    \STATE \RETURN nie ma $K_3$
     \end{algorithmic}
   \end{algorithm}
   
@@ -136,6 +140,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
 
     \begin{figure}[H]
       \centering
+\subfloat[]{
        \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
         \node[main] (1) at (0:2){$1$};
         \node[main] (3) at (72:2) {$3$};
@@ -154,7 +159,9 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
          \draw[red, dashed] (2) -- (5);
 
         \end{tikzpicture}
+}
         \hspace{15mm}
+ \subfloat[]{
        \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
          \node[main] (1) at (0:2){$1$};
          \node[main] (3) at (72:2) {$3$};
@@ -168,6 +175,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
          \draw[red] (2) -- (5);
 
         \end{tikzpicture}
+}
         \caption{ $K_3$ w $G'$ leży między tymi samymi Wierzchołkami co $N_3$ w $G$ }
         \label{dopwiesz}
      \end{figure}
@@ -178,16 +186,17 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
   \section{Izomorfizm}
 
   \begin{definition}[Izomorfizm grafów]
-    Izomorfizm grafów $G$ i $H$ to taka biekcja $f:V(G) \to V(H)$, że 2 wierzchołki $u$ i $v$ sąsiadują w $G$ wtedy i tylko wtedy jeżeli $f(u)$ i $f(v)$ sąsiadują w $H$.
+    Izomorfizm grafów $G$ i $H$ to taka biekcja $f:V(G) \to V(H)$, że 2 wierzchołki $u$ i $v$ sąsiadują w $G$ wtedy i tylko wtedy gdy $f(u)$ i $f(v)$ sąsiadują w $H$.
   \end{definition}
 
-  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne. Czyli, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
+  Innymi słowy, izomorfizm jest to takie przekształcenie grafu, które zachowuje wszystkie jego właściwości. Grafy, dla których można znaleźć izomorfizm są izomorficzne\cite{graphtheory}. Czyli, dwa grafy są izomorficzne, jeżeli ich wierzchołki można nazwać w taki sposób, 
   aby odpowiadające sobie wierzchołki w obu grafach miały dokładnie takie same zbiory sąsiadów.
   
 
   Przekształćmy graf z rysunku \ref{sasie} zamieniając wierzchołek 1 z 2 oraz 3 z 4:
   \begin{figure}[H]
     \centering
+    \subfloat[]{
  \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
       \node[main] (1) {$1$};
       \node[main] (2) [below right of=1] {$5$};
@@ -202,7 +211,9 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
       \draw (1) -- (3);
       \draw (4) -- (5);
     \end{tikzpicture}
+    }
     \hspace{15mm}
+    \subfloat[]{
     \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
       \node[main] (1) {$2$};
       \node[main] (2) [below right of=1] {$5$};
@@ -217,6 +228,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
       \draw (1) -- (3);
       \draw (4) -- (5);
     \end{tikzpicture}
+    }
     \caption{Mimo przekształcenia graf zachował swoje własności}
     \label{sasieizo}
   \end{figure}
@@ -227,7 +239,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
 
 
   \begin{definition}[Automorfizm grafu]
-    Automorfizm grafu $G$ to taka permutacja $f$ zbioru wierzchołków $G$, że para wierzchołków $u$, $v$ jest sąsiedująca tylko jeżeli $f(u)$ i $f(v)$ sąsiadują. 
+    Automorfizm grafu $G$ to taka permutacja $f$ zbioru wierzchołków $G$, że para wierzchołków $u$, $v$ jest sąsiedująca tylko jeżeli $f(u)$ i $f(v)$ sąsiadują\cite{graphtheory}.
   \end{definition}
   Automorfizm to izomorfizm z grafu początkowego do tego samego grafu. 
   Złożenie automorfizmów również jest automorfizmem.  
@@ -240,12 +252,12 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
 
   \begin{definition}[Forma kanoniczna]
     Forma kanoniczna $C(G)$ grafu $G$ to taki graf izomorficzny do $G$, że każdy graf izomorficzny do $G$ ma taką samą formę kanoniczną\cite{canon}. 
-    $$ Canon \colon G \to G / \simeq $$
+    $$ Canon \colon G \to F$$
     $$G \simeq H \iff Canon(G) = Canon(H) $$
   \end{definition}
 
-  Forma kanoniczna grafu to takie pokrycie grafu $G$, 
-  które jest identyczne dla wszystkich grafów izomorficznych z $G$. Przykładowo, takie pokrycie można zaimplementować
+  Forma kanoniczna grafu to takie przekształcenie $G$, 
+  które daje identyczny wynik dla wszystkich grafów izomorficznych z $G$. Przykładowo, takie przekształcenie można zaimplementować
    jako numerowanie wierzchołków począwszy od takich o najmniejszej liczbie sąsiadów. 
    %Jeżeli kilka wierzchołków ma taką samą liczbę sąsiadów to albo niższy numer otrzymuje 		wierzchołek, 
    %który ma sąsiada (sąsiadów) z najniższym numerem albo losowy. NIE DO KOŃCA PRAWIDLOWE
@@ -271,8 +283,7 @@ Algorytmy tworzące formy kanoniczne korzystają z  heurystyk pozwalających zop
  
 
 \begin{definition}[Orbita]
-  %Orbita w grafie $G$ to taki podzbiór jego wierzchołków, których wszystkie permutacje są %izomorfizmami.
-  Orbita w grafie $G$ to taki maksymalny zbiór będący podzbiorem zbioru wierzchołków, taki dla każdych dwóch elementów tego zbiory da się znaleźć automorfizm przekształcający jeden element w drugi.
+  Orbita w grafie $G$ to taki maksymalny zbiór będący podzbiorem zbioru wierzchołków, taki dla każdych dwóch elementów tego zbioru da się znaleźć automorfizm przekształcający jeden element w drugi.
 \end{definition}
 
 Wszystkie wierzchołki wewnątrz orbity mogą zostać dowolnie zamienione, nie zmieniając właściwości grafu. Ich zamiana jest automorfizmem.
@@ -392,6 +403,5 @@ Przykład (rysunek \ref{orbit}):
      Kolorowanie najczęściej idzie w parze z ograniczeniami, których należy przestrzegać przypisując elementom wartości.
      Najczęściej dotyczą one zakazu kolorowania sąsiadujących wierzchołków lub krawędzi tym samym kolorem. 
 	
-	W problemie rozpatrywanym w pracy nie obowiązują żadne ograniczenia odnośnie kolorowania.
 %     Innym ograniczeniem dla kolorowania może być zakaz pomalowania kliki ustalonego stopnia %$n$ - $K_n$ - tym samym kolorem.
 %     Dla $n=2$ otrzymamy zakaz sąsiedztwa wspomniany wcześniej.

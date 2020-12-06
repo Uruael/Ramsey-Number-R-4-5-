@@ -6,6 +6,7 @@ Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechow
 \begin{figure}[H]
   \centering
   \hfill
+  \subfloat[]{
 $\begin{Bmatrix}
 	0 & 1 & 0 & 0 & 1 \\
 	1 & 0 & 0 & 0 & 1 \\
@@ -13,7 +14,9 @@ $\begin{Bmatrix}
 	0 & 0 & 0 & 0 & 0 \\
 	1 & 1 & 1 & 0 & 0 \\
   \end{Bmatrix}$
+  }
   \hfill
+  \subfloat[]{
 \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}, baseline=-8.0ex] 
     \node[main] (1) {$1$};
     \node[main] (2) [below right of=1] {$5$};
@@ -27,6 +30,7 @@ $\begin{Bmatrix}
     \draw (2) -- (5);
     \draw (1) -- (3);
   \end{tikzpicture}
+  }
   \hfill
   \hfill
   \caption{Graf wraz z odpowiadającą mu macierzą sąsiedztwa. W tej macierzy 0 odpowiada brakowi krawędzi, a 1 odpowiada jej istnieniu.}

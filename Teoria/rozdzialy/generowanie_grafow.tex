@@ -2,7 +2,7 @@
 
 \section{Rozszerzanie grafu}
 %Do przeprowadzenia poprawnego rozumowania na grafach, wymagane jest wpierw pozyskanie zbioru grafów. Operację tę nazywamy generowaniem grafów, i rozpoczyna się ją od rozszerzania grafów. 
-Aby przeprowadzać operacje na wielu grafach, najpierw należy je wygenerować, rozpoczyna się to od rozszerzania grafów. 
+Aby przeprowadzać operacje na wielu grafach, najpierw należy je wygenerować, metoda która służy do generowania grafów nazywa się rozszerzaniem grafów. 
 \begin{definition} Rozszerzeniem grafu nazywamy przekształcenie grafu $G$ w graf $G'$ poprzez dodanie do $G$ wierzchołka $v$ i dowolnego podzbioru możliwych krawędzi pomiędzy $v$ a $V(G)$.
 \end{definition}
 Możliwych rozszerzeń grafu o $n$ wierzchołkach jest $2^n$. Kompletnym rozszerzeniem nazywamy zbiór grafów uzyskany przez wykonanie każdego możliwego rozszerzenia.
@@ -19,71 +19,89 @@ Najprostszym przykładem rozszerzenia grafu jest rozszerzanie grafu jednowierzch
 
 
 Podczas rozszerzania powyższego grafu istnieją dwie możliwości na sposób dodania krawędzi pomiędzy Grafem $G$ a nowym wierzchołkiem. W celu wygenerowania wszystkich grafów dwuwierzchołkowych należy przeprowadzić rozszerzenia na wszystkie (dwa) możliwe sposoby jak na rysunku \ref{rozszerzeniedwuwierzcholkowe}.
-\begin{figure}[h]
+\begin{figure}[H]
   
-  \hfill
   \centering
+  \subfloat[]{
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (2) {$1$};
     \node[main] (3) [right of=2] {$2$};
    \end{tikzpicture}
-   \hfill
-   \centering
+   }
+   \hspace{15mm}
+   \subfloat[]{
    \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (1)  {$1$};
     \node[main] (2) [right of=2] {$2$};
     \draw (1) -- (2);
    \end{tikzpicture}  
-	\hfill
-	\hfill
+   }
+
    \caption{Oba możliwe rozszerzenia grafu jednowierzchołkowego}
    \label{rozszerzeniedwuwierzcholkowe}
 \end{figure}
 
 W podobny sposób można uzyskać kompletny zbiór grafów o dowolnej liczbie wierzchołków. Wystarczy jedynie rekurencyjnie rozszerzać zbiór grafów, zaczynając od jednego wierzchołka i kończąc, gdy nasz zbiór zawiera grafy o wymaganym rzędzie. Przez rozszerzenie zbioru grafów mamy na myśli rozszerzenie każdego z grafów ze zbioru na wszystkie możliwe sposoby. 
 
-Takie podejście prowadzi co prawda  do uzyskania każdego możliwego grafu, jest jednak zatrważająco nieefektywne. Jest tak ze względu na obecność grup grafów izomorficznych w zbiorach generowanych w ten sposób. 
+Takie podejście prowadzi co prawda  do uzyskania każdego możliwego grafu, jest jednak zatrważająco nieefektywne. Jest tak, ponieważ takie generowanie generuje zbiory grafów zawierające pełne grupy grafów izomorficznych, które, ze względu na naturę problemu poruszanego w tej pracy, nie wnoszą więcej informacji, niż jeden jej przedstawiciel. Dzieje się tak głównie ze względu na fakt, że izomorfizm nie zmienia największego stopnia kliki, ani zbioru niezależnego w grafie.
 
 W celu zobrazowania problemu przeprowadźmy dalsze rozszerzenie dwuwierzchołkowego grafu pełnego z rysunku \ref{rozszerzeniedwuwierzcholkowe}. Określmy ten graf jako graf $G$. Rozszerzenie grafu dwuwierzchołkowego w sposób kompletny prowadzi do uzyskania 4 grafów, pokazanych na rysunku \ref{rozszerzenietrzywierzcholki}.
 
 
 \begin{figure}[H]
 		\centering
+		\subfloat[]{
   		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
    			\node[main] (0) at (0,1.5) {$1$};
    			\node[main] (1) at (2,1.5)  {$2$};
    			\node[main] (2) at (1,0)  {$3$};
-			
+   			
+   			\draw (0) -- (1);
+   		\end{tikzpicture}
+   		}
+   		\hspace{5mm}
+   		\subfloat[]{
+		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 	
 			\node[main] (3) at (3,1.5) {$1$};
    			\node[main] (4) at (5,1.5)  {$2$};
    			\node[main] (5) at (4,0)  {$3$};
-			
+   			
+   			\draw (3) -- (4);
+   			\draw (3) -- (5);
+   		\end{tikzpicture}
+   		}
+   		\hspace{5mm}
+   		\subfloat[]{
+		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 	
 			\node[main] (6) at (6,1.5) {$1$};
    			\node[main] (7) at (8,1.5)  {$2$};
    			\node[main] (8) at (7,0)  {$3$};
-			
+   			
+   			\draw (6) -- (7);
+   			\draw (7) -- (8);
+   		\end{tikzpicture}
+   		}
+   		\hspace{5mm}
+   		\subfloat[]{
+		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 	
 			\node[main] (9) at (9,1.5) {$1$};
    			\node[main] (10) at (11,1.5)  {$2$};
    			\node[main] (11) at (10,0)  {$3$};
 			
-			\draw (0) -- (1);
-   			\draw (3) -- (4);
-			\draw (6) -- (7);
 			\draw (9) -- (10);
-			
-			\draw (3) -- (5);
-			\draw (7) -- (8);
 			\draw (9) -- (11);
 			\draw (10) -- (11);
 			
    		\end{tikzpicture}
+   		}
+   		\hspace{5mm}
    		\caption{Możliwe rozszerzenia grafu $G$ opisane dalej jako $G'_1$ do $G'_4$}
    		\label{rozszerzenietrzywierzcholki}
 \end{figure}
 
-Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $\mathcal{G'_n}$ zawiera trzy zbiory grafów izomorficznych. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów na rysunku \ref{rozszerzeniedwuwierzcholkowe}, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do $\mathcal{G'_n}$ dodamy również rozszerzenia drugiego grafu z \ref{rozszerzenietrzywierzcholki} przybędzie tylko jeden unikatowy graf.
+Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne, $G'_2$ i $G'_3$. Można więc powiedzieć, że zbiór $\mathcal{G'}$ zawiera trzy zbiory grafów izomorficznych. W przypadku grafów trójwierzchołkowych wygenerowanych przez rozszerzenie grafów na rysunku \ref{rozszerzeniedwuwierzcholkowe}, uzyskamy 8 grafów, ale jedynie 4 grupy izomorficzne. Trywialnie więc zauważyć, że jeżeli do zbioru $\mathcal{G'}$ dodamy również rozszerzenia drugiego grafu z \ref{rozszerzeniedwuwierzcholkowe} przybędzie tylko jeden unikatowy graf.
 
- Ze względu na naturę problemu poruszanego w tej pracy, zbiór grafów izomorficznych nie wnosi więcej informacji, niż jeden jej przedstawiciel. Dzieje się tak głównie ze względu na fakt, że izomorfizm nie zmienia największego stopnia kliki, ani zbioru niezależnego w grafie. Wyeliminowanie nadmiarowych grafów izomorficznych ze zbioru wynikowego wydaje się więc wysoko pożądane w celu zwiększenia wydajności generacji zarówno pod względem czasowym jak i pamięciowym. Żeby zobrazować wagę takiej optymalizacji wystarczy podać kilka pierwszych wartości dla ilości grafów wygenerowanych naiwną metodą rozszerzania w porównaniu do ilości grafów nieizomorficznych.
+ Wyeliminowanie nadmiarowych grafów izomorficznych ze zbioru wynikowego jest wysoko pożądane w celu zwiększenia wydajności generacji zarówno pod względem czasowym jak i pamięciowym. Żeby zobrazować wagę takiej optymalizacji wystarczy podać kilka pierwszych wartości dla ilości grafów wygenerowanych naiwną metodą rozszerzania w porównaniu do ilości grafów nieizomorficznych.
  \begin{table}[H]
  \begin{center}
  \begin{tabular}{|c c c|} 
@@ -114,7 +132,7 @@ Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne,
 \section{Generowanie grafów nieizomorficznych}
 Użytecznym jest fakt, że na dowolnym etapie generacji zbiór grafów izomorficznych w zbiorze do rozszerzenia można bezproblemowo zredukować do tylko jednego z jego przedstawicieli. Jest tak ze względu na poniższe twierdzenie.
 \begin{theorem}
-Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $\mathcal{G'_n}$ oraz $\mathcal{H'_m}$, to dla dowolnego elementu zbioru $\mathcal{G'_n}$ istnieje izomorfizm do elementu zbioru $\mathcal{H'_m}$
+Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $\mathcal{G'}$ oraz $\mathcal{H'}$, to dla dowolnego elementu zbioru $\mathcal{G'}$ istnieje izomorfizm do elementu zbioru $\mathcal{H'}$
 \end{theorem}
 
 
@@ -122,6 +140,7 @@ Dzięki powyższemu twierdzeniu, jeżeli na każdej iteracji generacji grafów b
 
 \begin{figure}[H]
 	\hfill
+	\subfloat[]{
 	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
    		\node[main] (0) at (0,1.5) {$1$};
    		\node[main] (1) at (2,1.5)  {$2$};
@@ -129,7 +148,9 @@ Dzięki powyższemu twierdzeniu, jeżeli na każdej iteracji generacji grafów b
     	\draw (0) -- (2);
 		\draw (1) -- (2);
 	\end{tikzpicture}
+	}
 	\hfill
+	\subfloat[]{
 	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
    		\node[main] (0) at (0,1.5) {$1$};
    		\node[main] (1) at (2,1.5)  {$2$};
@@ -137,7 +158,9 @@ Dzięki powyższemu twierdzeniu, jeżeli na każdej iteracji generacji grafów b
     	\draw (0) -- (2);
 		\draw (0) -- (1);
 	\end{tikzpicture}
+	}
 	\hfill
+	\subfloat[]{
 	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
    		\node[main] (0) at (0,1.5) {$1$};
    		\node[main] (1) at (2,1.5)  {$2$};
@@ -145,6 +168,7 @@ Dzięki powyższemu twierdzeniu, jeżeli na każdej iteracji generacji grafów b
     	\draw (1) -- (2);
 		\draw (1) -- (0);
 	\end{tikzpicture}
+	}
 	\hfill
 	\hfill
 	\caption{Zbiór grafów izomorficznych powstająca z rozszerzania grafów dwuwierzchołkowych}
@@ -173,8 +197,8 @@ Dzięki temu wiemy, że w kolejnym kroku nie trzeba podłączać nowego wierzcho
 
 \begin{figure}[H]
   \centering
-  \hfill
-  
+
+  \subfloat[]{
 	\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
    		\node[main] (2) at (0,1.5) {$2$};
    		\node[main] (0) at (2,1.5)  {$1$};
@@ -184,7 +208,9 @@ Dzięki temu wiemy, że w kolejnym kroku nie trzeba podłączać nowego wierzcho
     \draw (0) -- (1);
     \draw (3) -- (1);
   \end{tikzpicture}
+  }
   \hspace{15mm}
+  \subfloat[]{
   \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
     \node[main] (2) at (0,1.5) {$2$};
    		\node[main] (0) at (2,1.5)  {$1$};
@@ -194,7 +220,7 @@ Dzięki temu wiemy, że w kolejnym kroku nie trzeba podłączać nowego wierzcho
  \draw (0) -- (1);
  \draw (3) -- (2);
 \end{tikzpicture}
-\hfill
+}
   \caption{Przykładowe izomorficzne rozszerzenia grafu $G_3$}
 	\label{g2extend}
 \end{figure} 
@@ -217,6 +243,7 @@ Generowanie grafów nieizomorficznych jest wciąż zbyt wymagające dla naszych 
 
 \begin{theorem}
 	Dla dowolnego grafu $G$ posiadającego klikę $K_i$ każdy graf $H$, który powstaje przez dowolną sekwencję rozszerzeń grafu $G$, zawiera klikę $K_j$ gdzie $j \geq i$.
+\label{tw5}
 \end{theorem}
 
 
@@ -225,7 +252,7 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
  Gdy graf $G$ rozszerzymy do grafu $G'$, to graf $G$ jest podgrafem grafu $G'$. Dzieje się tak, ponieważ rozszerzanie nie modyfikuje krawędzi w oryginalnym grafie, a jedynie dodaje krawędzie do nowego wierzchołka. Przy pomocy indukcji matematycznej można więc powiedzieć, że dowolny graf $H$, który powstaje poprzez wielokrotne rozszerzanie grafu $G$ musi zawierać graf $G$ jako swój podgraf. Z tego powodu, graf $H$ musi również zawierać klikę z oryginalnego grafu $G$, oraz może posiadać klikę większą powstałą w wyniku rozszerzania. Przykład zachowania oryginalnego grafu podczas rozszerzania jest pokazany na rysunku \ref{rozszerzeniekliki}
 
 \begin{figure}[H]
- 
+\subfloat[]{
   		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
    			\node[main][red] (0) at (0,2) {$1$};
    			\node[main][red] (1) at (2,2)  {$2$};
@@ -233,8 +260,11 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 			\draw[red] (0) -- (1);
 			\draw[red] (0) -- (2);,
 			\draw[red] (1) -- (2);
-			
-			
+		\end{tikzpicture}
+		}	
+		\hspace{15mm}
+		\subfloat[]{
+		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 	
 			\node[main][red] (3) at (4,2) {$1$};
    			\node[main][red] (4) at (6,2)  {$2$};
    			\node[main][red] (5) at (4,0)  {$3$};
@@ -244,7 +274,11 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 			\draw[red] (4) -- (5);
 			\draw (6) -- (5);
 			\draw (6) -- (4);
-			
+		\end{tikzpicture}
+		}
+		\hspace{15mm}
+		\subfloat[]{
+		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}]	
 			\node[main][red] (7) at (8,2) {$1$};
    			\node[main][red] (8) at (10,2)  {$2$};
    			\node[main][red] (9) at (8,0)  {$3$};
@@ -261,8 +295,9 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 			
 			
    		\end{tikzpicture}
+   		}
 		\linebreak
- 
+		\subfloat[]{
   		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
 			\node[main][red] (7) at (0,2) {$1$};
    			\node[main][red] (8) at (2,2)  {$2$};
@@ -281,6 +316,11 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 			\draw (12) -- (9);
 			\draw (12) -- (10);
 			
+		\end{tikzpicture}
+		}
+		\hspace{15mm}
+		\subfloat[]{
+		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 	
 			\node[main][red] (1) at (4,2) {$1$};
    			\node[main][red] (2) at (6,2)  {$2$};
    			\node[main][red] (3) at (4,0)  {$3$};
@@ -301,7 +341,12 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 			\draw (Z) -- (6);
 			\draw (Z) -- (4);
 			\draw (Z) -- (5);
-			
+		
+		\end{tikzpicture}
+		}
+		\hspace{15mm}
+		\subfloat[]{
+		\begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 	
 			\node[main][red] (7) at (8,2) {$1$};
    			\node[main][red] (8) at (10,2)  {$2$};
    			\node[main][red] (9) at (8,0)  {$3$};
@@ -325,27 +370,29 @@ Powyższe twierdzenie wynika z  następującego rozumowania:
 			\draw (10) -- (13);
 
    		\end{tikzpicture}
+   		}
    		\caption{Kolejne rozszerzenia grafu. (graf początkowy zaznaczony kolorem czerwonym)}
    		\label{rozszerzeniekliki}
 \end{figure}
 Identyczne rozumowanie można przeprowadzić dla zbiorów niezależnych w oryginalnym grafie, prowadząc do analogicznego twierdzenia dotyczącego zbiorów niezależnych.
 \begin{theorem}
 Dla dowolnego grafu $G$ posiadającego zbiór niezależny $N_i$ każdy graf $H$, który powstaje przez dowolną sekwencję rozszerzeń grafu $G$, zawiera zbiór niezależny $N_j$ gdzie $j \geq i$.
+\label{tw6}
 \end{theorem}
-Twierdzenia te prowadzą do wniosku podobnego do tego o eliminacji grafów izomorficznych, gdzie jeżeli na każdym etapie algorytmu wyeliminujemy grafy łamiące ograniczenia dotyczące kliki oraz zbioru niezależnego, zapewni to że każdy graf na podstawie którego będziemy generować kolejne grafy nie łamie ograniczeń. Dzięki temu można znacznie ograniczyć ilość grafów tworzonych na późniejszych etapach generacji. 
+Twierdzenia te prowadzą do wniosku podobnego do tego o eliminacji grafów izomorficznych, gdzie jeżeli na każdym etapie algorytmu wyeliminujemy grafy łamiące ograniczenia dotyczące kliki oraz zbioru niezależnego, zapewni to, że każdy graf na podstawie którego będziemy generować kolejne grafy nie łamie ograniczeń. Grafy łamiące ograniczenia możemy eliminować, ponieważ na podstawie twierdzeń \ref{tw6} i \ref{tw5} w wyniku ich rozszerzenia powstają jedynie grafy które i tak zostałyby odrzucone. Dzięki temu można znacznie ograniczyć ilość grafów tworzonych na późniejszych etapach generacji. 
 Omówione ograniczenia prowadzą do powstania algorytmu generacji grafów w następującej formie:
 
 \begin{algorithm}[H]
   \caption{Generowanie grafów ramseyowskich o podanym stopniu}
   \begin{algorithmic}
-  \REQUIRE $n > 0 $
-  \STATE i $\gets$ 1
+  \REQUIRE $n > 0 \land r>1 \land b>1$
+  \STATE $i \gets 1$
   \STATE grafy[] $\gets$ graf jednowierzchołkowy 
   \WHILE{$i < n$}
     \STATE rozszerz(grafy)
-    \STATE wykluczNieramseyowskie(grafy)
+    \STATE wykluczNieramseyowskie($r$,$b$,grafy)
     \STATE wykluczIzomorfizmy(grafy)
-    \STATE i <- i + 1
+    \STATE $i \gets i + 1$
   \ENDWHILE
   \end{algorithmic}
 \end{algorithm}
