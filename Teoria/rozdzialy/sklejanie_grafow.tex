@@ -97,7 +97,7 @@ Znajdowanie prawdopodobnych stożków rozpoczynamy od pojedynczego przedziału g
 Korzystając z własności 2 i 3 jako warunku odpowiednio odrzucenia lub zaakceptowania przedziału można skorzystać z algorytmu rekurencyjnego dzielącego interwały wzdłuż wierzchołków należących do kliki 3 oraz stożka $B$, dzięki czemu uzyskujemy zbiór przedziałów dla grafu $H$ zawierający jedynie stożki prawdopodobne. Z tego zbioru korzystamy w następnym etapie algorytmu.
 Dalsze odrzucanie stożków musi odbyć się już w kontekście grafu $G$.
 
-Główna część sklejania polega na próbie połączenia grafów $G$ oraz $H$ przy użyciu każdej permutacji przedziałów stożków prawdopodobnych. Do każdego z wierzchołków grafu $G$ jest przypisywany jeden przedział. Przedział ten zbiera wszystkie obecnie rozważane połączenia pomiędzy $H$ oraz tym wierzchołkiem $G$, do którego jest przypisany. Każda możliwa permutacja n przedziałów (gdzie n jest rzędem grafu $G$) jest następnie zawężana przy pomocy zasad A-D opisanych w następnym podrozdziale, co pozwala wyeliminować niepoprawne połączenia. 
+Główna część sklejania polega na próbie połączenia grafów $G$ oraz $H$ przy użyciu każdej permutacji przedziałów stożków prawdopodobnych. Do każdego z wierzchołków $i \in V(G)$ jest przypisywany jeden przedział, oznaczony jako [$B_i$,$T_i$]. Przedział ten zbiera wszystkie obecnie rozważane połączenia pomiędzy $H$ oraz tym wierzchołkiem $G$, do którego jest przypisany. Każda możliwa permutacja n przedziałów (gdzie n jest rzędem grafu $G$) jest następnie zawężana przy pomocy zasad A-D opisanych w następnym podrozdziale, co pozwala wyeliminować niepoprawne połączenia. 
 
   
 
@@ -281,7 +281,7 @@ Funkcja $H_3$ znajduje wszystkie wierzchołki, które tworzą zbiór niezależny
  \end{figure}
 
 
-Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami $G$ oraz $H$ odbywa się już w kontekście konkretnego grafu $G$. Każda możliwa kombinacja wygenerowanych przedziałów jest  przydzielana do wierzchołków należących do $G$, dzięki czemu rozważone są wszystkie możliwe sposoby połączenia tych grafów. Dla każdego zbioru przedziałów łączących grafy $G$ oraz $H$ wykonywany jest poniższy zbiór reguł działających na wierzchołki i przedziały stożków im przypisane:
+Kolejny etap zawężania zbioru potencjalnych krawędzi pomiędzy grafami $G$ oraz $H$ odbywa się już w kontekście konkretnego grafu $G$. Każda możliwa kombinacja wygenerowanych przedziałów jest  przydzielana do wierzchołków należących do $G$, dzięki czemu rozważone są wszystkie możliwe sposoby połączenia tych grafów. Dla każdego zbioru przedziałów łączących grafy $G$ oraz $H$ wykonywany jest poniższy zbiór reguł działających na wierzchołki i przypisane im przedziały stożków:
 \begin{itemize}
   \item[A] - stosowana do 2 wierzchołków $u,v$ $\in G$ sąsiadujących ze sobą 
   
