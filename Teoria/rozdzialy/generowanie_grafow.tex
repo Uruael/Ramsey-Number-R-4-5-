@@ -369,45 +369,5 @@ Omówione ograniczenia prowadzą do powstania algorytmu generacji grafów w nast
   \end{algorithmic}
 \end{algorithm}
 
-Kolejność operacji wykluczIzomorfizmy i wykluczNieramseyowskie nie ma znaczenia pod kątem poprawności - jednak dla grafów większych stopni operacja znajdywania orbit staje się znacznie bardziej skomplikowana w porównaniu do relatywnie prostego poszukiwania klik i zbiorów niezależnych, przez co taka kolejność poprawia ogólną efektywność algorytmu pod kątem czasu obliczeń. Aby zobrazować różnicę między dwoma algorytmami przygotowaliśmy tabelę \ref{czasgen} dla generacji grafów $R(4,4,n)$.
 
-\begin{table}[H]
- \begin{center}
- \begin{tabular}{|c c c c|} 
- \hline
- n & Liczba grafów $R(4,4,n)$ & Optymalny algorytm (sek.) & Nieoptymalny algorytm (sek.) \\ 
- \hline\hline
- 1 & 1 & <1 & <1\\ 
- \hline
- 2 & 2 & <1 & <1\\
- \hline
- 3 & 4 & <1 & <1\\
- \hline
- 4 & 9 & <1 & <1\\
- \hline
- 5 & 24 & <1 & <1\\
- \hline
- 6 & 84 & <1 & <1\\
- \hline
- 7 & 362 & <1 & <1\\
- \hline
- 8 & 2079 & <1 & <1\\
- \hline
- 9 & 14701 & 4 & 4\\
- \hline
- 10 & 103706 & 5 & 10\\
- \hline
- 11 & 546356 & 22 & 128\\
- \hline
- 12 & 1449166 & 154 & 1450\\
- \hline
- ... & ... & ... & ...\\
- \hline
-  17 & 1 & 1779 & ?\\
- \hline
-\end{tabular}
-\end{center}
- \caption{Czas generacji grafów dla różnej kolejności wywołania wykluczIzomorfizmy i wykluczNieramseyowskie. Optymalny algorytm wywołuje te metody w kolejności wykluczIzomorfizmy i wykluczNieramseyowskie, a nieoptymalny odwrotnie}
- \label{czasgen}
- \end{table}
 
