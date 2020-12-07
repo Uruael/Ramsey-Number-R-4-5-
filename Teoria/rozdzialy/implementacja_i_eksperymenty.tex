@@ -1,8 +1,8 @@
 \chapter{Implementacja i eksperymenty}
-Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty and Traces\cite{nauty}, która umożliwia łatwe obliczeniowo wykrywanie orbit, co znacznie przyspiesza proces generowania grafów. 
-Autorem biblioteki nauty jest Brendan D. McKay, natomiast twórcą Traces jest Adolfo Piperno.
+Nasz program został zaimplementowany w języku C z wykorzystaniem biblioteki Nauty and Traces\cite{nauty}, która umożliwia łatwe obliczeniowo wykrywanie orbit, co znacznie przyspiesza proces generowania grafów. Autorem biblioteki nauty jest Brendan D. McKay, natomiast twórcą Traces jest Adolfo Piperno. Celowo został wybrany język niskopoziomowy, ponieważ w rozwiązywaniu problemów tego typu ważna jest odpowiednia optymalizacja, co przekłada się na szybkość wykonywania programu.
 
-Jednym z aspektów powyższego kodu, który wykorzystujemy jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób reprezentacji grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji $(m, n)$ odpowiada  krawędzi pomiędzy wierzchołkami $m$ oraz $n$ (rysunek \ref{exmatrix}).
+
+Jednym z aspektów kodu, który wykorzystujemy jest sposób przechowywania grafów w pamięci komputerowej, który bazuje na macierzy sąsiedztwa. Macierz sąsiedztwa to sposób reprezentacji grafu o N wierzchołkach przy użyciu macierzy kwadratowej o wymiarach NxN. Wartość na pozycji $(m, n)$ odpowiada  krawędzi pomiędzy wierzchołkami $m$ oraz $n$ (rysunek \ref{exmatrix}).
 \begin{figure}[H]
   \centering
   \hfill
@@ -37,10 +37,9 @@ $\begin{bmatrix}
   \label{exmatrix}
 \end{figure}
 
-Warto zauważyć nadmiarowość macierzy, gdzie każdej krawędzi w grafie odpowiadają dwie wartości. Ta nadmiarowość okazjonalnie pozwala na przyspieszenie obliczeń w zmodyfikowanej wersji macierzy sąsiedztwa używanej w naszym kodzie.
-Modyfikacja metody macierzy sąsiedztwa polega na odejściu od zapisywania każdej liczby w macierzy jako liczby całkowitej. Jako że zajmujemy się jedynie grafami prostymi i niekolorowanymi, to wartości w poszczególnych komórkach mogą wynosić jedynie 0 lub 1. W związku z tym wiersz macierzy można zapisać nie jako $n$ wartości, a jako jedną liczbę całkowitą o odpowiedniej liczbie bitów. Ze względu na to, że największym grafem występującym w naszej pracy jest potencjalny graf 25 wierzchołkowy, 32 bitowa wartość jest wystarczająca żeby pomieścić wiersz macierzy reprezentujący wierzchołek dowolnego grafu który może zostać wygenerowany przez nasz program. 
+Jako że zajmujemy się jedynie grafami prostymi i niekolorowanymi, to wartości w poszczególnych komórkach mogą wynosić jedynie 0 lub 1, oraz sama macierz jest symetryczna względem swojej diagonali. Sprawia to że macierz jest zapisywana w nadmiarowy sposób, co jednak jest niezbędne do optymalizacji obliczeń w programie. Dzięki takiemu sposobowi zapisu macierzy sąsiedztwa możemy ją traktować, nie jako tablice liczb całkowitych a jako tablice bitów. Jako że największym grafem jaki możemy uzyskać jest graf o 25 wierzchołkach to 32 bitowa wartość jest wystarczająca aby pomieścić jeden wiersz macierzy reprezentujący wierzchołek dowolnego grafu we naszym programie. Co więcej takie rozwiązanie pozwala nam bezpośrednio porównywać poszczególne wiersze macierzy jako liczby, dzięki czemu możliwe jest użycie operacji bitowych. Możliwość taka pozytywnie wpływa na optymalizacje i czas wykonania programu, przykładem jest znajdowanie sąsiadów (wykorzystane w algorytmie 1) co wykonywane jest pojedynczą operacją bitową.
 
-Jedną ze znaczących prób optymalizacji które zostały podjęte były zmiany w algorytmie tworzenia przedziałów stożków prawdopodobnych. Algorytm sklejania jest bardzo wrażliwy na ich ilość ze względu na fakt, że operacja sklejania jest wykonywana dla każdej permutacji tych przedziałów po wierzchołkach grafu $G$. Początkowo, generacja była wykonana w sposób naiwny, gdzie kolejność rozbicia przedziału była zgodna z kolejnością wierzchołków w grafie. Takie podejście produkowało jednak zbyt wiele przedziałów, i z tego powodu zostało zmienione. Kolejnym algorytmem generującym przedziały był algorytm wzorujący się na algorytmie rozszerzania przedziałów. Kolejność rozbicia była w tym przypadku zależna od kolejności wykrycia klik $K_3$. Wynik tej metody wciąż nie był zadowalający, więc podjeliśmy ponowną próbę zmniejszenia liczby przedziałów. Tym razem opierała się ona na próbach ponownego połączenia przedziałów rozbitych we wcześniejszych krokach. Takie łączenie ponownie zmniejszyło ilość przedziałów. Łączenie zostało wykonane w sposób zachłanny, i nie ma gwarancji, że daje najlepszy możliwy zbiór przedziałów. Możliwe też, że dalsze modyfikacje algorytmu tworzącego zbiór przedziałów mogłyby przynieść lepszy wynik. Średnie ilości przedziałów dla każdej z metod ich tworzenia przedstawione zostały w tabeli \ref{tabPrzedzialy}
+Jedną ze znaczących prób optymalizacji które zostały podjęte były zmiany w algorytmie tworzenia przedziałów stożków prawdopodobnych. Algorytm sklejania jest bardzo wrażliwy na ich ilość ze względu na fakt, że operacja sklejania jest wykonywana dla każdej permutacji tych przedziałów po wierzchołkach grafu $G$. Początkowo, generacja była wykonana w sposób naiwny, gdzie kolejność rozbicia przedziału była zgodna z kolejnością wierzchołków w grafie. Takie podejście produkowało jednak zbyt wiele przedziałów, i z tego powodu zostało zmienione. Kolejnym algorytmem generującym przedziały był algorytm wzorujący się na algorytmie rozszerzania przedziałów. Kolejność rozbicia była w tym przypadku zależna od kolejności wykrycia klik $K_3$. Wynik tej metody wciąż nie był zadowalający, więc podjęliśmy ponowną próbę zmniejszenia liczby przedziałów. Tym razem opierała się ona na próbach ponownego połączenia przedziałów rozbitych we wcześniejszych krokach. Takie łączenie ponownie zmniejszyło ilość przedziałów. Łączenie zostało wykonane w sposób zachłanny, i nie ma gwarancji, że daje najlepszy możliwy zbiór przedziałów. Możliwe też, że dalsze modyfikacje algorytmu tworzącego zbiór przedziałów mogłyby przynieść lepszy wynik. Średnie ilości przedziałów dla każdej z metod ich tworzenia przedstawione zostały w tabeli \ref{tabPrzedzialy}
 
  \begin{table}[H]
  \begin{center}
@@ -59,3 +58,22 @@ Jedną ze znaczących prób optymalizacji które zostały podjęte były zmiany 
  \caption{Tabela porównująca średnią ilość przedziałów stworzonych dla zbiorów grafów o różnych rzędach}
  \label{tabPrzedzialy}
  \end{table}
+ 
+ Inna optymalizacja algorytmu sklejania polegała na przycinaniu drzewa permutacji przedziałów. Zasady A-D mogą spowodować ograniczenie lub odrzucenie sklejeń opisywanych przez zbiór przedziałów już na podstawie kilku pierwszych par wierzchołek-przedział. Oznacza to, że jeżeli zasady A-D będą aplikowane przed wybraniem wszystkich przedziałów, niektóre z permutacji zostaną wyeliminowanie przed wyborem wszystkich elementów, eliminując wiele możliwości jednocześnie. Na rysunku \ref{branchpruning} zostało zobrazowane odcięcie gałęzi. Dla każdego elementu drzewa wykonywane jest sprawdzenie, dzięki czemu można pominąć część rozwinięć. 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[sibling distance=10em, every node/.style = {shape=rectangle, rounded corners, draw, align=center}]]
+  \node {(1,?,?)}
+    child { node (A){(1,1,?)}}
+    child { node (B){(1,2,?)}}
+    child { node {(1,3,?)}
+      child { node {(1,3,1)}}
+      child { node {(1,3,2)}}
+      child { node {(1,3,3)} } };
+   \draw[red] (A.south west) -- (A.north east);
+   \draw[red] (B.south west) -- (B.north east);
+\end{tikzpicture}
+\caption(Zobrazowanie odcięcia gałęzi.)
+\label{branchpruning}
+\end{figure}
+Ta optymalizacja jest absolutnie wymagana i znajdowała się już w pierwszej wersji algorytmu, ponieważ wiele permutacji może zostać odrzuconych już przy niewielkiej ilości wybranych przedziałów.
