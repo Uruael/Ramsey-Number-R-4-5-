@@ -1,6 +1,9 @@
 \chapter{Generowanie grafów}
-
+\textit{Autorzy rozdziału: Krzysztof Karpusiewicz, Mateusz Kołakowski}
+\vspace{0.5cm}\newline
 \section{Rozszerzanie grafu}
+\textit{Autor podrozdziału: Krzysztof Karpusiewicz}
+\vspace{0.5cm}\newline
 %Do przeprowadzenia poprawnego rozumowania na grafach, wymagane jest wpierw pozyskanie zbioru grafów. Operację tę nazywamy generowaniem grafów, i rozpoczyna się ją od rozszerzania grafów. 
 Aby przeprowadzać operacje na wielu grafach, najpierw należy je wygenerować, metoda która służy do generowania grafów nazywa się rozszerzaniem grafów. 
 \begin{definition} Rozszerzeniem grafu nazywamy przekształcenie grafu $G$ w graf $G'$ poprzez dodanie do $G$ wierzchołka $v$ i dowolnego podzbioru możliwych krawędzi pomiędzy $v$ a $V(G)$.
@@ -130,6 +133,8 @@ Warto zauważyć, że powstały zbiór 4 grafów zawiera dwa grafy izomorficzne,
  \end{table}
 
 \section{Generowanie grafów nieizomorficznych}
+\textit{Autor podrozdziału: Mateusz Kołakowski}
+\vspace{0.5cm}\newline
 Użytecznym jest fakt, że na dowolnym etapie generacji zbiór grafów izomorficznych w zbiorze do rozszerzenia można bezproblemowo zredukować do tylko jednego z jego przedstawicieli. Jest tak ze względu na poniższe twierdzenie.
 \begin{theorem}
 Jeżeli rozszerzamy izomorficzne grafy $G$ oraz $H$ do zbiorów $\mathcal{G'}$ oraz $\mathcal{H'}$, to dla dowolnego elementu zbioru $\mathcal{G'}$ istnieje izomorfizm do elementu zbioru $\mathcal{H'}$
@@ -171,7 +176,7 @@ Dzięki powyższemu twierdzeniu, jeżeli na każdej iteracji generacji grafów b
 	}
 	\hfill
 	\hfill
-	\caption{Zbiór grafów izomorficznych powstająca z rozszerzania grafów dwuwierzchołkowych}
+	\caption{Zbiór grafów izomorficznych powstający z rozszerzania grafów dwuwierzchołkowych}
 	\label{rozszerzenieIzomorfizm1}
 \end{figure} 
 Powyższe grafy będą opisywane jako $G_1$, $G_2$ i $G_3$. Aby eliminować izomorfizmy powstałe z rozszerzania różnych grafów każdy z grafów $G'$ należy sprowadzić do formy kanonicznej a następnie wyznaczyć istniejące w nim orbity. Przykładowym przekształceniem grafu $G_3$ do formy kanonicznej jest 
@@ -205,11 +210,12 @@ Efektem takiego przekształcenia dla grafów $G_1$ i $G_2$ są grafy przedstawio
 Orbitami tych grafów są zbiory \{1\} oraz \{2,3\}. Większość grafów można uzyskać przez rozszerzenie kilku różnych grafów, ale nowo dodany wierzchołek, czyli ten o największym numerze przed przekształceniem grafu na formę kanoniczną, znajdzie się w jakiejś orbicie $o$ tylko dla rozszerzeń z jednego grafu $G$ z nieizomorficznego zbioru $\mathcal{G}$. Wystarczy więc jedynie sprawić, że grafy $G'$ zostaną odrzucone, jeżeli ich najnowszy wierzchołek nie znajdzie się w określonej orbicie. Należy też sprawić, aby ta sama orbita została wybrana jako kryterium dla wszystkich grafów $G`$, co sprawia się przez przekształcenie na formę kanoniczną. Takie odrzucanie pozwala wyeliminować wszystkie grafy izomorficzne powstałe przez rozszerzanie różnych grafów. 
 Kontynuując przykład z rysunku \ref{g2canon}, nowy wierzchołek tego grafu znajduje się w orbicie pierwszej dla $G_1$, ale w orbicie drugiej dla $G_2$. Oznacza to, że graf $G_2$ byłby odrzucony bez potrzeby porównywania go do grafu $G_1$.
 
-Drugim przykładem grafów izomorficznych do odrzucenia są grafy powstałe przez rozszerzanie jednego grafu. Przykład takich grafów, na rysunku \ref{rozszerzenieIzomorfizm1}, to grafy $G_2$ oraz $G_3$. Takie grafy eliminowane są przy użyciu grup automorfizmów  każdego z nich. Dla grafu $G_2$ jest {2,3}. natomiast dla grafu $G_3$ {1,3}.  
+Drugim przykładem grafów izomorficznych do odrzucenia są grafy powstałe przez rozszerzanie jednego grafu. Przykład takich grafów, na rysunku \ref{rozszerzenieIzomorfizm1}, to grafy $G_2$ oraz $G_3$. Takie grafy eliminowane są przy użyciu grup automorfizmów grafu $G$. Łącząc nowy wierzchołek z $n$ elementami orbity generowanej przez grupy automorfizmów, możemy dokonać pewnych odrzuceń. Zachowujemy dany graf tylko jeżeli nowy wierzchołek został połączony z $n$ elementami orbity, którym sprowadzenie do formy kanonicznej przyporządkowało najniższe numery.
 
 
 \section{Generowanie grafów Ramesyowskich}
-
+\textit{Autorzy podrozdziału: Krzysztof Karpusiewicz, Mateusz Kołakowski}
+\vspace{0.5cm}\newline
 Generowanie grafów nieizomorficznych jest wciąż zbyt wymagające dla naszych potrzeb. Ilość grafów nieizomorficznych poszczególnych rzędów rośnie wykładniczo, i dla grafów rzędu 17, największego generowanego przez rozszerzanie w tej pracy, byłoby ich ponad $2 \cdot 10^{26}$\cite{OEIS}. Jasnym więc jest, że ilość grafów generowanych na poszczególnych etapach rozszerzania należy bardziej ograniczyć. Z pomocą przychodzi następujące twierdzenie: 
 
 

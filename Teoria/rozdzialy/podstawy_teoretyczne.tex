@@ -1,4 +1,6 @@
 \chapter{Podstawy teoretyczne} 
+\textit{Autor rozdziału: Mateusz Kołakowski}
+\vspace{0.5cm}\newline
 Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teorii grafów, bez których zrozumienia, nie jest możliwe wyznaczanie liczb Ramseya.
 
   \section{Teoria grafów}
@@ -19,7 +21,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
        podgrafem indukowanym $G[S]$ nazywamy taki graf, którego wszystkie wierzchołki
        zawierają się w $S$ i którego zbiór krawędzi zawiera wszystkie krawędzie z $E$ kończące się w $S$. 
        \begin{align*}
-       G[S] = H(S, E_2) \textrm{ gdzie }  E_2=\{(u,v):(u,v) \in E \wedge u,v \in S\}
+       G[S] = H(S, E_2) \textrm{ gdzie }  E_2=\{\{u,v\}:\{u,v\} \in E \wedge u,v \in S\}
        \end{align*}
      \end{definition}
 
@@ -59,7 +61,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
    \end{definition}
 
    \begin{definition}[Klika]
-    Klika $K$ w grafie $G=(V,E)$ jest takim podzbiorem wierzchołków $V(G)$, że dla każdej pary wierzchołków $u, v \in K$ zachodzi $$(u, v) \in E(G)$$ 
+    Klika $K$ w grafie $G=(V,E)$ jest takim podzbiorem wierzchołków $V(G)$, że dla każdej pary wierzchołków $u, v \in K$ zachodzi $$\{u,v\} \in E(G)$$ 
    \end{definition}
    
    W uproszczeniu, klika to podzbiór wierzchołków grafu, z których każdy jest połączony z każdym innym wiechołkiem tego podzbioru. Przykład grafu zawierającego klikę można zobaczyć na rysunku \ref{klik}
@@ -106,7 +108,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
   
   
   \begin{definition}[Zbiór niezależny]
-    Zbiór niezależny $N$ w grafie $G=(V,E)$ to taki podzbiór wierzchołków grafu $G$, że dla każdej pary wierzchołków $u, v \in N$ zachodzi $$(u, v) \notin E(V) $$. 
+    Zbiór niezależny $N$ w grafie $G=(V,E)$ to taki podzbiór wierzchołków grafu $G$, że dla każdej pary wierzchołków $u, v \in N$ zachodzi $$\{u,v\} \notin E(V) $$. 
   \end{definition}
 
     \begin{figure}[H]
@@ -132,7 +134,7 @@ Przed omówieniem tematu naszej pracy, należy przedstawić kilka pojęć z teor
     \begin{definition}[Dopełnienie grafu]
       Depełnieniem grafu $G=(V,E)$ nazywamy taki graf $G'=(V,E')$, 
       dla którego zachodzi 
-      $$\forall_{u,v} (u,v) \in E \iff (u,v) \notin E'$$
+      $$\forall_{u,v} \{u,v\} \in E \iff \{u,v\} \notin E'$$
     \end{definition}
   
      Natychmiast zauważamy, że graf $G'$ posiada klikę $K_3$:

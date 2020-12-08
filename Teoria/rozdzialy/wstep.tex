@@ -1,7 +1,27 @@
 \chapter{Wstęp}
 
+\textit{Autor rozdziału: Jan Kwarciński}
+\vspace{0.5cm}\newline
 Nasza praca opiera się na publikacji R(4,5) = 25 wydanej w 1995 przez Brendana D. McKaya oraz Stanisława P. Radziszowskiego  \cite{mainpaper}. Motywacją do sporządzenia pracy było udowodnienie, że dokładna wartość liczby Ramseya R(4,5) wynosi 25, z wykorzystaniem nowych technologii. Prace nad wyznaczeniem wartości R(4,5) zaczęły się w 1955 wraz z wydaniem przez Greenwooda oraz Gleasona\cite{gandg} artykułu w którym wyznaczyli oni górną granicę $R(4,5) \leq 31$. W kolejnych latach granica ta była zawężana aż do $25 \leq R(4,5) \leq 27$ \cite{jgbound, mrbound}.\par
 Wygenerowanie wszystkich możliwych dwukolorowych grafów a następnie sprawdzenie ich poprawności byłoby zbyt czasochłonne, więc wymagane jest inne podejście do problemu. Wykorzystano jedynie wyselekcjonowane grafy ($s$,$t$,$n$) gdzie $s$ oznacza rozmiar maksymalnej kliki, która znajduje się w grafie, $t$ oznacza wielkość maksymalnego zbioru niezależnego, który należy do grafu, a $n$ oznacza liczbę wierzchołków na których zbudowany jest graf. Celem było skonstruowanie rodziny grafów R(4,5,24) z grafów R(3,5,d) oraz R(4,4,24-d) gdzie 7 $\leq$ d $\leq$ 13, z użyciem algorytmu ''sklejania''. Ostatnim krokiem przed weryfikacją wyników jest próba rozszerzenia otrzymanych grafów R(4,5,24) o jeden wierzchołek.
 
 W naszej pracy omawiamy techniki i algorytmy służące do przeprowadzenia powyższego dowodu, oraz opisujemy dokonaną implementację.
+
+Autorzy poszczególnych części:
+\begin{itemize}
+\item Podstawy teoretyczne: Mateusz Kołakowski
+\item Twierdzenie Ramseya:  Jan Kwarciński
+\item Generowanie grafów: Mateusz Kołakowski, Krzysztof Karpusiewicz
+\item Rozszerzanie grafów: Krzysztof Karpusiewicz
+\item Generowanie grafów nieizomorficznych: Mateusz Kołakowski
+\item Generowanie grafów Ramseyowskich: Krzysztof Karpusiewicz, Mateusz Kołakowski
+\item Sklejanie grafów: Mateusz Kołakowski, Jan Kwarciński, Krzysztof Karpusiewicz
+\item Dekompozycja problemu: Mateusz Kołakowski
+\item Grafy potrzebne do sklejania: Krzysztof Karpusiewicz
+\item Algorytm sklejania: Krzysztof Karpusiewicz
+\item Zawężanie przedziałów - zasady A-D: Mateusz Kołakowski, Jan Kwarciński
+\item Rozszerzenie grafu R(4,5,24) do R(4,5,25): Krzysztof Karpusiewicz
+\item Implementacja i eksperymenty: Mateusz Kołakowski, Jan Kwarciński, Krzysztof Karpusiewicz
+\end{itemize}
+
 

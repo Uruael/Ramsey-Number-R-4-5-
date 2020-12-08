@@ -1,14 +1,17 @@
 \chapter{Sklejanie grafów}
-
+\textit{Autorzy rozdziału: Krzysztof Karpusiewicz, Mateusz Kołakowski, Jan Kwarciński}
+\vspace{0.5cm}\newline
 Generowanie grafów wysokiego rzędu jest bardzo wymagające zarówno czasowo jak i pamięciowo. Dlatego stosujemy technikę nazywaną sklejaniem grafów. 
 \begin{definition}
 Sklejanie grafów opiera się na połączeniu dwóch grafów w celu uzyskania zbioru grafów o pożądanych charakterystykach.
 \end{definition}
 \section{Dekompozycja problemu}
+\textit{Autor podrozdziału: Mateusz Kołakowski}
+\vspace{0.5cm}\newline
 \begin{definition}
   Niech $F$ jest grafem, $v \in V(F)$, $W \subseteq V(F)$. 
   Funkcja $N_F(v,W)$ będzie zwracać podzbiór wierzchołków $W$, które sąsiadują z $v$: 
-  $$N_F(v,W) = \{w \in W | (v,w) \in E(F)\}$$ 
+  $$N_F(v,W) = \{w \in W | \{v,w\} \in E(F)\}$$ 
 \end{definition}
 
 \begin{definition}
@@ -27,8 +30,8 @@ Sklejanie grafów opiera się na połączeniu dwóch grafów w celu uzyskania zb
   Zauważmy że dla każdej kilki $K_3$ zachodzi jedna z sytuacji:
   \begin{enumerate}
     \item $x \in K_3$
-    \item $ \exists v \in K_3, (v, x) \in E(F) \land \not \forall u \in K_3, (u,x) \in E(F)$ 
-    \item $\nexists v \in K_3, (v, x) \in E(F)$
+    \item $ \exists_{v \in K_3} \{v,x\} \in E(F) \land \neg \forall u \in K_3, \{u,w\} \in E(F)$ 
+    \item $\neg\exists_{v \in K_3} \{v,x\} \in E(F)$
   \end{enumerate} 
   
   W przypadku pierwszym klika zostanie rozbita, dwa jej wierzchołki będą w $G_x$, a $x$ nie będzie w żadnym.
@@ -41,8 +44,8 @@ Sklejanie grafów opiera się na połączeniu dwóch grafów w celu uzyskania zb
 
   \begin{enumerate}
     \item $x \in N_4$
-    \item $ \exists v \in N_4, (v, x) \in E(F) \land \not \forall u \in N_4, (u,x) \in E(F)$ 
-    \item $\nexists v \in N_4, (v, x) \in E(F)$
+    \item $ \exists_{v \in N_4}, \{v,x\} \in E(F) \land \neg \forall u \in N_4, \{u,x\} \in E(F)$ 
+    \item $\neg\exists_{v \in N_4} \{v,x\} \in E(F)$
   \end{enumerate} 
 
   W przypadku pierwszym zbiór niezależny zostanie rozbity, trzy jego wierzchołki będą w $H_x$, a $x$ nie będzie w żadnym.
@@ -53,7 +56,8 @@ Sklejanie grafów opiera się na połączeniu dwóch grafów w celu uzyskania zb
   \end{proof}
 
 \section{Grafy potrzebne do sklejania}
-
+\textit{Autor rozdziału: Krzysztof Karpusiewicz}
+\vspace{0.5cm}\newline
 Korzystając z wiedzy z poprzedniego podrozdziału możemy stwierdzić, że do utworzenia wszystkich grafów $R(4,5,24)$ wystarczy połączenie na wszystkie możliwe sposoby
 wszystkich nieizomorficznych grafów $R(3,5,d)$ z wszystkimi nieizomorficznymi grafami $R(4,4,24-d)$. 
 Warto zauważyć, że liczby $R(3,5)$ oraz $R(4,4)$ są znane i wynoszą odpowiednio 14 i 18. Oznacza to, że nasze grafy $G$ będą maksymalnie rzędu 13 a grafy $H$ rzędu 17. Co za tym idzie, możemy też wskazać ograniczenia dolne:
@@ -61,10 +65,11 @@ minimalny rząd $G$ to $24-17=7$ a minimalny rząd $H$ to $24-13 = 11$.
 
 Zbiór danych wymagany do poprawnego sklejania jest uzyskany poprzez wygenerowanie wszystkich nieizomorficznych grafów $G$ rzędów 7-13 spełniających R(3,5,$n$), oraz wszystkich nieizomorficznych grafów $H$ rzędów 11-17 spełniających R(4,4,$n$).
 
-Grafy dzielone są na grupy zgodnie z ich rzędem. Dalsze sklejanie przeprowadzone jest na parze grup grafów $G$ i $H$. Celem sklejania jest uzyskanie grafów rzędu 24 poprzez połączenie grafów $G$ oraz $H$, a więc suma rzędów grafów $G$ oraz $H$ w grupach branych pod uwagę musi być równa 24. Oznacza to, że istnieje 6 par grup spełniających wymagania.
+Grafy dzielone są na grupy zgodnie z ich rzędem. Dalsze sklejanie przeprowadzone jest na parze grup grafów $G$ i $H$. Celem sklejania jest uzyskanie grafów rzędu 24 poprzez połączenie grafów $G$ oraz $H$, a więc suma rzędów grafów $G$ oraz $H$ w grupach branych pod uwagę musi być równa 24. Oznacza to, że istnieje 7 par grup spełniających wymagania.
 
 \section{Algorytm sklejania}
-
+\textit{Autor rozdziału: Krzysztof Karpusiewicz}
+\vspace{0.5cm}\newline
 Na dalszych etapach sklejania pojawia się pojęcie stożka. Szczególnym przypadkiem stożka używanym na etapie poszukiwania połączeń grafów $G$ oraz $H$ jest stożek prawdopodobny.
 
 \begin{definition} Stożek to podzbiór wierzchołków dowolnego grafu.
@@ -81,7 +86,7 @@ Dla przeciętnego grafu R(4, 4, 14) znajdziemy około 4000 prawdopodobnych stoż
 Pierwszym etapem sklejania grafów jest stworzenie dla danego grafu $H$ zbioru prawdopodobnych stożków przed wybraniem grafu $G$ do sklejenia. Należy odrzucić wszystkie stożki które obejmują klikę stopnia trzy. Takie stożki eliminują wszystkie grafy wynikowe ponieważ połączenie kliki stopnia trzy z dowolnym wierzchołkiem powoduje wystąpienie kliki stopnia cztery. Podejście naiwne, czyli pojedyncze sprawdzenie wszystkich potencjalnie prawdopodobnych stożków nie jest jednak opłacalne ze względu na że ilość stożków dla grafu $n$ wierzchołkowego, która jest równa $2^n$. W celu przyspieszenia obliczeń stożki grupowane są w przedziały. 
 
 \begin{definition}
-Przedział $P = [B, T]$ to zbiór stożków, ograniczony przez stożek górny $T_P$ i stożek dolny $B_P$, który zawiera wszystkie stożki spełniające zależność:  $$P=\{X: B_P \subseteq X \subseteq T_P\}$$ 
+Przedział $P = [B_P, T_P]$ to zbiór stożków, ograniczony przez stożek górny $T_P$ i stożek dolny $B_P$, który zawiera wszystkie stożki spełniające zależność:  $$P=\{X: B_P \subseteq X \subseteq T_P\}$$ 
 \end{definition}
 
 
@@ -102,6 +107,8 @@ Główna część sklejania polega na próbie połączenia grafów $G$ oraz $H$ 
   
 
 \section{Zawężanie przedziałów - zasady A-D}
+\textit{Autorzy rozdziału: Mateusz Kołakowski, Jan Kwarciński}
+\vspace{0.5cm}\newline
 Zdefiniujmy 3 funkcje pomocnicze działające na podzbiorze wierzchołków grafu $H$ oznaczonym jako $X$, generujące podzbiór wierzchołków grafu $H$. 
 Funkcja $H_1$ będzie wybierała wszystkich sąsiadów wierzchołków ze zbioru $X$.
 $H_2$ wybiera wszystkie wierzchołki, które nie sąsiadują z jednym lub większą ilością wierzchołków spoza $X$. 
@@ -359,8 +366,8 @@ da się poprawnie połączyć grafów użyciem takiego przypisania stożków.
   przerywanymi krawędziami.  Jak widać, to połączenie nie jest odrzucane (istnieje możliwość połączenie bez utworzenia $K_4$).
     
   Trzeba więc odrzucić potencjalne połączenia pomiędzy $v$ a niezbędnymi sąsiadami $u$. 
-  Na przykładowym rysunku będzie to oznaczało usunięcie krawędzi $(u, 5)$. Zgodnie z zasadą A nie usuwamy jeszcze krawędzi 
-  $(v,2)$ - zostanie ona usunięta kiedy to $v$ będzie pełniła rolę $u$ w funkcji.  
+  Na przykładowym rysunku będzie to oznaczało usunięcie krawędzi $\{u,5\}$. Zgodnie z zasadą A nie usuwamy jeszcze krawędzi 
+  $\{v,2\}$ - zostanie ona usunięta kiedy to $v$ będzie pełniła rolę $u$ w funkcji.  
 
  \begin{figure}[H]
   \centering
@@ -658,7 +665,8 @@ Warto zauważyć, że wynikiem zastosowania dowolnej reguły jest zawsze odrzuce
 Przez rozdzielenie zestawu przedziałów mamy na myśli operację, gdzie jeden z przedziałów jest zamieniany na dwa przedziały przy użyciu pierwszej własności przedziałów ze strony \pageref{przedzialZaleznosc}. W wyniku takiej operacji uzyskujemy dwa nowe zbiory przedziałów, różniące się jednym, właśnie podzielonym przedziałem. Należy przedzielać tylko te przedziały, dla których $B \neq T$, ponieważ takie przedziały obejmują więcej niż jeden stożek prawdopodobny, a więc i więcej niż jeden sposób połączenia $G$ i $H$. Nie ma możliwości rozbijać przedziałów dla których $B = T$ ponieważ nie można wyizolować wierzchołka różniącego je. Jeżeli zbiór przedziałów nie jest rozdzielalny, oznacza to, że obejmuje on tylko jeden graf, który jest poprawnym grafem należącym do R(4,5,24). Stworzenie tego grafu jest stosunkowo proste, i polega na połączeniu zbiorów wierzchołków i krawędzie grafów $G$ oraz $H$, a następnie dodanie krawędzi opisanych stożkami przypisanymi do wierzchołków.
 
 \section{Rozszerzenie grafu R(4,5,24) do R(4,5,25)}
-
+\textit{Autor rozdziału: Krzysztof Karpusiewicz}
+\vspace{0.5cm}\newline
 Po zakończeniu głównej części procesu sklejania uzyskujemy zbiór grafów $\mathcal{F} = R(4,5,24)$. W dalszej części pracy graf z tego zbioru będzie oznaczany jako graf $F$. Jeżeli zbiór $R(4,5,25) \neq \emptyset$ to w wyniku rozszerzenia grafów $\mathcal{F}$ powinniśmy uzyskać przynajmniej jeden graf 25 wierzchołkowy spełniający wymagania. 
 Rozszerzanie zostaje w tym wypadku wykonane metodą inną od wcześniejszego generowania grafów
 
